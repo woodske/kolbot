@@ -1,0 +1,11 @@
+// Smoke
+([name] == lightplate || [name] == ghostarmor || [name] == serpentskinarmor || [name] == demonhidearmor || [name] == cuirass || [name] == mageplate || [name] == duskshroud || [name] == wyrmhide || [name] == scarabhusk || [name] == wirefleece || [name] ==greathauberk || [name] == boneweave || [name] == balrogskin || [name] == archonplate) && [quality] <= superior && [flag] != ethereal # [sockets] == 2 # [MaxQuantity] == 1
+
+// Lore
+([name] == cap || [name] == skullcap || [name] == crown || [name] == mask || [name] == bonehelm || [name] == warhat || [name] == grimhelm || [name] == grandcrown || [name] == demonhead || [name] == bonevisage) && [quality] <= superior && [flag] != ethereal # [sockets] == 2 # [MaxQuantity] == 1
+
+// Spirit
+([name] == broadsword || [name] == crystalsword) && [quality] <= superior && [flag] != ethereal # [sockets] == 4 # [MaxQuantity] == 1 
+
+// Insight
+([name] == poleaxe || [name] == halberd || [name] == bill || [name] == battlescythe || [name] == partizan || [name] == becdecorbin || [name] == thresher || [name] == crypticaxe || [name] == greatpoleaxe || [name] == colossusvoulge) && [quality] <= superior && [flag] != ethereal # [sockets] == 4 # [MaxQuantity] == 1 

@@ -1,0 +1,9 @@
+node_modules
+*.json
+d2bs/kolbot/logs
+*.ini
+.gitignore
+.eslintrc.js
+d2bs/kolbot/libs/config
+d2bs/logs
+*.code-workspace

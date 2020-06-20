@@ -1,0 +1,57 @@
+//gold
+[type] == gold # [gold] >= 10
+
+//scrolls
+[name] == scrolloftownportal
+
+//potions
+[name] == minorhealingpotion
+[name] == lighthealingpotion
+[name] == healingpotion
+[name] == greaterhealingpotion
+[name] == superhealingpotion
+ 
+[name] == minormanapotion
+[name] == lightmanapotion
+[name] == manapotion
+[name] == greatermanapotion
+[name] == supermanapotion
+ 
+[name] == rejuvenationpotion
+[name] == fullrejuvenationpotion
+
+// Pick up book of skills and cube
+[name] == bookofskill # # [maxquantity] == 1
+[name] == horadriccube # # [maxquantity] == 1
+
+//runes
+//[name] == elrune # # [maxquantity] == 1
+//[name] == eldrune # # [maxquantity] == 1
+[name] == tirrune # # [maxquantity] == 1
+[name] == nefrune # # [maxquantity] == 1
+[name] == ethrune # # [maxquantity] == 1
+//[name] == ithrune # # [maxquantity] == 1
+[name] == talrune # # [maxquantity] == 1
+[name] == ralrune # # [maxquantity] == 1
+[name] == ortrune # # [maxquantity] == 1
+[name] == thulrune # # [maxquantity] == 1
+[name] == amnrune # # [maxquantity] == 1
+[name] == solrune # # [maxquantity] == 1
+//[name] == shaelrune # # [maxquantity] == 1
+//[name] == dolrune # # [maxquantity] == 1
+//[name] == helrune # # [maxquantity] == 1
+//[name] == iorune # # [maxquantity] == 1
+[name] == lumrune # # [maxquantity] == 1
+//[name] == korune # # [maxquantity] == 1
+//[name] == falrune # # [maxquantity] == 1
+//[name] == lemrune # # [maxquantity] == 1
+//[name] == pulrune # # [maxquantity] == 5
+//[name] == umrune # # [maxquantity] == 5
+//[name] == malrune # # [maxquantity] == 5
+[name] >= pulrune && [name] <= zodrune
+
+//runewords
+[type] == weapon && [flag] == runeword
+[type] == armor && [flag] == runeword
+[type] == shield && [flag] == runeword
+[type] == helm && [flag] == runeword

@@ -1,0 +1,5 @@
+// Ancient's Pledge
+([name] == targe || [name] == rondache || [name] == aerinshield || [name] == crownshield || [name] == royalshield) && [quality] <= superior && [flag] != ethereal # [sockets] == 3 # [MaxQuantity] == 1 
+
+// Spirit
+([name] == targe || [name] == rondache || [name] == heraldicshield || [name] == aerinshield || [name] == crownshield || [name] == akarantarge || [name] == akaranrondache || [name] == protectorshield || [name] == gildedshield || [name] == royalshield || [name] == sacredtarge || [name] == sacredrondache || [name] == kurastshield || [name] == zakarumshield || [name] == vortexshield) && [quality] <= superior && [flag] != ethereal # [sockets] == 4 # [MaxQuantity] == 1
