@@ -246,7 +246,7 @@ var AutoBuildTemplate = {
 
 	2:	{			
 			Update: function () {
-
+				Config.MPBuffer = 8;
 			}
 		},
 

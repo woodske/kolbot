@@ -243,7 +243,7 @@ var AutoBuildTemplate = {
 
 	2:	{			
 			Update: function () {
-
+				Config.MPBuffer = 8;
 			}
 		},
 
@@ -378,6 +378,7 @@ var AutoBuildTemplate = {
 			Update: function () {
 				Config.BeltColumn		= ["hp", "mp", "mp", "mp"];
 				Config.MinColumn 		= [3, 3, 3, 3];
+				Config.Cubing = true;
 			}
 		},
 
