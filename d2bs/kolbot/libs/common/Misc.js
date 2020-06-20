@@ -764,7 +764,7 @@ var Item = {
 
 	autoEquipCheck: function (item) {
 		if (!Config.AutoEquip) {
-			return true;
+			return false;
 		}
 
 		var i,
@@ -781,7 +781,7 @@ var Item = {
 		}
 
 		// Sell/ignore low tier items, keep high tier
-		if (tier > 0 && tier < 100) {
+		if (tier >= -1 && tier < 100) {
 			return false;
 		}
 
@@ -790,7 +790,7 @@ var Item = {
 
 	autoEquipCheckMerc: function (item) {
 		if (!Config.AutoEquip) {
-			return true;
+			return false;
 		}
 
 		if (Config.AutoEquip && !me.getMerc()) {
@@ -813,6 +813,11 @@ var Item = {
 					return true;
 				}
 			}
+		}
+
+		// Sell/ignore low tier items, keep high tier
+		if (tier >= -1 && tier < 100) {
+			return false;
 		}
 
 		return false;

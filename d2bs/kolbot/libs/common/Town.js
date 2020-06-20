@@ -1556,7 +1556,7 @@ MainLoop:
 
 		me.cancel();
 
-		var i, result, tier,
+		var i, result, tier, mercTier,
 			items = Storage.Inventory.Compare(Config.Inventory);
 
 		if (items) {
@@ -1567,8 +1567,9 @@ MainLoop:
 					// Don't stash low tier autoequip items.
 					if (Config.AutoEquip && Pickit.checkItem(items[i]).result === 1) {
 						tier = NTIP.GetTier(items[i]);
+						mercTier = NTIP.GetMercTier(items[i]);
 
-						if (tier > 0 && tier < 100) {
+						if ((tier > 0 && tier < 100) || (mercTier > 0 && mercTier < 100)) {
 							result = false;
 						}
 					}
