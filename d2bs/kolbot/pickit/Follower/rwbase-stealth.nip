@@ -1,0 +1,2 @@
+// Smoke
+([name] == quiltedarmor || [name] == hardleatherarmor || [name] == leatherarmor) && [quality] <= superior && [flag] != ethereal # [sockets] == 2 # [MaxQuantity] == 1
