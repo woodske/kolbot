@@ -608,7 +608,7 @@ MainLoop:
 					switch (result.result) {
 					case 1:
 						// Couldn't id autoEquip item. Don't log it.
-						if (result.result === 1 && Config.AutoEquip && !item.getFlag(0x10) && (Item.autoEquipCheck(item) || Item.autoEquipCheckMerc(item))) {
+						if (result.result === 1 && Config.AutoEquip && !item.getFlag(0x10) && Item.autoEquipCheck(item) && Item.autoEquipCheckMerc(item)) {
 							break;
 						}
 
@@ -758,7 +758,7 @@ MainLoop:
 
 				result = Pickit.checkItem(item);
 
-				if (!Item.autoEquipCheck(item) && !Item.autoEquipCheckMerc(item)) {
+				if (!Item.autoEquipCheck(item) || !Item.autoEquipCheckMerc(item)) {
 					result.result = 0;
 				}
 
@@ -902,7 +902,7 @@ CursorLoop:
 		for (i = 0; i < items.length; i += 1) {
 			result = Pickit.checkItem(items[i]);
 
-			if (result.result === 1 && (Item.autoEquipCheck(items[i]) || Item.autoEquipCheckMerc(items[i]))) {
+			if (result.result === 1 && (Item.autoEquipCheck(items[i]) && Item.autoEquipCheckMerc(items[i]))) {
 				try {
 					if (Storage.Inventory.CanFit(items[i]) && me.getStat(14) + me.getStat(15) >= items[i].getItemCost(0)) {
 						Misc.itemLogger("Shopped", items[i]);
@@ -1935,10 +1935,12 @@ MainLoop:
 					!Cubing.keepItem(items[i]) && // Don't throw cubing ingredients
 					!Runewords.keepItem(items[i]) && // Don't throw runeword ingredients
 					!CraftingSystem.keepItem(items[i]) // Don't throw crafting system ingredients
-					) {
+			) {
+
 				result = Pickit.checkItem(items[i]).result;
 
-				if (!Item.autoEquipCheck(items[i]) && !Item.autoEquipCheckMerc(items[i])) {
+				// An item with an autoequip tier should be dropped if the tier is lower than or equal to the tier of the item equipped
+				if ((Item.hasTier(items[i]) === !Item.autoEquipCheck(items[i])) && (Item.hasMercTier(items[i]) === !Item.autoEquipCheckMerc(items[i]))) {
 					result = 0;
 				}
 
