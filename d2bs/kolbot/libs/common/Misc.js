@@ -781,7 +781,7 @@ var Item = {
 		}
 
 		// Sell/ignore low tier items, keep high tier
-		if (tier >= -1 && tier < 100) {
+		if (tier > 0 && tier < 100) {
 			return false;
 		}
 
@@ -816,7 +816,7 @@ var Item = {
 		}
 
 		// Sell/ignore low tier items, keep high tier
-		if (tier >= -1 && tier < 100) {
+		if (tier > 0 && tier < 100) {
 			return false;
 		}
 
