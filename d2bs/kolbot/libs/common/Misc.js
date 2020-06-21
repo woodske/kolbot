@@ -621,7 +621,6 @@ var Item = {
 		if (item) {
 			do {
 				if (item.bodylocation === bodyLoc && item.location === 1) {
-					//print("Current Merc item tier: " + NTIP.GetMercTier(item) + " (" + item.name + ")");
 					return {
 						classid: item.classid,
 						tier: NTIP.GetMercTier(item),
@@ -764,7 +763,7 @@ var Item = {
 
 	autoEquipCheck: function (item) {
 		if (!Config.AutoEquip) {
-			return false;
+			return true;
 		}
 
 		var i,
@@ -790,12 +789,12 @@ var Item = {
 
 	autoEquipCheckMerc: function (item) {
 		if (!Config.AutoEquip) {
-			return false;
+			return true;
 		}
 
-		if (Config.AutoEquip && !me.getMerc()) {
-			return false;
-		}
+		// if (Config.AutoEquip && !me.getMerc()) {
+		// 	return false;
+		// }
 
 		var i,
 			tier = NTIP.GetMercTier(item),
@@ -820,7 +819,7 @@ var Item = {
 			return false;
 		}
 
-		return false;
+		return true;
 	},
 
 	// returns true if the item should be kept+logged, false if not
