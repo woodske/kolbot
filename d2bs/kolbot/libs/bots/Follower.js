@@ -171,8 +171,6 @@ function Follower() {
 			return false;
 		}
 
-		npc = getUnit(1);
-
 		if (npc) {
 			do {
 				if (npc.name.replace(/ /g, "").toLowerCase().indexOf(name) > -1) {
@@ -284,7 +282,6 @@ function Follower() {
 				try {
 					Pather.useUnit(2, 566, 109);
 				} catch (a5e) {
-
 				}
 			}
 
@@ -359,11 +356,11 @@ function Follower() {
 		var unit, ox, oy,
 			unitList = [],
 			containers = ["chest", "loose rock", "hidden stash", "loose boulder", "corpseonstick", "casket", "armorstand", "weaponrack", "barrel", "holeanim",
-							"roguecorpse", "ratnest", "corpse", "goo pile", "largeurn", "urn", "chest3", "jug", "skeleton", "guardcorpse", "sarcophagus",
-							"cocoon", "basket", "stash", "hollow log", "hungskeleton", "pillar", "skullpile", "skull pile", "jar3", "jar2", "jar1", "bonechest", "woodchestl",
-							"woodchestr", "barrel wilderness", "burialchestr", "burialchestl", "explodingchest", "chestl", "chestr", "icecavejar1", "icecavejar2",
-							"icecavejar3", "icecavejar4", "deadperson", "deadperson2", "evilurn", "tomb1l", "tomb3l", "tomb2", "tomb3", "object2", "groundtomb", "groundtombl"
-						];
+				"roguecorpse", "ratnest", "corpse", "goo pile", "largeurn", "urn", "chest3", "jug", "skeleton", "guardcorpse", "sarcophagus",
+				"cocoon", "basket", "stash", "hollow log", "hungskeleton", "pillar", "skullpile", "skull pile", "jar3", "jar2", "jar1", "bonechest", "woodchestl",
+				"woodchestr", "barrel wilderness", "burialchestr", "burialchestl", "explodingchest", "chestl", "chestr", "icecavejar1", "icecavejar2",
+				"icecavejar3", "icecavejar4", "deadperson", "deadperson2", "evilurn", "tomb1l", "tomb3l", "tomb2", "tomb3", "object2", "groundtomb", "groundtombl"
+			];
 
 		ox = me.x;
 		oy = me.y;
@@ -626,6 +623,8 @@ function Follower() {
 
 			if (attack) {
 				Attack.clear(20, false, false, false, true);
+				Pickit.pickItems();
+				this.openContainers(20);
 				this.pickPotions(20);
 			}
 
@@ -698,7 +697,7 @@ function Follower() {
 			unit = getUnit(2, "waypoint");
 
 			if (unit) {
-WPLoop:
+				WPLoop:
 				for (i = 0; i < 3; i += 1) {
 					if (getDistance(me, unit) > 3) {
 						Pather.moveToUnit(unit);
@@ -823,6 +822,29 @@ WPLoop:
 			}
 
 			say("No TP scrolls or tomes.");
+
+			break;
+		case "questitem":
+			// 545 - Potion of life
+			var questItem = me.getItem(552) ? me.getItem(552) : me.getItem(646); // Book of Skill from Radament or Scroll of Resistance from Malah.
+
+			if (!questItem) {
+				questItem = me.getItem(545); // Potion of life
+			}
+
+			if (questItem) {
+				if (!Town.openStash()) {
+					Town.move("stash");
+					Town.openStash();
+				}
+
+				clickItem(1, questItem);
+				delay(me.ping);
+				me.cancel();
+				say("used quest item " + questItem.fname);
+			} else {
+				say("no quest item available");
+			}
 
 			break;
 		}
