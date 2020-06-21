@@ -81,23 +81,48 @@ if (!isIncluded("common/Runewords.js")) { include("common/Runewords.js"); };
 var AutoBuildTemplate = {
 
 	1:	{	
-			//SkillPoints: [-1],										// This doesn't matter. We don't have skill points to spend at lvl 1]
-			//StatPoints: [-1,-1,-1,-1,-1],								// This doesn't matter. We don't have stat points to spend at lvl 1
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
                 // Class specific
-                Config.PickitFiles.push("Follower/paladin-vengeance.xpac.nip");				
+				Config.PickitFiles.push("Follower/paladin-vengeance.xpac.nip");		
+				
+				Config.Charge 			= false;
+				
+				//---------------------- Attacks ------------------
+				Config.AutoSkill.Enabled	= true; // Enable or disable AutoSkill system
+				Config.AutoSkill.Build 	= [
+					[117, 1, false], // Holy Shield
+					[123, 1, false], // Conviction
+					[111, 1, false], // Vengeance
+					[123, 20, false], // Max Conviction
+					[111, 20, true], // Max Vengeance -- hold skill points until this is maxed
+					[110, 10, false], // Resist Lightning
+					[100, 10, false], // Resist Fire
+					[110, 20, false], // Max Resist Lightning
+					[100, 20, false], // Max Resist Fire
+					[105, 20, false], // Max Resist Cold
+				];
 
-                Config.AttackSkill		= [-1, 0, 0, 0, 0, -1, -1];
-                Config.LowManaSkill		= [0, 0];
-                
-                //--------------- Pally Runewords -----------------------
-                //AncientsPledge
-                Config.Runewords.push([Runeword.AncientsPledge, "targe"]);
-                Config.Runewords.push([Runeword.AncientsPledge, "rondache"]);
-                Config.Runewords.push([Runeword.AncientsPledge, "aerinshield"]);
-                Config.Runewords.push([Runeword.AncientsPledge, "crownshield"]);
-                Config.Runewords.push([Runeword.AncientsPledge, "royalshield"])           
-                               
+				if (me.getSkill(123, 1)) { // Conviction
+					Config.AttackSkill 	= [-1, 111, 123, 111, 123, -1, -1];
+					Config.LowManaSkill	= [-1, -1];
+				} else if (me.getSkill(114, 1)) { // Holy Freeze
+					Config.AttackSkill 	= [-1, 111, 114, 111, 114, -1, -1];
+					Config.LowManaSkill = [0, 114];
+				} else if (me.getSkill(106, 1)) { // Zeal
+					Config.AttackSkill 	= [-1, 106, 102, 106, 102, -1, -1];
+					Config.LowManaSkill = [0, 102];
+				} else if (me.getSkill(102, 1)) { // Holy Fire
+					Config.AttackSkill 	= [-1, 0, 102, 0, 102, -1, -1];
+					Config.LowManaSkill = [0, 102];
+				} else if (me.getSkill(98, 1)) { // Might
+					Config.AttackSkill 	= [-1, 0, 98, 0, 98, -1, -1];
+					Config.LowManaSkill = [0, 98];
+				} else {
+					Config.AttackSkill 	= [-1, 0, -1, 0, -1, -1, -1];
+				}
+                                           
                 // All followers
 				Scripts.Follower        = true;
 				Config.Leader           = "Bindle-sorc";
@@ -134,459 +159,454 @@ var AutoBuildTemplate = {
                 Config.PickitFiles.push("earlyLadder.nip");
 
                 //---------------------- Runewords ------------------
-                //insight
-                Config.Runewords.push([Runeword.Insight, "poleaxe"]);
-                Config.Runewords.push([Runeword.Insight, "halberd"]);
-                Config.Runewords.push([Runeword.Insight, "bill"]);
-                Config.Runewords.push([Runeword.Insight, "battlescythe"]);
-                Config.Runewords.push([Runeword.Insight, "partizan"]);
-                Config.Runewords.push([Runeword.Insight, "becdecorbin"]);
-                Config.Runewords.push([Runeword.Insight, "thresher"]);
-                Config.Runewords.push([Runeword.Insight, "crypticaxe"]);
-                Config.Runewords.push([Runeword.Insight, "greatpoleaxe"]);
-                Config.Runewords.push([Runeword.Insight, "colossusvoulge"]);
-
-                Config.KeepRunewords.push("[type] == polearm # [meditationaura] <= 17");
+				
+				var runewordItem, runewordEquipment;
+				
+				// Insight
+				runewordEquipment = ["poleaxe", "halberd", "bill", "battlescythe", "partizan", "becdecorbin", "thresher", "crypticaxe", "greatpoleaxe", "colossusvoulge"]; 				
+				if (me.getMerc()) {
+					runewordItem = me.getMerc().getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Insight")))[0];
+				} else {
+					runewordItem = false;
+				}
+							
+				if (runewordItem) {
+					print('No longer making Insight');
+					stopMakingRuneword(Runeword.Insight, runewordEquipment);
+				} else {
+					makeRuneword(Runeword.Insight, runewordEquipment);
+					Config.KeepRunewords.push("[type] == polearm # [meditationaura] <= 17");
+				}
                 
-                //smoke
-                Config.Runewords.push([Runeword.Smoke, "lightplate"]);
-                Config.Runewords.push([Runeword.Smoke, "ghostarmor"]);
-                Config.Runewords.push([Runeword.Smoke, "serpentskinarmor"]);
-                Config.Runewords.push([Runeword.Smoke, "demonhidearmor"]);
-                Config.Runewords.push([Runeword.Smoke, "cuirass"]);
-                Config.Runewords.push([Runeword.Smoke, "mageplate"]);
-                Config.Runewords.push([Runeword.Smoke, "duskShroud"]);
-                Config.Runewords.push([Runeword.Smoke, "wyrmhide"]);
-                Config.Runewords.push([Runeword.Smoke, "scarabHusk"]);
-                Config.Runewords.push([Runeword.Smoke, "wireFleece"]);
-                Config.Runewords.push([Runeword.Smoke, "greatHauberk"]);
-                Config.Runewords.push([Runeword.Smoke, "boneweave"]);
-                Config.Runewords.push([Runeword.Smoke, "balrogSkin"]);
-                Config.Runewords.push([Runeword.Smoke, "archonPlate"]);
+				// Smoke
+				runewordEquipment = ["lightplate", "ghostarmor", "serpentskinarmor", "demonhidearmor", "cuirass", "mageplate", "duskShroud", "wyrmhide", "scarabHusk", "wireFleece", "greatHauberk", "boneweave", "balrogSkin", "archonPlate"]; 	
+				runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Smoke")))[0];
+				
+				if (runewordItem) {
+					print('No longer making Smoke');
+					stopMakingRuneword(Runeword.Smoke, runewordEquipment);
+				} else {
+					makeRuneword(Runeword.Smoke, runewordEquipment);
+					Config.KeepRunewords.push("[type] == armor # [FireResist] == 50 && [LightResist] == 50");
+				}
+                
+				// Ancients Pledge
+				runewordEquipment = ["targe", "rondache", "aerinshield", "crownshield", "royalshield"];
+				runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Ancients' Pledge")))[0];
+							
+				if (runewordItem) {
+					print("No longer making Ancients' Pledge");
+					stopMakingRuneword(Runeword.AncientsPledge, runewordEquipment);
+				} else {
+					makeRuneword(Runeword.AncientsPledge, runewordEquipment);
+					Config.KeepRunewords.push("[type] == auricshields # [FireResist] >= 40 && [LightResist] >= 40 ");
+				}
 
-                Config.KeepRunewords.push("[type] == armor # [FireResist] == 50 && [LightResist] == 50 ");                             
-
-                //Lore
-                Config.Runewords.push([Runeword.Lore, "cap"]);
-                Config.Runewords.push([Runeword.Lore, "skullcap"]);
-                Config.Runewords.push([Runeword.Lore, "crown"]);
-                Config.Runewords.push([Runeword.Lore, "mask"]);
-                Config.Runewords.push([Runeword.Lore, "bonehelm"]);
-                Config.Runewords.push([Runeword.Lore, "warhat"]);
-                Config.Runewords.push([Runeword.Lore, "grimhelm"]);
-                Config.Runewords.push([Runeword.Lore, "GrandCrown"]);
-                Config.Runewords.push([Runeword.Lore, "Demonhead"]);
-                Config.Runewords.push([Runeword.Lore, "BoneVisage"]);
-
-                Config.KeepRunewords.push("[type] == helm # [LightResist] >= 25");          
+				// Lore
+				runewordEquipment = ["cap", "skullcap", "crown", "mask", "bonehelm", "warhat", "grimhelm", "GrandCrown", "Demonhead", "BoneVisage"]; 	
+				runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Lore")))[0];
+				
+				if (runewordItem) {
+					print("No longer making Lore");
+					stopMakingRuneword(Runeword.Lore, runewordEquipment);
+				} else {
+					makeRuneword(Runeword.Lore, runewordEquipment);
+					Config.KeepRunewords.push("[type] == helm # [LightResist] >= 25");
+				}										 
 			}
 		},
 		
 	2:	{
-			SkillPoints: [98], // Might
-			StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
-				Config.AttackSkill = [-1, 0, 98, 0, 98, -1, -1];		// Use Might
-				Config.LowManaSkill = [0, 98];							// Use Might while hitting stuff.
+
 			}
 		},
 		
 	3:	{
-			SkillPoints: [97], // Smite								
-			StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				
 			}
 		},
 		
 	4:	{
-			SkillPoints: [96], // Sacrifice
-			StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				
 			}
 		},
 
 	5:	{
-			SkillPoints: [-1], // +1 skill point
-			StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
-				Config.ScanShrines = [15, 13, 12];
 				Config.MinColumn = [1, 1, 1, 1];
 			}
 		},
 
 	6:	{
-			SkillPoints: [101, 102], // Holy Bolt, Holy Fire
-			StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
-                Config.AttackSkill = [-1, 0, 102, 0, 102, 101, 102];	// Holy Bolt and Holy Fire for Secondary Skill/Aura.
-                Config.LowManaSkill = [0, 102];							// Use Holy Fire while hitting stuff.
+
 			}
 		},
 
 	7:	{
-			SkillPoints: [103], // Thorns
-			StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
-				//Config.PickitFiles.splice(Config.PickitFiles.indexOf("belowlevelseven.nip"), 1);	// Will remove index "belowlevel7.nip" from Config.PickitFiles
+
 			}
 		},
 
 	8:	{
-			SkillPoints: [-1], // +2 skill point											
-			StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				
 			}
 		},
 
 	9:	{
-			SkillPoints: [-1], // +3 skill point
-			StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				
 			}
 		},
 
 	10:	{
-			SkillPoints: [-1], // +4 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
-				Config.StashGold = 1000;								// Minimum amount of gold to stash.
-				Config.BeltColumn = ["hp", "hp", "mp", "rv"]; 			// Start keeping rejuvs
-				Config.MinColumn = [1, 1, 1, 1];
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				Config.LowGold = 5000;
 			}
 		},
 
 	11:	{	
-			SkillPoints: [-1], // +5 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	12:	{
-			SkillPoints: [106, 107], // Zeal, Charge, +4 skill point								
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
-                Config.AttackSkill = [-1, 106, 102, 106, 102, 101, 102];	// Use Zeal
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
+				
 			}
 		},
 
 	13:	{
-			SkillPoints: [-1], // +5 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	14:	{
-			SkillPoints: [-1], // +6 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	15:	{
-			SkillPoints: [-1], // +7 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
-				Config.OpenChests = false;								// Eyes on the prize!
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
+				
 			}
 		},
 
 	16:	{
-			SkillPoints: [-1], // +8 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	17:	{
-			SkillPoints: [-1], // +9 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	18:	{
-			SkillPoints: [111, 112, 114], // Vengeance-1, Blessed Hammer, Holy Freeze, +7 skill point 
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
-                Config.AttackSkill = [-1, 111, 114, 111, 114, 111, 114];// Use Vengeance
-				Config.LowManaSkill = [0, 114];							// Use Holy Freeze while hitting stuff.
-				Config.TownCheck = false;								// Do go to town for more potions
-				Config.MinColumn = [3, 3, 3, 3];						// Should have a decent belt by now
-				Config.BeltColumn = ["hp", "mp", "mp", "rv"]; 			// Start keeping rejuvs
-				Config.Charge = false;									// Don't waste mana on charging while walking
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
+				Config.Cubing = true;
+				Config.MinColumn = [3, 3, 3, 3];						
+				Config.BeltColumn = ["hp", "hp", "hp", "mp"]; 			
 			}
 		},
 
 	19:	{
-			SkillPoints: [111], // Vengeance-2, +7 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	20:	{
-            SkillPoints: [111], // Vengeance-3, +7 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				Config.LowGold = 10000;
 			}
 		},
 
 	21:	{	
-            SkillPoints: [111], // Vengeance-4, +7 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	22:	{
-            SkillPoints: [111], // Vengeance-5, +7 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	23:	{
-            SkillPoints: [111], // Vengeance-6, +7 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	24:	{
-			SkillPoints: [111, 117, 119], // Vengeance-7, Holy Shield, Sanctuary, +5 skill point
-            StatPoints: [0, 0, 2, 3, 3, 3, 3, 3, 3, 3], // 2str, 1dex, 7vit (NORM Lam Essen)
-            Update: function () {
-				Config.Cubing = true;									// Will have a cube by now.
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
+
 			}
 		},
 
 	25:	{
-            SkillPoints: [111], // Vengeance-8, +5 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				Config.LowGold = 15000;
 			}
 		},
 
 	26:	{
-            SkillPoints: [111], // Vengeance-9, +5 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	27:	{
-            SkillPoints: [111], // Vengeance-10, +5 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	28:	{
-            SkillPoints: [111], // Vengeance-11, +5 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	29:	{
-            SkillPoints: [111], // Vengeance-12, +5 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	30:	{
-			SkillPoints: [111, 123], // Vengeance-13, Conviction-1, +4 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
-                Config.AttackSkill = [-1, 111, 123, 111, 123, 111, 123];	// Vengeance and Conviction
-                Config.LowManaSkill = [0, 123];							    // Use Conviction while hitting stuff.				
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {				
                 Config.LowGold = 20000;
 			}
 		},
 
 	31:	{	
-            SkillPoints: [111, 123], // Vengeance-14, Conviction-2, +3 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	32:	{
-            SkillPoints: [111, 123], // Vengeance-15, Conviction-3, +2 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	33:	{
-            SkillPoints: [111, 123], // Vengeance-16, Conviction-4, +1 skill point
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	34:	{
-            SkillPoints: [111, 123], // Vengeance-17, Conviction-5
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	35:	{
-            SkillPoints: [111, 123], // Vengeance-18, Conviction-6 (NORM den)
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				Config.LowGold = 30000;
 			}
 		},
 
 	36:	{
-            SkillPoints: [111, 123], // Vengeance-19, Conviction-7 (NORM Radament)
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	37:	{
-            SkillPoints: [111, 123], // Vengeance-20, Conviction-8 (NORM Izual 1/2)
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	38:	{
-            SkillPoints: [123, 100], // Conviction-9, Resist Fire-1 (NORM Izual 2/2)
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	39:	{
-			SkillPoints: [123], // Conviction-10
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	40:	{
-            SkillPoints: [123], // Conviction-11
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				Config.LowGold = 35000;
 			}
 		},
 
 	41:	{	
-            SkillPoints: [123], // Conviction-12
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	42:	{
-            SkillPoints: [123], // Conviction-13
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	43:	{
-            SkillPoints: [123], // Conviction-14
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	44:	{
-            SkillPoints: [123], // Conviction-15
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	45:	{
-            SkillPoints: [123, 100, 100, 100, 100], // Conviction-16, Resist Fire-5 (NM den, radament, izual)
-            StatPoints: [0, 0, 2, 3, 3, 3, 3, 3, 3, 3], // 2str, 1dex, 7vit (NM Lam Essen)
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				Config.LowGold = 40000;
 			}
 		},
 
 	46:	{
-            SkillPoints: [123], // Conviction-17
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	47:	{
-            SkillPoints: [123], // Conviction-18
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	48:	{
-            SkillPoints: [123], // Conviction-19
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	49:	{
-            SkillPoints: [123], // Conviction-20
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	50:	{
-            SkillPoints: [123], // Conviction-20
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				Config.StashGold = 100000;								// Minimum amount of gold to stash.
-				Config.Charge = true;									// Should have enough mana to charge while walking now.
-				Config.MPBuffer = 4;									// Nightmare has stronger potions.
-				Config.HPBuffer = 0;									// Nightmare has stronger potions.
 				Config.BeltColumn = ["hp", "hp", "mp", "rv"];			// Regular potion settings
 				Config.MinColumn = [3, 3, 3, 0];						// Regular potion settings
 				Config.LowGold = 45000;
@@ -594,394 +614,394 @@ var AutoBuildTemplate = {
 		},
 
 	51:	{	
-			SkillPoints: [100],	// Resist Fire-6
-            StatPoints: [0, 0, 2, 3, 3], // 2str, 1dex, 2vit (125 strength)
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	52:	{
-            SkillPoints: [100],	// Resist Fire-7
-            StatPoints: [2, 3, 3, 3, 3], // 1dex, 4vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	53:	{
-			SkillPoints: [100],	// Resist Fire-8
-            StatPoints: [2, 3, 3, 3, 3], // 1dex, 4vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	54:	{
-			SkillPoints: [100],	// Resist Fire-9
-            StatPoints: [2, 3, 3, 3, 3], // 1dex, 4vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	55:	{
-			SkillPoints: [100],	// Resist Fire-10
-            StatPoints: [2, 3, 3, 3, 3], // 1dex, 4vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				Config.LowGold = 50000;
 			}
 		},
 
 	56:	{
-			SkillPoints: [100],	// Resist Fire-11
-            StatPoints: [2, 3, 3, 3, 3], // 1dex, 4vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	57:	{
-			SkillPoints: [100],	// Resist Fire-12
-            StatPoints: [2, 3, 3, 3, 3], // 1dex, 4vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	58:	{
-			SkillPoints: [100],	// Resist Fire-13
-            StatPoints: [2, 3, 3, 3, 3], // 1dex, 4vit (77 dex)
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	59:	{
-			SkillPoints: [100],	// Resist Fire-14
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	60:	{
-			SkillPoints: [100],	// Resist Fire-15
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				Config.LowGold = 55000;
+				Config.Charge = true;
 			}
 		},
 
 	61:	{	
-			SkillPoints: [100],	// Resist Fire-16
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	62:	{
-			SkillPoints: [100],	// Resist Fire-17
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	63:	{
-			SkillPoints: [100],	// Resist Fire-18
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	64:	{
-			SkillPoints: [100],	// Resist Fire-19
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	65:	{
-			SkillPoints: [100],	// Resist Fire-20
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				Config.LowGold = 60000;
 			}
 		},
 
 	66:	{
-			SkillPoints: [110], // Resist Lightning-1
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	67:	{
-			SkillPoints: [110], // Resist Lightning-2
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	68:	{
-			SkillPoints: [110], // Resist Lightning-3
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	69:	{
-			SkillPoints: [110], // Resist Lightning-4
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	70:	{
-			SkillPoints: [110, 110, 110, 110, 110], // Resist Lightning-9
-            StatPoints: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], // 10vit (HELL Lame Essen)
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				Config.LowGold = 100000;
 			}
 		},
 
 	71:	{	
-			SkillPoints: [110], // Resist Lightning-10
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	72:	{
-			SkillPoints: [110], // Resist Lightning-11
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	73:	{
-			SkillPoints: [110], // Resist Lightning-12
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	74:	{
-			SkillPoints: [110], // Resist Lightning-13
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	75:	{
-			SkillPoints: [110], // Resist Lightning-14
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	76:	{
-			SkillPoints: [110], // Resist Lightning-15
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	77:	{
-			SkillPoints: [110], // Resist Lightning-16
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	78:	{
-			SkillPoints: [110], // Resist Lightning-17
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	79:	{
-			SkillPoints: [110], // Resist Lightning-18
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	80:	{
-			SkillPoints: [110], // Resist Lightning-19
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
-				Config.Gamble = true;									// Time to spend dat ca$h!!
-				Config.ScanShrines = [];
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
+
 			}
 		},
 
 	81:	{	
-			SkillPoints: [110], // Resist Lightning-20
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	82:	{
-			SkillPoints: [105], // Resist Cold-1
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	83:	{
-			SkillPoints: [105], // Resist Cold-2
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	84:	{
-			SkillPoints: [105], // Resist Cold-3
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	85:	{
-			SkillPoints: [105], // Resist Cold-4
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	86:	{
-			SkillPoints: [105], // Resist Cold-5
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	87:	{
-			SkillPoints: [105], // Resist Cold-6
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	88:	{
-			SkillPoints: [105], // Resist Cold-7
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	89:	{
-			SkillPoints: [105], // Resist Cold-8
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	90:	{
-			SkillPoints: [105], // Resist Cold-9
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
-				Config.MPBuffer = 0;									// CS runs, no longer need buffer because of taxi rides!
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
+
 			}
 		},
 
 	91:	{	
-			SkillPoints: [105], // Resist Cold-10
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	92:	{
-			SkillPoints: [105], // Resist Cold-11
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	93:	{
-			SkillPoints: [105], // Resist Cold-12
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	94:	{
-			SkillPoints: [105], // Resist Cold-13
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	95:	{
-			SkillPoints: [105], // Resist Cold-14
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	96:	{
-			SkillPoints: [105], // Resist Cold-15
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	97:	{
-			SkillPoints: [105], // Resist Cold-16
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	98:	{
-			SkillPoints: [105], // Resist Cold-17
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		},
 
 	99:	{
-			SkillPoints: [105], // Resist Cold-18
-            StatPoints: [3, 3, 3, 3, 3], // 5vit
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				
 			}
 		}

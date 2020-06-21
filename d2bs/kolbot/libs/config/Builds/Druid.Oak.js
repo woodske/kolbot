@@ -63,17 +63,53 @@ if (!isIncluded("common/Runewords.js")) { include("common/Runewords.js"); };
 var AutoBuildTemplate = {
 
     1:  {
-            //SkillPoints: [-1],                                        // This doesn't matter. We don't have skill points to spend at lvl 1]
-            //StatPoints: [-1, -1, -1, -1, -1],                         // This doesn't matter. We don't have stat points to spend at lvl 1
-            Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+			Update: function () {
 				// Class Specific
 				Config.PickitFiles.push("Follower/druid.xpac.nip");
 
-				Config.AttackSkill		= [0, 0, 0, 0, 0, 0, 0];	
-				Config.LowManaSkill		= [0, 0];
 				Config.SummonAnimal     = 0;
 				Config.SummonSpirit     = 0;
 				Config.SummonVine       = 0;
+
+				//---------------------- Attacks ------------------
+				Config.AutoSkill.Enabled	= true; // Enable or disable AutoSkill system
+				Config.AutoSkill.Build 	= [
+					[247, 1, false], // Summon Grizzly
+					[250, 1, false], // Hurricane
+					[226, 20, true], // Max Oak Sage
+					[245, 20, false], // Max Tornado
+					[240, 20, false], // Max Twister
+					[235, 20, false], // Max Cyclone Armor
+					[230, 20, false], // Max Arctic Blast
+				];
+
+				if (me.getSkill(247, 1)) {
+					Config.SummonAnimal = "Grizzly";
+				} else if (me.getSkill(237, 1)) {
+					Config.SummonAnimal = "Dire Wolf";				
+				} else if (me.getSkill(227, 1)) {
+					Config.SummonAnimal = "Spirit Wolf";
+				}
+
+				if (me.getSkill(226, 1)) {
+					Config.SummonSpirit = "Oak Sage";
+				}
+
+				if (me.getSkill(245, 1)) {
+					Config.AttackSkill 	= [-1, 245, -1, 245, -1, -1, -1];
+					Config.LowManaSkill	= [-1, -1];
+				} else if (me.getSkill(240, 1)) {
+					Config.AttackSkill 	= [-1, 240, -1, 240, -1, -1, -1];
+					Config.LowManaSkill	= [-1, -1];
+				} else if (me.getSkill(230, 1)) {
+					Config.AttackSkill 	= [-1, 230, -1, 230, -1, -1, -1];
+					Config.LowManaSkill	= [0, 0];				
+				} else {
+					Config.AttackSkill 	= [-1, 0, -1, 0, -1, -1, -1];
+					Config.LowManaSkill = [0, 0];
+				}
 				
 				// All followers
 				Scripts.Follower        = true;
@@ -111,75 +147,90 @@ var AutoBuildTemplate = {
                 Config.PickitFiles.push("earlyLadder.nip");
 
                 //---------------------- Runewords ------------------
-                //insight
-                Config.Runewords.push([Runeword.Insight, "poleaxe"]);
-                Config.Runewords.push([Runeword.Insight, "halberd"]);
-                Config.Runewords.push([Runeword.Insight, "bill"]);
-                Config.Runewords.push([Runeword.Insight, "battlescythe"]);
-                Config.Runewords.push([Runeword.Insight, "partizan"]);
-                Config.Runewords.push([Runeword.Insight, "becdecorbin"]);
-                Config.Runewords.push([Runeword.Insight, "thresher"]);
-                Config.Runewords.push([Runeword.Insight, "crypticaxe"]);
-                Config.Runewords.push([Runeword.Insight, "greatpoleaxe"]);
-                Config.Runewords.push([Runeword.Insight, "colossusvoulge"]);
-
-                Config.KeepRunewords.push("[type] == polearm # [meditationaura] <= 17");
+				
+				var runewordItem, runewordEquipment;
+				
+				// Insight
+				runewordEquipment = ["poleaxe", "halberd", "bill", "battlescythe", "partizan", "becdecorbin", "thresher", "crypticaxe", "greatpoleaxe", "colossusvoulge"]; 				
+				if (me.getMerc()) {
+					runewordItem = me.getMerc().getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Insight")))[0];
+				} else {
+					runewordItem = false;
+				}
+							
+				if (runewordItem) {
+					print('No longer making Insight');
+					stopMakingRuneword(Runeword.Insight, runewordEquipment);
+				} else {
+					makeRuneword(Runeword.Insight, runewordEquipment);
+					Config.KeepRunewords.push("[type] == polearm # [meditationaura] <= 17");
+				}
                 
-                //smoke
-                Config.Runewords.push([Runeword.Smoke, "lightplate"]);
-                Config.Runewords.push([Runeword.Smoke, "ghostarmor"]);
-                Config.Runewords.push([Runeword.Smoke, "serpentskinarmor"]);
-                Config.Runewords.push([Runeword.Smoke, "demonhidearmor"]);
-                Config.Runewords.push([Runeword.Smoke, "cuirass"]);
-                Config.Runewords.push([Runeword.Smoke, "mageplate"]);
-                Config.Runewords.push([Runeword.Smoke, "duskShroud"]);
-                Config.Runewords.push([Runeword.Smoke, "wyrmhide"]);
-                Config.Runewords.push([Runeword.Smoke, "scarabHusk"]);
-                Config.Runewords.push([Runeword.Smoke, "wireFleece"]);
-                Config.Runewords.push([Runeword.Smoke, "greatHauberk"]);
-                Config.Runewords.push([Runeword.Smoke, "boneweave"]);
-                Config.Runewords.push([Runeword.Smoke, "balrogSkin"]);
-                Config.Runewords.push([Runeword.Smoke, "archonPlate"]);
-
-                Config.KeepRunewords.push("[type] == armor # [FireResist] == 50 && [LightResist] == 50 ");
+				// Smoke
+				runewordEquipment = ["lightplate", "ghostarmor", "serpentskinarmor", "demonhidearmor", "cuirass", "mageplate", "duskShroud", "wyrmhide", "scarabHusk", "wireFleece", "greatHauberk", "boneweave", "balrogSkin", "archonPlate"]; 	
+				runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Smoke")))[0];
+				
+				if (runewordItem) {
+					print('No longer making Smoke');
+					stopMakingRuneword(Runeword.Smoke, runewordEquipment);
+				} else {
+					makeRuneword(Runeword.Smoke, runewordEquipment);
+					Config.KeepRunewords.push("[type] == armor # [FireResist] == 50 && [LightResist] == 50");
+				}
                 
-                //AncientsPledge
-                Config.Runewords.push([Runeword.AncientsPledge, "kiteshield"]);
-                Config.Runewords.push([Runeword.AncientsPledge, "largeshield"]);
-                Config.Runewords.push([Runeword.AncientsPledge, "boneshield"]);
+				// Ancients Pledge
+				runewordEquipment = ["kiteshield", "largeshield", "boneshield"]; 	
+				runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Ancients' Pledge")))[0];
+							
+				if (runewordItem) {
+					print("No longer making Ancients' Pledge");
+					stopMakingRuneword(Runeword.AncientsPledge, runewordEquipment);
+				} else {
+					makeRuneword(Runeword.AncientsPledge, runewordEquipment);
+					Config.KeepRunewords.push("[type] == shield # [FireResist] >= 40 && [LightResist] >= 40 ");
+				}
 
-                Config.KeepRunewords.push("[type] == shield # [FireResist] >= 40 && [LightResist] >= 40 ");
+				// Lore
+				runewordEquipment = ["cap", "skullcap", "crown", "mask", "bonehelm", "warhat", "grimhelm", "GrandCrown", "Demonhead", "BoneVisage"]; 	
+				runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Lore")))[0];
+				
+				if (runewordItem) {
+					print("No longer making Lore");
+					stopMakingRuneword(Runeword.Lore, runewordEquipment);
+				} else {
+					makeRuneword(Runeword.Lore, runewordEquipment);
+					Config.KeepRunewords.push("[type] == helm # [LightResist] >= 25");
+				}
+								
+				// Spirit Sword
+				runewordEquipment = ["broadsword", "crystalSword"]; 	
+				runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Spirit") && i.itemType === 30))[0]; // itemtype sword
+						
+				if (runewordItem) {
+					print("No longer making Spirit sword");
+					stopMakingRuneword(Runeword.Spirit, runewordEquipment);
+				} else {
+					makeRuneword(Runeword.Spirit, runewordEquipment);
+					Config.KeepRunewords.push("[type] == sword # [itemallskills] == 2");
+				}
 
-                //Lore
-                Config.Runewords.push([Runeword.Lore, "cap"]);
-                Config.Runewords.push([Runeword.Lore, "skullcap"]);
-                Config.Runewords.push([Runeword.Lore, "crown"]);
-                Config.Runewords.push([Runeword.Lore, "mask"]);
-                Config.Runewords.push([Runeword.Lore, "bonehelm"]);
-                Config.Runewords.push([Runeword.Lore, "warhat"]);
-                Config.Runewords.push([Runeword.Lore, "grimhelm"]);
-                Config.Runewords.push([Runeword.Lore, "GrandCrown"]);
-                Config.Runewords.push([Runeword.Lore, "Demonhead"]);
-                Config.Runewords.push([Runeword.Lore, "BoneVisage"]);
-
-                Config.KeepRunewords.push("[type] == helm # [LightResist] >= 25");
-
-                //Spirit Sword
-                Config.Runewords.push([Runeword.Spirit, "broadsword"]);
-                Config.Runewords.push([Runeword.Spirit, "crystalSword"]);
-
-                Config.KeepRunewords.push("[type] == sword # [itemallskills] == 2");
-
-                //Spirit Shield
-                Config.Runewords.push([Runeword.Spirit, "Monarch"]);
-
-                Config.KeepRunewords.push("[type] == shield || [type] == auricshields # [fcr] <= 35");
+				// Spirit Shield
+				runewordEquipment = ["Monarch"];
+				runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Spirit") && i.itemType === 51))[0]; // itemtype anyshield
+					
+				if (runewordItem) {
+					print("No longer making Spirit shield");
+					stopMakingRuneword(Runeword.Spirit, runewordEquipment);
+				} else {
+					makeRuneword(Runeword.Spirit, runewordEquipment);
+					Config.KeepRunewords.push("[type] == shield || [type] == auricshields # [fcr] <= 35");
+				}
             }
         },
 
-        2:	{	
-			SkillPoints: [221], // Summon Raven
-			StatPoints: [3,3,3,3,3],
+	2:	{	
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
@@ -187,7 +238,7 @@ var AutoBuildTemplate = {
 
 	3:	{
 			SkillPoints: [-1],
-			StatPoints: [3,3,3,1,1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 		
 			}
@@ -195,7 +246,7 @@ var AutoBuildTemplate = {
 
 	4:  {
 			SkillPoints: [-1],
-			StatPoints: [3,3,0,0,0],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}	
@@ -203,102 +254,97 @@ var AutoBuildTemplate = {
 
 	5:	{
 			SkillPoints: [-1],
-			StatPoints: [0,0,0,0,0],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				
 			}
 		},
 
 	6:	{
-			SkillPoints: [230,226,227], // Arctic Blast, Oak-1, Spirit Wolf (1 skill remaining)
-			StatPoints: [3,3,3,1,1],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
-                Config.SummonSpirit = "Oak Sage";
-                Config.SummonAnimal = "Spirit Wolf";
-                Config.AttackSkill = [0, 230, 0, 230, 0, 0, 0];	
+
 			}
 		},
 
 	7:	{
-			SkillPoints: [226], // Oak-2
-			StatPoints: [3,3,3,1,1],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				
 			}
 		},
 
 	8:	{
-			SkillPoints: [226], // Oak-3
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				
 			}
 		},
 
 	9:	{
-			SkillPoints: [226], // Oak-4
-			StatPoints: [3,3,3,1,1],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	10:	{
-			SkillPoints: [226], // Oak-5
-			StatPoints: [3,3,3,3,1],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
                 Config.LowGold = 5000;
 			}
 		},
 
 	11:	{	
-			SkillPoints: [226], // Oak-6
-			StatPoints: [3,3,3,3,1],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	12:	{
-			SkillPoints: [226,235], // Oak-7, Cyclone Armor-1 (0 skill remaining)
-			StatPoints: [3,3,1,1,1],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				Config.HPBuffer = 8; // Number of healing potions to keep in inventory.
-				Config.BeltColumn = ["hp", "hp", "mp", "mp"];		// Keep tons of health potions!
-				Config.MinColumn[0] = 1;
-				Config.MinColumn[1] = 1;
-				Config.MinColumn[2] = 1;
-				Config.MinColumn[3] = 1;
+				Config.BeltColumn = ["hp", "hp", "mp", "mp"];
+				Config.MinColumn = [2, 2, 2, 2];						
 			}
 		},
 
 	13:	{
-			SkillPoints: [226], // Oak-8
-			StatPoints: [0,0,0,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				
 			}
 		},
 
 	14:	{
-			SkillPoints: [226], // Oak-9
-			StatPoints: [0,0,0,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				
 			}
 		},
 
 	15:	{
-			SkillPoints: [226], // Oak-10
-			StatPoints: [3,3,1,1,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	16:	{
-			SkillPoints: [226], // Oak-11
-			StatPoints: [3,3,1,1,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				Config.HPBuffer = 2; // Number of healing potions to keep in inventory.
 				Config.MPBuffer = 6; // Number of mana potions to keep in inventory.
@@ -307,675 +353,666 @@ var AutoBuildTemplate = {
 		},
 
 	17:	{
-			SkillPoints: [226], // Oak-12
-			StatPoints: [0,0,0,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				
 			}
 		},
 
 	18:	{
-			SkillPoints: [237, 240], // Dire Wolf, Twister-1 (Norm Den used)
-			StatPoints: [3,3,3,3,1],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
-                Config.SummonAnimal = "Dire Wolf";
-                Config.AttackSkill = [0, 240, 0, 240, 0, 0, 0];                          
+				Config.Cubing = true;      
 			}
 		},
 
 	19:	{
-			SkillPoints: [226], // Oak-13
-			StatPoints: [3,3,3,0,1],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
-				Config.UseBoS = false;
-				Config.UseFade = true;
+
 			}
 		},
 
 	20:	{
-			SkillPoints: [226], // Oak-14
-			StatPoints: [0,0,0,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
                 Config.LowGold = 10000;
 			}
 		},
 
 	21:	{	
-			SkillPoints: [226], // Oak-15
-			StatPoints: [0,0,0,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	22:	{
-			SkillPoints: [226], // Oak-16
-			StatPoints: [3,3,3,3,1],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	23:	{
-			SkillPoints: [226], // Oak-17
-			StatPoints: [3,3,3,3,1],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	24:	{
-			SkillPoints: [245, 226], // Tornado-1, Oak-18 (Norm Radament used)
-			StatPoints: [1,1,1,1,1],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
-                Config.AttackSkill = [0, 245, 0, 245, 0, 0, 0];
-                Config.LowManaSkill = [-1,-1];
-
-                Config.Cubing = true;
-				Config.MakeRunewords = true;
-				Config.Runewords.push([Runeword.Spirit, ("CrystalSword" || "BroadSword")]);
-				Config.Recipes.push([Recipe.Rune, "Tal Rune"]);
-				Config.Recipes.push([Recipe.Rune, "Ral Rune"]);
-				Config.Recipes.push([Recipe.Rune, "Ort Rune"]);
-				Config.Recipes.push([Recipe.Rune, "Thul Rune"]);
-                Config.Recipes.push([Recipe.Rune, "Amn Rune"]);    
+   
 			}
 		},
 
 	25:	{
-			SkillPoints: [226], // Oak-19
-			StatPoints: [3,3,3,3,1],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
                 Config.LowGold = 15000;
 			}
 		},
 
 	26:	{
-			SkillPoints: [226], // Oak-20
-			StatPoints: [3,3,3,3,1],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	27:	{
-			SkillPoints: [245], // Tornado-2
-			StatPoints: [3,3,3,3,1],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				
 			}
 		},
 
 	28:	{
-			SkillPoints: [245], // Tornado-3
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	29:	{
-			SkillPoints: [245], // Tornado-4
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	30:	{
-			SkillPoints: [247, 250, 245], // Grizzly, Hurricane-1, Tornado-5 (Norm Izual used)
-			StatPoints: [3,3,3,3,3,3,3,3,3,3], // (Norm Lam Essen)
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
-                Config.SummonAnimal = "Grizzly";
-                Config.LowGold = 50000;
+				Config.LowGold = 50000;
+				Config.MinColumn = [3, 3, 3, 3];
 			}
 		},
 
 	31:	{	
-			SkillPoints: [245], // Tornado-6
-			StatPoints: [0,0,0,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				
 			}
 		},
 
 	32:	{
-			SkillPoints: [245], // Tornado-7
-			StatPoints: [3,3,3,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				
 			}
 		},
 
 	33:	{
-			SkillPoints: [245], // Tornado-8
-			StatPoints: [3,3,3,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	34:	{
-			SkillPoints: [245], // Tornado-9
-			StatPoints: [3,3,3,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				
 			}
 		},
 
 	35:	{
-			SkillPoints: [245], // Tornado-10
-			StatPoints: [3,3,3,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				
 			}
 		},
 
 	36:	{
-            SkillPoints: [245], // Tornado-11
-			StatPoints: [3,3,3,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	37:	{
-            SkillPoints: [245], // Tornado-12
-			StatPoints: [3,3,3,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 		
 			}
 		},
 
 	38:	{
-            SkillPoints: [245], // Tornado-13
-			StatPoints: [3,3,3,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 		
 			}
 		},
 
 	39:	{
-            SkillPoints: [245], // Tornado-14
-			StatPoints: [3,3,3,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	40:	{
-            SkillPoints: [245], // Tornado-15
-			StatPoints: [3,3,3,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	41:	{	
-            SkillPoints: [245], // Tornado-16
-			StatPoints: [3,3,3,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	42:	{
-            SkillPoints: [245], // Tornado-17
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	43:	{
-            SkillPoints: [245], // Tornado-18
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			}
 		},
 
 	44:	{
-            SkillPoints: [245], // Tornado-19
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	45:	{
-            SkillPoints: [245], // Tornado-20
-			StatPoints: [0,0,0,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	46:	{
-            SkillPoints: [250], // Hurricane-2
-			StatPoints: [0,0,0,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	47:	{
-            SkillPoints: [250], // Hurricane-3
-			StatPoints: [0,0,0,0,0],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	48:	{
-            SkillPoints: [250], // Hurricane-4
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	49:	{
-            SkillPoints: [250], // Hurricane-5
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	50:	{
-            SkillPoints: [250], // Hurricane-6
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	51:	{	
-            SkillPoints: [250], // Hurricane-7
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	52:	{
-            SkillPoints: [250], // Hurricane-8
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	53:	{
-            SkillPoints: [250], // Hurricane-9
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	54:	{
-            SkillPoints: [250, 250, 250, 250, 250], // Hurricane-14 (NM den, radament, izual)
-			StatPoints: [3,3,3,3,3,3,3,3,3,3], // (NM Lam Essen)
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	55:	{
-            SkillPoints: [250], // Hurricane-15
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	56:	{
-            SkillPoints: [250], // Hurricane-16
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	57:	{
-            SkillPoints: [250], // Hurricane-17
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	58:	{
-            SkillPoints: [250], // Hurricane-18
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	59:	{
-            SkillPoints: [250], // Hurricane-19
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	60:	{
-            SkillPoints: [250], // Hurricane-20
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
-			
+				Config.BeltColumn = ["hp", "hp", "mp", "rv"];
+				Config.MinColumn = [3, 3, 3, 0];				
+				Config.HPBuffer = 0;
+				Config.MPBuffer = 0;
 			}
 		},
 
 	61:	{	
-            SkillPoints: [240], // Twister-2
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	62:	{
-			SkillPoints: [240], // Twister-3
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	63:	{
-            SkillPoints: [240], // Twister-4
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			}
 		},
 
 	64:	{
-            SkillPoints: [240], // Twister-5
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	65:	{
-            SkillPoints: [240], // Twister-6
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	66:	{
-            SkillPoints: [240], // Twister-7
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	67:	{
-            SkillPoints: [240], // Twister-8
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	68:	{
-            SkillPoints: [240], // Twister-9
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	69:	{
-            SkillPoints: [240], // Twister-10
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	70:	{
-            SkillPoints: [240], // Twister-11
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	71:	{	
-            SkillPoints: [240], // Twister-12
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	72:	{
-            SkillPoints: [240], // Twister-13
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	73:	{
-            killPoints: [240], // Twister-14
-			StatPoints: [3,3,3,3,3],
-			Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+				Update: function () {
 			
 			}
 		},
 
 	74:	{
-            SkillPoints: [240], // Twister-15
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	75:	{
-            SkillPoints: [240], // Twister-16
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	76:	{
-            SkillPoints: [240], // Twister-17
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	77:	{
-            SkillPoints: [240], // Twister-18
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	78:	{
-            SkillPoints: [240], // Twister-19
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	79:	{
-            SkillPoints: [240, 235, 235, 235, 235], // Twister-20, Cyclone Armor-5 (HELL den, radament, izual)
-			StatPoints: [3,3,3,3,3,3,3,3,3,3], // (HELL Lam Essen)
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	80:	{
-			SkillPoints: [235], // Cyclone Armor-6
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	81:	{	
-            SkillPoints: [235], // Cyclone Armor-7
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	82:	{
-            SkillPoints: [235], // Cyclone Armor-8
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	83:	{
-            SkillPoints: [235], // Cyclone Armor-9
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	84:	{
-            SkillPoints: [235], // Cyclone Armor-10
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	85:	{
-            SkillPoints: [235], // Cyclone Armor-11
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	86:	{
-            SkillPoints: [235], // Cyclone Armor-12
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	87:	{
-            SkillPoints: [235], // Cyclone Armor-13
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	88:	{
-            SkillPoints: [235], // Cyclone Armor-14
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	89:	{
-            SkillPoints: [235], // Cyclone Armor-15
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	90:	{
-            SkillPoints: [235], // Cyclone Armor-16
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	91:	{	
-            SkillPoints: [235], // Cyclone Armor-17
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	92:	{
-            SkillPoints: [235], // Cyclone Armor-18
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	93:	{
-            SkillPoints: [235], // Cyclone Armor-19
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	94:	{
-            killPoints: [235], // Cyclone Armor-20
-			StatPoints: [3,3,3,3,3],
-			Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+				Update: function () {
 			
 			}
 		},
 
 	95:	{
-            killPoints: [247], // Grizzly-2
-			StatPoints: [3,3,3,3,3],
-			Update: function () {
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
+				Update: function () {
 			
 			}
 		},
 
 	96:	{
-            SkillPoints: [247], // Grizzly-3
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	97:	{
-			SkillPoints: [247], // Grizzly-4
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	98:	{
-            SkillPoints: [247], // Grizzly-5
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}
 		},
 
 	99:	{
-            SkillPoints: [247], // Grizzly-6
-			StatPoints: [3,3,3,3,3],
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 			
 			}

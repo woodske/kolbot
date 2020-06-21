@@ -63,6 +63,8 @@ var makeRuneword = function(runeword, equipment) {
 var AutoBuildTemplate = {
 
 	1:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 				// Class specific
@@ -112,6 +114,10 @@ var AutoBuildTemplate = {
 					["v", "all"], // put rest of the points in vitality
 				];
 
+				// print('skilling')
+				// AutoSkill.init(Config.AutoSkill.Build);
+				// AutoStat.init(Config.AutoStat.Build);
+
                 // All followers
 				Scripts.Follower        = true;
 				Config.Leader           = "Bindle-sorc";
@@ -157,7 +163,7 @@ var AutoBuildTemplate = {
 
 				// Stealth
 				runewordEquipment = ["quiltedarmor", "hardleatherarmor", "leatherarmor"];
-				runewordItem = me.getMerc().getItems().filter(i => (i.getFlag(0x4000000) && (i.fname.contains("Stealth") || i.fname.contains("Smoke"))))[0];
+				runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && (i.fname.contains("Stealth") || i.fname.contains("Smoke"))))[0];
 
 				if (runewordItem) {
 					print('No longer making Stealth');
@@ -169,7 +175,11 @@ var AutoBuildTemplate = {
 				
 				// Insight
 				runewordEquipment = ["poleaxe", "halberd", "bill", "battlescythe", "partizan", "becdecorbin", "thresher", "crypticaxe", "greatpoleaxe", "colossusvoulge"]; 				
-				runewordItem = me.getMerc().getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Insight")))[0];
+				if (me.getMerc()) {
+					runewordItem = me.getMerc().getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Insight")))[0];
+				} else {
+					runewordItem = false;
+				}
 							
 				if (runewordItem) {
 					print('No longer making Insight');
@@ -241,31 +251,40 @@ var AutoBuildTemplate = {
 			}
 		},
 
-	2:	{			
+	2:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				Config.MPBuffer = 8;
 			}
 		},
 
-	3:	{			
+	3:	{	SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],		
 			Update: function () {
 
 			}
 		},
 
-	4:	{			
+	4:	{		
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],	
 			Update: function () {
 
 			}
 		},
 
 	5:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	6:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				Config.BeltColumn		= ["hp", "mp", "mp", "mp"];
 				Config.MinColumn 		= [2, 2, 2, 2];
@@ -273,108 +292,144 @@ var AutoBuildTemplate = {
 		},
 
 	7:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	8:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	9:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	10:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				Config.LowGold = 5000;
 			}
 		},
 
 	11:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	12:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	13:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	14:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	15:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	16:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	17:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	18:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	19:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	20:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				Config.LowGold = 10000;
 			}
 		},
 
 	21:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	22:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	23:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	24:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				Config.BeltColumn		= ["hp", "mp", "mp", "mp"];
 				Config.MinColumn 		= [3, 3, 3, 3];
@@ -383,96 +438,128 @@ var AutoBuildTemplate = {
 		},
 
 	25:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				Config.LowGold = 15000;
 			}
 		},
 
 	26:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	27:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	28:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	29:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	30:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				Config.LowGold = 50000;
 			}
 		},
 
 	31:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	32:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	33:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	34:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	35:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	36:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	37:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	38:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	39:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	40:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 				Config.NoTele = false;
 				Config.Dodge = true;
@@ -480,354 +567,472 @@ var AutoBuildTemplate = {
 		},
 
 	41:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	42:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	43:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	44:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	45:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	46:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	47:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	48:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	49:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	50:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	51:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	52:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	53:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	54:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	55:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	56:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	57:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	58:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	59:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	60:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	61:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	62:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	63:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	64:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	65:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	66:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	67:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	68:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	69:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	70:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	71:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	72:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	73:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	74:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	75:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	76:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	77:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	78:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	79:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	80:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	81:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	82:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	83:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	84:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	85:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	86:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	87:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	88:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	89:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	90:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	91:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	92:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	93:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	94:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	95:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	96:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	97:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	98:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
 		},
 
 	99:	{
+			SkillPoints: [-1],
+			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
 
 			}
