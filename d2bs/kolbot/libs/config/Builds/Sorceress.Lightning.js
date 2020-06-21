@@ -283,6 +283,7 @@ var AutoBuildTemplate = {
 			SkillPoints: [-1],
 			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
+				Config.MPBuffer = 8;
 				Config.BeltColumn		= ["hp", "mp", "mp", "mp"];
 				Config.MinColumn 		= [2, 2, 2, 2];
 			}
@@ -639,7 +640,7 @@ var AutoBuildTemplate = {
 			SkillPoints: [-1],
 			StatPoints: [-1, -1, -1, -1, -1],
 			Update: function () {
-
+				Config.MPBuffer = 0;
 			}
 		},
 

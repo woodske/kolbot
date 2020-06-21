@@ -12,56 +12,6 @@
 * 	Vitality	= 3
 *
 
-Finished Char Build:
-
-    Stats													Base Stats      Stats Allocated (505 total)
-	----------												----------      ---------------
- 	Strength: 125 (Stormlash)         					        25             100 - Done @ level 51      
- 	Dexterity: 77 (Stormlash)        					        20              57 - Done @ level 58
- 	Vitality: 373 					                            25             348 - Done @ level 99
- 	Energy: 15 								                    15              0
-
-	Skills				Levelreq			SkillID			TotalPoints
-	------------		--------			-------			-----------
-    Sacrifice               1                  96                1	- Done @ level 4
-    Smite 				    1				   97				 1	- Done @ level 3
-	Might 				    1				   98				 1	- Done @ level 2
-    Resist Fire 		    1				  100				20	- Done @ level 65
-	Holy Bolt 			    6				  101				 1	- Done @ level 6
-	Holy Fire    		    6				  102				 1	- Done @ level 6
-	Thorns      		    6				  103				 1	- Done @ level 7
-	Resist Cold 		    6				  105				18	- Done @ level 99
-	Zeal         		   12				  106				 1	- Done @ level 12 
-	Charge 				   12				  107				 1	- Done @ level 12
-	Resist Lightning 	   12				  110				20	- Done @ level 81
-	Vengeance    		   18				  111				20	- Done @ level 37
-	Blessed Hammer 		   18				  112				 1	- Done @ level 18
-	Holy Freeze 		   18				  114				 1	- Done @ level 18
-	Holy Shield 		   24				  117				 1	- Done @ level 24
-	Sanctuary 			   24				  119				 1	- Done @ level 24
-	Conviction 			   30				  123				20	- Done @ level 49
-	
-	TOTAL Points Spent --------------------------------------> 108
-	
-	**********REMAINING SKILL POINTS =   2  ******** (110 - 108 = 2)
-
-	QUEST SKILL/STAT ALLOCATION:
-
-          Quest         Level Used     
-	-----------------	----------			
-	Norm Den of Evil        35                 
-	Norm Radament           36                 
-    Norm Izual              37/38
-    Norm Lam Essen          24                 
-	NM Den of Evil          45                
-	NM Radament             45                
-    NM Izual                45
-    NM Lam Essen            45                
-	Hell Den of Evil        70                 
-	Hell Radament           70                 
-    Hell Izual              70
-    Hell Lam Essen          70 
-
 	Attack Config Variables For Paladin
 	---------------------------------------------------------------------------------------------------------------------
 	Config.AttackSkill[0] = -1; // Preattack skill.
@@ -77,6 +27,34 @@ js_strict(true);
 if (!isIncluded("common/Cubing.js")) { include("common/Cubing.js"); };
 if (!isIncluded("common/Prototypes.js")) { include("common/Prototypes.js"); };
 if (!isIncluded("common/Runewords.js")) { include("common/Runewords.js"); };
+
+/*
+	runeword: Array of numbers (i.e. Runeword.Insight)
+	equipment: Array of strings (i.e. ["poleaxe", "halberd"])
+*/
+var stopMakingRuneword = function(runeword, equipment) {
+	
+	for (var i = 0; i < Config.Runewords.length; i++) {
+		if (Config.Runewords[i][0] === runeword) {
+			for (var j = 0; j < equipment.length; j++) {
+				if (Config.Runewords[i][1] === equipment[j]) {
+					Config.Runewords.splice(i, 1);					
+				}
+			}	
+		}		
+	}
+}
+
+/*
+	runeword: Array of numbers (i.e. Runeword.Insight)
+	equipment: Array of strings (i.e. ["poleaxe", "halberd"])
+*/
+var makeRuneword = function(runeword, equipment) {
+	
+	for (var i = 0; i < equipment.length; i++) {
+		Config.Runewords.push([runeword, equipment[i]]);
+	}
+}
 
 var AutoBuildTemplate = {
 

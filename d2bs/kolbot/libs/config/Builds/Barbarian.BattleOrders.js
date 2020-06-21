@@ -31,989 +31,991 @@ if (!isIncluded("common/Runewords.js")) { include("common/Runewords.js"); };
 	equipment: Array of strings (i.e. ["poleaxe", "halberd"])
 */
 var stopMakingRuneword = function(runeword, equipment) {
-	
+
 	for (var i = 0; i < Config.Runewords.length; i++) {
 		if (Config.Runewords[i][0] === runeword) {
 			for (var j = 0; j < equipment.length; j++) {
 				if (Config.Runewords[i][1] === equipment[j]) {
-					Config.Runewords.splice(i, 1);					
+					Config.Runewords.splice(i, 1);
 				}
-			}	
-		}		
+			}
+		}
 	}
-}
+};
 
 /*
 	runeword: Array of numbers (i.e. Runeword.Insight)
 	equipment: Array of strings (i.e. ["poleaxe", "halberd"])
 */
 var makeRuneword = function(runeword, equipment) {
-	
+
 	for (var i = 0; i < equipment.length; i++) {
 		Config.Runewords.push([runeword, equipment[i]]);
 	}
-}
+};
 
 var AutoBuildTemplate = {
 
 	1:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				// Class specific
-				Config.PickitFiles.push("Follower/barbarian.xpac.nip");
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			// Class specific
+			Config.PickitFiles.push("Follower/barbarian.xpac.nip");
 
-				Config.AttackSkill		= [0, 0, 0, 0, 0];
-				Config.LowManaSkill		= [0];
-				Config.FindItem 		= false;
+			Config.AttackSkill		= [0, 0, 0, 0, 0];
+			Config.LowManaSkill		= [0];
+			Config.FindItem 		= false;
 
-				//---------------------- Attacks ------------------
-				Config.AutoSkill.Enabled	= true; // Enable or disable AutoSkill system
-				Config.AutoSkill.Build 	= [
-					[142, 1, false], // Find Item
-					[155, 1, false], // Battle Command
-					[148, 1, false], // Increased Speed
-					[153, 1, false], // Natural Resistance
-					[154, 1, false], // War Cry
-					[149, 20, false], // Max Battle Orders
-					[154, 20, true], // Max War Cry -- hold skill points until this is maxed
-					[146, 20, false], // Max Battle Cry
-					[130, 20, false], // Max Howl
-					[137, 20, false], // Max Taunt
-				];
+			//---------------------- Attacks ------------------
+			Config.AutoSkill.Enabled	= true; // Enable or disable AutoSkill system
+			Config.AutoSkill.Build 	= [
+				[142, 1, false], // Find Item
+				[155, 1, false], // Battle Command
+				[148, 1, false], // Increased Speed
+				[153, 1, false], // Natural Resistance
+				[146, 1, false], // Battle Cry
+				[154, 1, false], // War Cry
+				[149, 20, false], // Max Battle Orders
+				[154, 20, true], // Max War Cry -- hold skill points until this is maxed
+				[146, 20, false], // Max Battle Cry
+				[130, 20, false], // Max Howl
+				[137, 20, false], // Max Taunt
+			];
 
-				if (me.getSkill(154, 1)) {
-					Config.AttackSkill = [146, 154, 154, 154, 154];
-					Config.LowManaSkill	= [-1, -1];
-				} else if (me.getSkill(146, 1)) {
-					Config.AttackSkill = [146, 0, 0, 0, 0];
-					Config.LowManaSkill = [0, 0];
-				} else if (me.getSkill(130, 1)) {
-					Config.AttackSkill = [130, 0, 0, 0, 0];
-					Config.LowManaSkill = [0, 0];
-				} else {
-					Config.AttackSkill = [0, 0, 0, 0, 0];
-					Config.LowManaSkill = [0, 0];
-				}
+			if (me.getSkill(154, 1)) {
+				Config.AttackSkill = [146, 154, 154, 154, 154];
+				Config.LowManaSkill	= [-1, -1];
+			} else if (me.getSkill(146, 1)) {
+				Config.AttackSkill = [146, 0, 0, 0, 0];
+				Config.LowManaSkill = [0, 0];
+			} else if (me.getSkill(130, 1)) {
+				Config.AttackSkill = [130, 0, 0, 0, 0];
+				Config.LowManaSkill = [0, 0];
+			} else {
+				Config.AttackSkill = [0, 0, 0, 0, 0];
+				Config.LowManaSkill = [0, 0];
+			}
 
-				//---------------------- Stats ------------------
-				Config.AutoStat.Enabled = true; // Enable or disable AutoStat system
-				Config.AutoStat.Build 	= [
-					["vitality", 20],
-					["strength", 20], // Hard leather armor
-					["vitality", 50],
-					["strength", 47], // Kite shield
-					["vitality", 150],
-					["strength", 156], // Monarch
-					["v", "all"], // put rest of the points in vitality
-				];
+			//---------------------- Stats ------------------
+			Config.AutoStat.Enabled = true; // Enable or disable AutoStat system
+			Config.AutoStat.Build 	= [
+				["vitality", 20],
+				["strength", 20], // Hard leather armor
+				["vitality", 50],
+				["strength", 47], // Kite shield
+				["vitality", 150],
+				["strength", 156], // Monarch
+				["v", "all"], // put rest of the points in vitality
+			];
 
-                // All followers
-				Scripts.Follower        = true;
-				Config.Leader           = "Bindle-sorc";
-				Config.QuitList         = ["Bindle-sorc"];				
-				Config.AutoEquip        = true;
-				Config.TownCheck		= false;						// Don't go to town for more potions
-				Config.UseMerc 			= true;
-				Config.PacketShopping 	= true;
-				Config.PacketCasting    = 2; 
-				Config.ClearType        = 0;                            // Monster spectype to kill in level clear scripts (0 = all)
-				Config.LowGold			= 1000;
-				Config.StashGold 		= 500;
-				Config.OpenChests		= true; 						// Open chests. Controls key buying.
-				Config.ScanShrines		= [15, 13, 12, 14, 7, 6, 2, 1];	
-				Config.BeltColumn		= ["hp", "hp", "hp", "mp"];		// Keep tons of health potions!
-                Config.Cubing           = false;                        // Don't cube yet!
-                Config.MakeRunewords    = true;
-                Config.PublicMode       = 2;                            // Accept invites
-                Config.LifeChicken      = 0;                            // Don't exit games when close to death
-                Config.LogLowRunes      = true;
-                Config.LogMiddleRunes   = true;
-                Config.LocalChat.Enabled = true;                        // enable the LocalChat system
+			// All followers
+			Scripts.Follower        = true;
+			Config.Leader           = "Bindle-sorc";
+			Config.QuitList         = ["Bindle-sorc"];
+			Config.AutoEquip        = true;
+			Config.TownCheck		= false;						// Don't go to town for more potions
+			Config.UseMerc 			= true;
+			Config.PacketShopping 	= true;
+			Config.PacketCasting    = 2;
+			Config.ClearType        = 0;                            // Monster spectype to kill in level clear scripts (0 = all)
+			Config.LowGold			= 1000;
+			Config.StashGold 		= 500;
+			Config.OpenChests		= true; 						// Open chests. Controls key buying.
+			Config.ScanShrines		= [15, 13, 12, 14, 7, 6, 2, 1];
+			Config.BeltColumn		= ["hp", "hp", "hp", "mp"];		// Keep tons of health potions!
+			Config.Cubing           = false;                        // Don't cube yet!
+			Config.MakeRunewords    = true;
+			Config.PublicMode       = 2;                            // Accept invites
+			Config.LifeChicken      = 0;                            // Don't exit games when close to death
+			Config.LogLowRunes      = true;
+			Config.LogMiddleRunes   = true;
+			Config.LocalChat.Enabled = true;                        // enable the LocalChat system
 		        Config.LocalChat.Mode   = 2;                              // 0 = disabled, 1 = chat from 'say' (recommended), 2 = all chat (for manual play)
 
-                Config.Inventory[0] = [1,1,1,1,1,1,1,1,1,1];
-                Config.Inventory[1] = [1,1,1,1,1,1,1,1,1,1];
-                Config.Inventory[2] = [1,1,1,1,1,1,1,1,1,1];
-				Config.Inventory[3] = [1,1,1,1,1,1,1,1,1,1];
-				
-				//---------------------- Pickit ------------------           
-				
-				Config.PickitFiles.push("Follower/misc.nip");
-                Config.PickitFiles.push("Follower/rwbase-other.nip");
-				Config.PickitFiles.push("Follower/rwbase-shield.nip");
-				Config.PickitFiles.push("Follower/merc.xpac.nip");
-                Config.PickitFiles.push("earlyLadder.nip");
+			Config.Inventory[0] = [1,1,1,1,1,1,1,1,1,1];
+			Config.Inventory[1] = [1,1,1,1,1,1,1,1,1,1];
+			Config.Inventory[2] = [1,1,1,1,1,1,1,1,1,1];
+			Config.Inventory[3] = [1,1,1,1,1,1,1,1,1,1];
 
-				//---------------------- Runewords ------------------
-				
-				var runewordItem, runewordEquipment;
-				
-				// Insight
-				runewordEquipment = ["poleaxe", "halberd", "bill", "battlescythe", "partizan", "becdecorbin", "thresher", "crypticaxe", "greatpoleaxe", "colossusvoulge"]; 				
-				if (me.getMerc()) {
-					runewordItem = me.getMerc().getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Insight")))[0];
-				} else {
-					runewordItem = false;
-				}
-							
-				if (runewordItem) {
-					print('No longer making Insight');
-					stopMakingRuneword(Runeword.Insight, runewordEquipment);
-				} else {
-					makeRuneword(Runeword.Insight, runewordEquipment);
-					Config.KeepRunewords.push("[type] == polearm # [meditationaura] <= 17");
-				}
-                
-				// Smoke
-				runewordEquipment = ["lightplate", "ghostarmor", "serpentskinarmor", "demonhidearmor", "cuirass", "mageplate", "duskShroud", "wyrmhide", "scarabHusk", "wireFleece", "greatHauberk", "boneweave", "balrogSkin", "archonPlate"]; 	
-				runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Smoke")))[0];
-				
-				if (runewordItem) {
-					print('No longer making Smoke');
-					stopMakingRuneword(Runeword.Smoke, runewordEquipment);
-				} else {
-					makeRuneword(Runeword.Smoke, runewordEquipment);
-					Config.KeepRunewords.push("[type] == armor # [FireResist] == 50 && [LightResist] == 50");
-				}
-                
-				// Ancients Pledge
-				runewordEquipment = ["kiteshield", "largeshield", "boneshield"]; 	
-				runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Ancients' Pledge")))[0];
-							
-				if (runewordItem) {
-					print("No longer making Ancients' Pledge");
-					stopMakingRuneword(Runeword.AncientsPledge, runewordEquipment);
-				} else {
-					makeRuneword(Runeword.AncientsPledge, runewordEquipment);
-					Config.KeepRunewords.push("[type] == shield # [FireResist] >= 40 && [LightResist] >= 40 ");
-				}
+			//---------------------- Pickit ------------------
 
-				// Lore
-				runewordEquipment = ["cap", "skullcap", "crown", "mask", "bonehelm", "warhat", "grimhelm", "GrandCrown", "Demonhead", "BoneVisage"]; 	
-				runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Lore")))[0];
-				
-				if (runewordItem) {
-					print("No longer making Lore");
-					stopMakingRuneword(Runeword.Lore, runewordEquipment);
-				} else {
-					makeRuneword(Runeword.Lore, runewordEquipment);
-					Config.KeepRunewords.push("[type] == helm # [LightResist] >= 25");
-				}
-								
-				// Spirit Sword
-				runewordEquipment = ["broadsword", "crystalSword"]; 	
-				runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Spirit") && i.itemType === 30))[0]; // itemtype sword
-						
-				if (runewordItem) {
-					print("No longer making Spirit sword");
-					stopMakingRuneword(Runeword.Spirit, runewordEquipment);
-				} else {
-					makeRuneword(Runeword.Spirit, runewordEquipment);
-					Config.KeepRunewords.push("[type] == sword # [itemallskills] == 2");
-				}
+			Config.PickitFiles.push("Follower/misc.nip");
+			Config.PickitFiles.push("Follower/rwbase-other.nip");
+			Config.PickitFiles.push("Follower/rwbase-shield.nip");
+			Config.PickitFiles.push("Follower/merc.xpac.nip");
+			Config.PickitFiles.push("earlyLadder.nip");
 
-				// Spirit Shield
-				runewordEquipment = ["Monarch"];
-				runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Spirit") && i.itemType === 51))[0]; // itemtype anyshield
-					
-				if (runewordItem) {
-					print("No longer making Spirit shield");
-					stopMakingRuneword(Runeword.Spirit, runewordEquipment);
-				} else {
-					makeRuneword(Runeword.Spirit, runewordEquipment);
-					Config.KeepRunewords.push("[type] == shield || [type] == auricshields # [fcr] <= 35");
-				}
-			}
-		},
-
-	2:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				
-			}
-		},
-
-	3:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	4:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	5:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	6:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				Config.MinColumn = [1, 1, 1, 1];
-			}
-		},
-
-	7:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	8:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	9:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	10:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				Config.LowGold = 5000;
-			}
-		},
-
-	11:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	12:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	13:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	14:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	15:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				Config.OpenChests = false;								// Eyes on the prize!
-			}
-		},
-
-	16:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				Config.TownCheck = true;								// Do go to town for more potions
-			}
-		},
-
-	17:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	18:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	19:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	20:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				Config.LowGold = 10000;
-				Config.FindItem = true;
-			}
-		},
-
-	21:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	22:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	23:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	24:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				Config.Cubing = true;									// Will have a cube by now.
-			}
-		},
-
-	25:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				Config.LowGold = 15000;
-			}
-		},
-
-	26:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	27:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	28:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	29:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	30:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				Config.LowGold = 20000;
-			}
-		},
-
-	31:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	32:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	33:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	34:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	35:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				Config.LowGold = 30000;
-			}
-		},
-
-	36:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	37:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	38:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	39:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	40:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				Config.LowGold = 35000;
-			}
-		},
-
-	41:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	42:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	43:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	44:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	45:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				Config.LowGold = 40000;
-			}
-		},
-
-	46:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	47:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
+			//---------------------- Runewords ------------------
 
-			}
-		},
-
-	48:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	49:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	50:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				Config.MPBuffer = 0;									// Shouldn't be AutoSmurfing anymore.
-				Config.BeltColumn = ["hp", "hp", "mp", "rv"];			// Regular potion settings
-				Config.MinColumn = [3, 3, 3, 0];						// Regular potion settings
-				Config.LowGold = 45000;
-			}
-		},
-
-	51:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	52:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	53:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	54:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	55:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				Config.LowGold = 50000;
-			}
-		},
-
-	56:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	57:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	58:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	59:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	60:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				Config.LowGold = 55000;
-			}
-		},
-
-	61:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	62:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	63:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	64:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	65:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				Config.LowGold = 60000;
-			}
-		},
-
-	66:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	67:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	68:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	69:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				
-			}
-		},
-
-	70:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				Config.LowGold = 100000;
-				
-			}
-		},
-
-	71:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				
-			}
-		},
-
-	72:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	73:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				
-			}
-		},
-
-	74:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				
-			}
-		},
-
-	75:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				
-			}
-		},
-
-	76:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	77:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	78:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	79:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	80:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-				Config.Gamble = true;									// Time to spend dat ca$h!!
-				Config.ScanShrines = [];
-			}
-		},
-
-	81:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	82:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	83:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	84:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	85:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	86:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	87:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
+			var runewordItem, runewordEquipment;
 
-	88:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
+			// Insight
+			runewordEquipment = ["poleaxe", "halberd", "bill", "battlescythe", "partizan", "becdecorbin", "thresher", "crypticaxe", "greatpoleaxe", "colossusvoulge"];
 
+			if (me.getMerc()) {
+				runewordItem = me.getMerc().getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Insight")))[0];
+			} else {
+				runewordItem = false;
 			}
-		},
-
-	89:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	90:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	91:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	92:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	93:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
-
-			}
-		},
-
-	94:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
 
+			if (runewordItem) {
+				print('No longer making Insight');
+				stopMakingRuneword(Runeword.Insight, runewordEquipment);
+			} else {
+				makeRuneword(Runeword.Insight, runewordEquipment);
+				Config.KeepRunewords.push("[type] == polearm # [meditationaura] <= 17");
 			}
-		},
 
-	95:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
+			// Smoke
+			runewordEquipment = ["lightplate", "ghostarmor", "serpentskinarmor", "demonhidearmor", "cuirass", "mageplate", "duskShroud", "wyrmhide", "scarabHusk", "wireFleece", "greatHauberk", "boneweave", "balrogSkin", "archonPlate"];
+			runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Smoke")))[0];
 
+			if (runewordItem) {
+				print('No longer making Smoke');
+				stopMakingRuneword(Runeword.Smoke, runewordEquipment);
+			} else {
+				makeRuneword(Runeword.Smoke, runewordEquipment);
+				Config.KeepRunewords.push("[type] == armor # [FireResist] == 50 && [LightResist] == 50");
 			}
-		},
 
-	96:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
+			// Ancients Pledge
+			runewordEquipment = ["kiteshield", "largeshield", "boneshield"];
+			runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Ancients' Pledge")))[0];
 
+			if (runewordItem) {
+				print("No longer making Ancients' Pledge");
+				stopMakingRuneword(Runeword.AncientsPledge, runewordEquipment);
+			} else {
+				makeRuneword(Runeword.AncientsPledge, runewordEquipment);
+				Config.KeepRunewords.push("[type] == shield # [FireResist] >= 40 && [LightResist] >= 40 ");
 			}
-		},
 
-	97:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
+			// Lore
+			runewordEquipment = ["cap", "skullcap", "crown", "mask", "bonehelm", "warhat", "grimhelm", "GrandCrown", "Demonhead", "BoneVisage"];
+			runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Lore")))[0];
 
+			if (runewordItem) {
+				print("No longer making Lore");
+				stopMakingRuneword(Runeword.Lore, runewordEquipment);
+			} else {
+				makeRuneword(Runeword.Lore, runewordEquipment);
+				Config.KeepRunewords.push("[type] == helm # [LightResist] >= 25");
 			}
-		},
 
-	98:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
+			// Spirit Sword
+			runewordEquipment = ["broadsword", "crystalSword"];
+			runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Spirit") && i.itemType === 30))[0]; // itemtype sword
 
+			if (runewordItem) {
+				print("No longer making Spirit sword");
+				stopMakingRuneword(Runeword.Spirit, runewordEquipment);
+			} else {
+				makeRuneword(Runeword.Spirit, runewordEquipment);
+				Config.KeepRunewords.push("[type] == sword # [itemallskills] == 2");
 			}
-		},
 
-	99:	{
-			SkillPoints: [-1],
-			StatPoints: [-1, -1, -1, -1, -1],
-			Update: function () {
+			// Spirit Shield
+			runewordEquipment = ["Monarch"];
+			runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Spirit") && i.itemType === 51))[0]; // itemtype anyshield
 
+			if (runewordItem) {
+				print("No longer making Spirit shield");
+				stopMakingRuneword(Runeword.Spirit, runewordEquipment);
+			} else {
+				makeRuneword(Runeword.Spirit, runewordEquipment);
+				Config.KeepRunewords.push("[type] == shield || [type] == auricshields # [fcr] <= 35");
 			}
 		}
+	},
+
+	2:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	3:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	4:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	5:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	6:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			Config.MinColumn = [1, 1, 1, 1];
+		}
+	},
+
+	7:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	8:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	9:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	10:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			Config.LowGold = 5000;
+		}
+	},
+
+	11:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	12:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	13:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	14:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	15:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			Config.OpenChests = false;								// Eyes on the prize!
+		}
+	},
+
+	16:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			Config.TownCheck = true;								// Do go to town for more potions
+		}
+	},
+
+	17:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	18:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	19:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	20:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			Config.LowGold = 10000;
+			Config.FindItem = true;
+		}
+	},
+
+	21:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	22:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	23:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	24:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			Config.Cubing = true;									// Will have a cube by now.
+		}
+	},
+
+	25:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			Config.LowGold = 15000;
+		}
+	},
+
+	26:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	27:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	28:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	29:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	30:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			Config.LowGold = 20000;
+		}
+	},
+
+	31:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	32:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	33:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	34:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	35:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			Config.LowGold = 30000;
+		}
+	},
+
+	36:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	37:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	38:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	39:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	40:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			Config.LowGold = 35000;
+		}
+	},
+
+	41:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	42:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	43:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	44:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	45:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			Config.LowGold = 40000;
+		}
+	},
+
+	46:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	47:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	48:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	49:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	50:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			Config.MPBuffer = 0;									// Shouldn't be AutoSmurfing anymore.
+			Config.BeltColumn = ["hp", "hp", "mp", "rv"];			// Regular potion settings
+			Config.MinColumn = [3, 3, 3, 0];						// Regular potion settings
+			Config.LowGold = 45000;
+		}
+	},
+
+	51:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	52:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	53:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	54:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	55:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			Config.LowGold = 50000;
+		}
+	},
+
+	56:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	57:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	58:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	59:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	60:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			Config.LowGold = 55000;
+		}
+	},
+
+	61:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	62:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	63:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	64:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	65:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			Config.LowGold = 60000;
+		}
+	},
+
+	66:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	67:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	68:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	69:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	70:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			Config.LowGold = 100000;
+
+		}
+	},
+
+	71:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	72:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	73:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	74:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	75:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	76:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	77:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	78:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	79:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	80:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+			Config.Gamble = true;									// Time to spend dat ca$h!!
+			Config.ScanShrines = [];
+		}
+	},
+
+	81:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	82:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	83:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	84:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	85:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	86:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	87:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	88:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	89:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	90:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	91:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	92:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	93:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	94:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	95:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	96:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	97:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	98:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	},
+
+	99:	{
+		SkillPoints: [-1],
+		StatPoints: [-1, -1, -1, -1, -1],
+		Update: function () {
+
+		}
+	}
 };
