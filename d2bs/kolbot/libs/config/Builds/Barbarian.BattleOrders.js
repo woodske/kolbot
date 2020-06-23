@@ -148,13 +148,14 @@ var AutoBuildTemplate = {
 
 			//---------------------- Runewords ------------------
 
-			var runewordItem, runewordEquipment;
+			var runewordItem, runewordEquipment, merc;
 
 			// Insight
 			runewordEquipment = ["poleaxe", "halberd", "bill", "battlescythe", "partizan", "becdecorbin", "thresher", "crypticaxe", "greatpoleaxe", "colossusvoulge"];
+			merc = me.getMerc();
 
-			if (me.getMerc()) {
-				runewordItem = me.getMerc().getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Insight")))[0];
+			if (merc.itemcount > 0) {
+				runewordItem = merc.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Insight")))[0];
 			} else {
 				runewordItem = false;
 			}

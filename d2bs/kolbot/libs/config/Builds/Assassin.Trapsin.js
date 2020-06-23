@@ -70,10 +70,12 @@ var AutoBuildTemplate = {
 			Config.UseBoS 			= false;
 			Config.UseTraps 		= true;
 			Config.Dodge 			= false;
+			Config.UseCloakofShadows = false;
 
 			//---------------------- Attacks ------------------
 			Config.AutoSkill.Enabled	= true; // Enable or disable AutoSkill system
 			Config.AutoSkill.Build 	= [
+				[261, 20, false], // Charged Bolt Sentry
 				[268, 1, false], // Shadow Warrior
 				[267, 1, false], // Fade
 				[276, 20, false], // Max Death Sentry
@@ -172,13 +174,14 @@ var AutoBuildTemplate = {
 
 			//---------------------- Runewords ------------------
 
-			var runewordItem, runewordEquipment;
+			var runewordItem, runewordEquipment, merc;
 
 			// Insight
 			runewordEquipment = ["poleaxe", "halberd", "bill", "battlescythe", "partizan", "becdecorbin", "thresher", "crypticaxe", "greatpoleaxe", "colossusvoulge"];
+			merc = me.getMerc();
 
-			if (me.getMerc()) {
-				runewordItem = me.getMerc().getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Insight")))[0];
+			if (merc.itemcount > 0) {
+				runewordItem = merc.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Insight")))[0];
 			} else {
 				runewordItem = false;
 			}

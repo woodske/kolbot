@@ -99,6 +99,18 @@ var AutoBuildTemplate = {
 				Config.LowManaSkill = [0, 0];
 			}
 
+			//---------------------- Stats ------------------
+			Config.AutoStat.Enabled = true; // Enable or disable AutoStat system
+			Config.AutoStat.Build 	= [
+				["vitality", 20],
+				["strength", 20], // Hard leather armor
+				["vitality", 50],
+				["strength", 47], // Kite shield
+				["vitality", 200],
+				["strength", 156], // Monarch
+				["vitality", "all"], // put rest of the points in vitality
+			];
+
 			// All followers
 			Scripts.Follower        = true;
 			Config.Leader           = "Bindle-sorc";
@@ -136,13 +148,14 @@ var AutoBuildTemplate = {
 
 			//---------------------- Runewords ------------------
 
-			var runewordItem, runewordEquipment;
+			var runewordItem, runewordEquipment, merc;
 
 			// Insight
 			runewordEquipment = ["poleaxe", "halberd", "bill", "battlescythe", "partizan", "becdecorbin", "thresher", "crypticaxe", "greatpoleaxe", "colossusvoulge"];
+			merc = me.getMerc();
 
-			if (me.getMerc()) {
-				runewordItem = me.getMerc().getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Insight")))[0];
+			if (merc.itemcount > 0) {
+				runewordItem = merc.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Insight")))[0];
 			} else {
 				runewordItem = false;
 			}
