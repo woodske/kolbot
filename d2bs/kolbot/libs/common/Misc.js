@@ -761,6 +761,7 @@ var Item = {
 		return bodyLocMerc;
 	},
 
+	// Returns false if item is of lower tier than the item equipped.
 	autoEquipCheck: function (item) {
 		if (!Config.AutoEquip) {
 			return true;
@@ -768,46 +769,31 @@ var Item = {
 
 		var i,
 			tier = NTIP.GetTier(item),
-			bodyLoc = this.getBodyLoc(item);
+			bodyLoc = this.getBodyLoc(item),
+			mercTier = NTIP.GetMercTier(item),
+			mercBodyLoc = this.getBodyLocMerc(item),
+			color = Pickit.itemColor(item);
 
 		if (tier > 0 && bodyLoc) {
 			for (i = 0; i < bodyLoc.length; i += 1) {
 				// Low tier items shouldn't be kept if they can't be equipped
-				if (tier > this.getEquippedItem(bodyLoc[i]).tier && (this.canEquip(item) || !item.getFlag(0x10))) {
+				var oldTier = this.getEquippedItem(bodyLoc[i]).tier;
+
+				if (tier > oldTier && (this.canEquip(item) || !item.getFlag(0x10))) {
+					print("\xFFc8AutoEquip :: New item: " + color + item.name + " (new: " + mercTier + ", old: " + oldTier + ")");
+
 					return true;
 				}
 			}
 		}
 
-		// Sell/ignore low tier items, keep high tier
-		if (tier > 0 && tier < 100) {
-			return false;
-		}
-
-		return true;
-	},
-
-	autoEquipCheckMerc: function (item) {
-		if (!Config.AutoEquip) {
-			return true;
-		}
-
-		// if (Config.AutoEquip && !me.getMerc()) {
-		// 	return false;
-		// }
-
-		var i,
-			tier = NTIP.GetMercTier(item),
-			color = Pickit.itemColor(item),
-			bodyLoc = this.getBodyLocMerc(item);
-
-		if (tier > 0 && bodyLoc) {
-			for (i = 0; i < bodyLoc.length; i += 1) {
+		if (mercTier > 0 && mercBodyLoc) {
+			for (i = 0; i < mercBodyLoc.length; i += 1) {
 				// Low tier items shouldn't be kept if they can't be equipped
-				var oldTier = this.getEquippedItemMerc(bodyLoc[i]).tier;
+				var oldTierMerc = this.getEquippedItemMerc(mercBodyLoc[i]).tier;
 
-				if (tier > oldTier && (this.canEquipMerc(item) || !item.getFlag(0x10))) {
-					print("\xFFc8MercAutoEquip :: New merc item: " + color + item.name + " (new: " + tier + ", old: " + oldTier + ")");
+				if (mercTier > oldTierMerc && (this.canEquipMerc(item) || !item.getFlag(0x10))) {
+					print("\xFFc8MercAutoEquip :: New merc item: " + color + item.name + " (new: " + mercTier + ", old: " + oldTierMerc + ")");
 
 					return true;
 				}
@@ -819,8 +805,47 @@ var Item = {
 			return false;
 		}
 
+		if (mercTier > 0 && mercTier < 100) {
+			return false;
+		}
+
 		return true;
 	},
+
+	// autoEquipCheckMerc: function (item) {
+	// 	if (!Config.AutoEquip) {
+	// 		return true;
+	// 	}
+
+	// 	// if (Config.AutoEquip && !me.getMerc()) {
+	// 	// 	return false;
+	// 	// }
+
+	// 	var i,
+	// 		tier = NTIP.GetMercTier(item),
+	// 		color = Pickit.itemColor(item),
+	// 		bodyLoc = this.getBodyLocMerc(item);
+
+	// 	if (tier > 0 && bodyLoc) {
+	// 		for (i = 0; i < bodyLoc.length; i += 1) {
+	// 			// Low tier items shouldn't be kept if they can't be equipped
+	// 			var oldTier = this.getEquippedItemMerc(bodyLoc[i]).tier;
+
+	// 			if (tier > oldTier && (this.canEquipMerc(item) || !item.getFlag(0x10))) {
+	// 				print("\xFFc8MercAutoEquip :: New merc item: " + color + item.name + " (new: " + tier + ", old: " + oldTier + ")");
+
+	// 				return true;
+	// 			}
+	// 		}
+	// 	}
+
+	// 	// Sell/ignore low tier items, keep high tier
+	// 	if (tier > 0 && tier < 100) {
+	// 		return false;
+	// 	}
+
+	// 	return true;
+	// },
 
 	// returns true if the item should be kept+logged, false if not
 	autoEquip: function () {
