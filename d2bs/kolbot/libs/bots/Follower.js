@@ -171,6 +171,8 @@ function Follower() {
 			return false;
 		}
 
+		npc = getUnit(1);
+
 		if (npc) {
 			do {
 				if (npc.name.replace(/ /g, "").toLowerCase().indexOf(name) > -1) {
@@ -623,6 +625,11 @@ function Follower() {
 
 			if (attack) {
 				Attack.clear(20, false, false, false, true);
+
+				if (me.classid === 4 && rand(1, 100) < 5) {
+					Precast.doPrecast(true);
+				}
+
 				Pickit.pickItems();
 				this.openContainers(20);
 				this.pickPotions(20);
