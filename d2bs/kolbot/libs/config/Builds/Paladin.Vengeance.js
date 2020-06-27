@@ -27,34 +27,7 @@ js_strict(true);
 if (!isIncluded("common/Cubing.js")) { include("common/Cubing.js"); };
 if (!isIncluded("common/Prototypes.js")) { include("common/Prototypes.js"); };
 if (!isIncluded("common/Runewords.js")) { include("common/Runewords.js"); };
-
-/*
-	runeword: Array of numbers (i.e. Runeword.Insight)
-	equipment: Array of strings (i.e. ["poleaxe", "halberd"])
-*/
-var stopMakingRuneword = function(runeword, equipment) {
-
-	for (var i = 0; i < Config.Runewords.length; i++) {
-		if (Config.Runewords[i][0] === runeword) {
-			for (var j = 0; j < equipment.length; j++) {
-				if (Config.Runewords[i][1] === equipment[j]) {
-					Config.Runewords.splice(i, 1);
-				}
-			}
-		}
-	}
-}
-
-/*
-	runeword: Array of numbers (i.e. Runeword.Insight)
-	equipment: Array of strings (i.e. ["poleaxe", "halberd"])
-*/
-var makeRuneword = function(runeword, equipment) {
-
-	for (var i = 0; i < equipment.length; i++) {
-		Config.Runewords.push([runeword, equipment[i]]);
-	}
-}
+if (!isIncluded("common/AutoBuildHelper.js")) { include("common/AutoBuildHelper.js"); };
 
 var AutoBuildTemplate = {
 
@@ -70,11 +43,11 @@ var AutoBuildTemplate = {
 			//---------------------- Attacks ------------------
 			Config.AutoSkill.Enabled	= true; // Enable or disable AutoSkill system
 			Config.AutoSkill.Build 	= [
-				[117, 1, false], // Holy Shield
 				[123, 1, false], // Conviction
 				[111, 1, false], // Vengeance
-				[123, 20, false], // Max Conviction
-				[111, 20, true], // Max Vengeance -- hold skill points until this is maxed
+				[117, 1, false], // Holy Shield
+				[111, 20, false], // Max Vengeance
+				[123, 20, true], // Max Conviction -- hold skill points until this is maxed
 				[110, 10, false], // Resist Lightning
 				[100, 10, false], // Resist Fire
 				[110, 20, false], // Max Resist Lightning
@@ -82,19 +55,22 @@ var AutoBuildTemplate = {
 				[105, 20, false], // Max Resist Cold
 			];
 
-			if (me.getSkill(123, 1)) { // Conviction
+			if (AutoBuildHelper.hasSkill(123)) { // Conviction
 				Config.AttackSkill 	= [-1, 111, 123, 111, 123, -1, -1];
 				Config.LowManaSkill	= [-1, -1];
-			} else if (me.getSkill(114, 1)) { // Holy Freeze
+			} else if (AutoBuildHelper.hasSkill(111)) { // Vengeance
 				Config.AttackSkill 	= [-1, 111, 114, 111, 114, -1, -1];
 				Config.LowManaSkill = [0, 114];
-			} else if (me.getSkill(106, 1)) { // Zeal
+			} else if (AutoBuildHelper.hasSkill(114)) { // Holy Freeze
+				Config.AttackSkill 	= [-1, 106, 114, 106, 114, -1, -1];
+				Config.LowManaSkill = [0, 114];
+			} else if (AutoBuildHelper.hasSkill(106)) { // Zeal
 				Config.AttackSkill 	= [-1, 106, 102, 106, 102, -1, -1];
 				Config.LowManaSkill = [0, 102];
-			} else if (me.getSkill(102, 1)) { // Holy Fire
+			} else if (AutoBuildHelper.hasSkill(102)) { // Holy Fire
 				Config.AttackSkill 	= [-1, 0, 102, 0, 102, -1, -1];
 				Config.LowManaSkill = [0, 102];
-			} else if (me.getSkill(98, 1)) { // Might
+			} else if (AutoBuildHelper.hasSkill(98)) { // Might
 				Config.AttackSkill 	= [-1, 0, 98, 0, 98, -1, -1];
 				Config.LowManaSkill = [0, 98];
 			} else {
@@ -157,7 +133,7 @@ var AutoBuildTemplate = {
 			runewordEquipment = ["poleaxe", "halberd", "bill", "battlescythe", "partizan", "becdecorbin", "thresher", "crypticaxe", "greatpoleaxe", "colossusvoulge"];
 			merc = me.getMerc();
 
-			if (merc.itemcount > 0) {
+			if (merc && merc.itemcount > 0) {
 				runewordItem = merc.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Insight")))[0];
 			} else {
 				runewordItem = false;
@@ -165,9 +141,9 @@ var AutoBuildTemplate = {
 
 			if (runewordItem) {
 				print('No longer making Insight');
-				stopMakingRuneword(Runeword.Insight, runewordEquipment);
+				AutoBuildHelper.stopMakingRuneword(Runeword.Insight, runewordEquipment);
 			} else {
-				makeRuneword(Runeword.Insight, runewordEquipment);
+				AutoBuildHelper.makeRuneword(Runeword.Insight, runewordEquipment);
 				Config.KeepRunewords.push("[type] == polearm # [meditationaura] <= 17");
 			}
 
@@ -177,9 +153,9 @@ var AutoBuildTemplate = {
 
 			if (runewordItem) {
 				print('No longer making Smoke');
-				stopMakingRuneword(Runeword.Smoke, runewordEquipment);
+				AutoBuildHelper.stopMakingRuneword(Runeword.Smoke, runewordEquipment);
 			} else {
-				makeRuneword(Runeword.Smoke, runewordEquipment);
+				AutoBuildHelper.makeRuneword(Runeword.Smoke, runewordEquipment);
 				Config.KeepRunewords.push("[type] == armor # [FireResist] == 50 && [LightResist] == 50");
 			}
 
@@ -189,9 +165,9 @@ var AutoBuildTemplate = {
 
 			if (runewordItem) {
 				print("No longer making Ancients' Pledge");
-				stopMakingRuneword(Runeword.AncientsPledge, runewordEquipment);
+				AutoBuildHelper.stopMakingRuneword(Runeword.AncientsPledge, runewordEquipment);
 			} else {
-				makeRuneword(Runeword.AncientsPledge, runewordEquipment);
+				AutoBuildHelper.makeRuneword(Runeword.AncientsPledge, runewordEquipment);
 				Config.KeepRunewords.push("[type] == auricshields # [FireResist] >= 40 && [LightResist] >= 40 ");
 			}
 
@@ -201,9 +177,9 @@ var AutoBuildTemplate = {
 
 			if (runewordItem) {
 				print("No longer making Lore");
-				stopMakingRuneword(Runeword.Lore, runewordEquipment);
+				AutoBuildHelper.stopMakingRuneword(Runeword.Lore, runewordEquipment);
 			} else {
-				makeRuneword(Runeword.Lore, runewordEquipment);
+				AutoBuildHelper.makeRuneword(Runeword.Lore, runewordEquipment);
 				Config.KeepRunewords.push("[type] == helm # [LightResist] >= 25");
 			}
 		}

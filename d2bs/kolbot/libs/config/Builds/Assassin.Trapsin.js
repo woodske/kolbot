@@ -26,34 +26,7 @@ js_strict(true);
 if (!isIncluded("common/Cubing.js")) { include("common/Cubing.js"); };
 if (!isIncluded("common/Prototypes.js")) { include("common/Prototypes.js"); };
 if (!isIncluded("common/Runewords.js")) { include("common/Runewords.js"); };
-
-/*
-	runeword: Array of numbers (i.e. Runeword.Insight)
-	equipment: Array of strings (i.e. ["poleaxe", "halberd"])
-*/
-var stopMakingRuneword = function(runeword, equipment) {
-
-	for (var i = 0; i < Config.Runewords.length; i++) {
-		if (Config.Runewords[i][0] === runeword) {
-			for (var j = 0; j < equipment.length; j++) {
-				if (Config.Runewords[i][1] === equipment[j]) {
-					Config.Runewords.splice(i, 1);
-				}
-			}
-		}
-	}
-};
-
-/*
-	runeword: Array of numbers (i.e. Runeword.Insight)
-	equipment: Array of strings (i.e. ["poleaxe", "halberd"])
-*/
-var makeRuneword = function(runeword, equipment) {
-
-	for (var i = 0; i < equipment.length; i++) {
-		Config.Runewords.push([runeword, equipment[i]]);
-	}
-};
+if (!isIncluded("common/AutoBuildHelper.js")) { include("common/AutoBuildHelper.js"); };
 
 var AutoBuildTemplate = {
 
@@ -75,7 +48,7 @@ var AutoBuildTemplate = {
 			//---------------------- Attacks ------------------
 			Config.AutoSkill.Enabled	= true; // Enable or disable AutoSkill system
 			Config.AutoSkill.Build 	= [
-				[261, 20, false], // Charged Bolt Sentry
+				[261, 1, false], // Charged Bolt Sentry
 				[268, 1, false], // Shadow Warrior
 				[267, 1, false], // Fade
 				[276, 20, false], // Max Death Sentry
@@ -85,35 +58,35 @@ var AutoBuildTemplate = {
 				[251, 20, false], // Max Fire Blast
 			];
 
-			if (me.getSkill(267, 1)) {
+			if (AutoBuildHelper.hasSkill(267)) {
 				Config.UseFade = true;
 			}
 
-			if (me.getSkill(268, 1)) {
+			if (AutoBuildHelper.hasSkill(268)) {
 				Config.SummonShadow = "Warrior";
 			}
 
-			if (me.getSkill(276, 1)) {
+			if (AutoBuildHelper.hasSkill(276)) {
 				Config.AttackSkill 	= [-1, 256, 251, 256, 251, 251, -1];
 				Config.Traps 		= [276, 276, 271, 271, 271];
 				Config.BossTraps 	= [271, 271, 271, 271, 271];
 				Config.LowManaSkill	= [-1, -1];
-			} else if (me.getSkill(271, 1)) {
+			} else if (AutoBuildHelper.hasSkill(271)) {
 				Config.AttackSkill 	= [-1, 256, 251, 256, 251, 251, -1];
 				Config.Traps 		= [271, 271, 271, 271, 271];
 				Config.BossTraps 	= [271, 271, 271, 271, 271];
 				Config.LowManaSkill	= [-1, -1];
-			} else if (me.getSkill(261, 1)) {
+			} else if (AutoBuildHelper.hasSkill(261)) {
 				Config.AttackSkill 	= [-1, 256, 251, 256, 251, 251, -1];
 				Config.Traps 		= [261, 261, 261, -1, -1];
 				Config.BossTraps 	= [261, 261, 261, 261, 261];
 				Config.LowManaSkill	= [-1, -1];
-			} else if (me.getSkill(256, 1)) {
+			} else if (AutoBuildHelper.hasSkill(256)) {
 				Config.AttackSkill 	= [-1, 256, 251, 256, 251, 251, -1];
 				Config.Traps 		= [-1, -1, -1, -1, -1];
 				Config.BossTraps 	= [-1, -1, -1, -1, -1];
 				Config.LowManaSkill = [0, 0];
-			} else if (me.getSkill(251, 1)) {
+			} else if (AutoBuildHelper.hasSkill(251)) {
 				Config.AttackSkill 	= [-1, 251, -1, 251, -1, -1, -1];
 				Config.Traps 		= [-1, -1, -1, -1, -1];
 				Config.BossTraps 	= [-1, -1, -1, -1, -1];
@@ -159,7 +132,7 @@ var AutoBuildTemplate = {
 			Config.LogLowRunes      = true;
 			Config.LogMiddleRunes   = true;
 			Config.LocalChat.Enabled = true;                        // enable the LocalChat system
-		        Config.LocalChat.Mode   = 2;                            // 0 = disabled, 1 = chat from 'say' (recommended), 2 = all chat (for manual play)
+		    Config.LocalChat.Mode   = 2;                            // 0 = disabled, 1 = chat from 'say' (recommended), 2 = all chat (for manual play)
 
 			Config.Inventory[0] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 			Config.Inventory[1] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
@@ -180,7 +153,7 @@ var AutoBuildTemplate = {
 			runewordEquipment = ["poleaxe", "halberd", "bill", "battlescythe", "partizan", "becdecorbin", "thresher", "crypticaxe", "greatpoleaxe", "colossusvoulge"];
 			merc = me.getMerc();
 
-			if (merc.itemcount > 0) {
+			if (merc && merc.itemcount > 0) {
 				runewordItem = merc.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Insight")))[0];
 			} else {
 				runewordItem = false;
@@ -188,9 +161,9 @@ var AutoBuildTemplate = {
 
 			if (runewordItem) {
 				print('No longer making Insight');
-				stopMakingRuneword(Runeword.Insight, runewordEquipment);
+				AutoBuildHelper.stopMakingRuneword(Runeword.Insight, runewordEquipment);
 			} else {
-				makeRuneword(Runeword.Insight, runewordEquipment);
+				AutoBuildHelper.makeRuneword(Runeword.Insight, runewordEquipment);
 				Config.KeepRunewords.push("[type] == polearm # [meditationaura] <= 17");
 			}
 
@@ -200,9 +173,9 @@ var AutoBuildTemplate = {
 
 			if (runewordItem) {
 				print('No longer making Smoke');
-				stopMakingRuneword(Runeword.Smoke, runewordEquipment);
+				AutoBuildHelper.stopMakingRuneword(Runeword.Smoke, runewordEquipment);
 			} else {
-				makeRuneword(Runeword.Smoke, runewordEquipment);
+				AutoBuildHelper.makeRuneword(Runeword.Smoke, runewordEquipment);
 				Config.KeepRunewords.push("[type] == armor # [FireResist] == 50 && [LightResist] == 50");
 			}
 
@@ -212,9 +185,9 @@ var AutoBuildTemplate = {
 
 			if (runewordItem) {
 				print("No longer making Ancients' Pledge");
-				stopMakingRuneword(Runeword.AncientsPledge, runewordEquipment);
+				AutoBuildHelper.stopMakingRuneword(Runeword.AncientsPledge, runewordEquipment);
 			} else {
-				makeRuneword(Runeword.AncientsPledge, runewordEquipment);
+				AutoBuildHelper.makeRuneword(Runeword.AncientsPledge, runewordEquipment);
 				Config.KeepRunewords.push("[type] == shield # [FireResist] >= 40 && [LightResist] >= 40 ");
 			}
 
@@ -224,9 +197,9 @@ var AutoBuildTemplate = {
 
 			if (runewordItem) {
 				print("No longer making Lore");
-				stopMakingRuneword(Runeword.Lore, runewordEquipment);
+				AutoBuildHelper.stopMakingRuneword(Runeword.Lore, runewordEquipment);
 			} else {
-				makeRuneword(Runeword.Lore, runewordEquipment);
+				AutoBuildHelper.makeRuneword(Runeword.Lore, runewordEquipment);
 				Config.KeepRunewords.push("[type] == helm # [LightResist] >= 25");
 			}
 
@@ -236,9 +209,9 @@ var AutoBuildTemplate = {
 
 			if (runewordItem) {
 				print("No longer making Spirit sword");
-				stopMakingRuneword(Runeword.Spirit, runewordEquipment);
+				AutoBuildHelper.stopMakingRuneword(Runeword.Spirit, runewordEquipment);
 			} else {
-				makeRuneword(Runeword.Spirit, runewordEquipment);
+				AutoBuildHelper.makeRuneword(Runeword.Spirit, runewordEquipment);
 				Config.KeepRunewords.push("[type] == sword # [itemallskills] == 2");
 			}
 
@@ -248,9 +221,9 @@ var AutoBuildTemplate = {
 
 			if (runewordItem) {
 				print("No longer making Spirit shield");
-				stopMakingRuneword(Runeword.Spirit, runewordEquipment);
+				AutoBuildHelper.stopMakingRuneword(Runeword.Spirit, runewordEquipment);
 			} else {
-				makeRuneword(Runeword.Spirit, runewordEquipment);
+				AutoBuildHelper.makeRuneword(Runeword.Spirit, runewordEquipment);
 				Config.KeepRunewords.push("[type] == shield || [type] == auricshields # [fcr] <= 35");
 			}
 		}

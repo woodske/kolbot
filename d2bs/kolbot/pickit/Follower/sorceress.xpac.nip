@@ -142,7 +142,6 @@
 [type] == armor && [quality] == rare # [maxhp]+[maxmana] >= 60 && [fireresist]+[lightresist]+[coldresist] >= 20 && [strength] >= 6 # [tier] == 8
 [type] == armor && [quality] == rare # [maxhp]+[maxmana] >= 70 && [fireresist]+[lightresist]+[coldresist] >= 20 && [strength] >= 6 # [tier] == 9
 [type] == armor && [quality] == rare # [maxhp]+[maxmana] >= 80 && [fireresist]+[lightresist]+[coldresist] >= 20 && [strength] >= 6 # [tier] == 10
-[name] == cuirass && [quality] == unique && [flag] != ethereal # # [tier] == 11
 [name] == mageplate && [quality] == unique && [flag] != ethereal # # [tier] == 12
 [name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # # [tier] == 13
 [name] == russetarmor && [quality] == unique && [flag] != ethereal # # [tier] == 14

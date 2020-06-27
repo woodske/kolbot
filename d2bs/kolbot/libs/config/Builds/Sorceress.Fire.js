@@ -21,7 +21,7 @@
 	Config.AttackSkill[4] = -1; // Primary untimed skill to others. Keep at -1 if Config.AttackSkill[3] is untimed skill.
 	Config.AttackSkill[5] = -1; // Secondary skill if monster is immune to primary.
 	Config.AttackSkill[6] = -1; // Secondary untimed skill if monster is immune to primary untimed.
-	
+
 	Config.LowManaSkill[0] = -1; // Timed low mana skill.
 	Config.LowManaSkill[1] = -1; // Untimed low mana skill.
 */
@@ -31,34 +31,7 @@ if (!isIncluded("common/Cubing.js")) { include("common/Cubing.js"); };
 if (!isIncluded("common/Prototypes.js")) { include("common/Prototypes.js"); };
 if (!isIncluded("common/Runewords.js")) { include("common/Runewords.js"); };
 if (!isIncluded("common/Town.js")) { include("common/Town.js"); };
-
-/*
-	runeword: Array of numbers (i.e. Runeword.Insight)
-	equipment: Array of strings (i.e. ["poleaxe", "halberd"])
-*/
-var stopMakingRuneword = function(runeword, equipment) {
-	
-	for (var i = 0; i < Config.Runewords.length; i++) {
-		if (Config.Runewords[i][0] === runeword) {
-			for (var j = 0; j < equipment.length; j++) {
-				if (Config.Runewords[i][1] === equipment[j]) {
-					Config.Runewords.splice(i, 1);					
-				}
-			}	
-		}		
-	}
-}
-
-/*
-	runeword: Array of numbers (i.e. Runeword.Insight)
-	equipment: Array of strings (i.e. ["poleaxe", "halberd"])
-*/
-var makeRuneword = function(runeword, equipment) {
-	
-	for (var i = 0; i < equipment.length; i++) {
-		Config.Runewords.push([runeword, equipment[i]]);
-	}
-}
+if (!isIncluded("common/AutoBuildHelper.js")) { include("common/AutoBuildHelper.js"); };
 
 var AutoBuildTemplate = {
 
@@ -69,20 +42,20 @@ var AutoBuildTemplate = {
 
 			// Class specific
 			Config.PickitFiles.push("Follower/sorceress.xpac.nip");
-				
+
 			Config.NoTele			= true;
 			Config.Dodge			= false;
 			Config.CastStatic 		= 60; // Cast static until the target is at designated life percent. 100 = disabled.
-			Config.StaticList 		= ["Diablo", "Duriel", "Baal", "Mephisto", "Andariel"]; 
+			Config.StaticList 		= ["Diablo", "Duriel", "Baal", "Mephisto", "Andariel"];
 
 			//---------------------- Attacks ------------------
 			Config.AutoSkill.Enabled	= true; // Enable or disable AutoSkill system
 			Config.AutoSkill.Build 	= [
+				[56, 1, false], // Meteor
 				[37, 1, false], // Warmth
 				[40, 1, false], // Frozen Armor
 				[42, 1, false], // Static Field
 				[54, 1, false], // Teleport
-				[56, 1, false], // Meteor
 				[61, 1, false], // Fire Mastery
 				[47, 20, false], // Max Fire Ball
 				[61, 20, false], // Max Fire Mastery
@@ -91,10 +64,10 @@ var AutoBuildTemplate = {
 				[41, 20, false] // Max Inferno
 			];
 
-			if (me.getSkill(56, 1)) {
+			if (AutoBuildHelper.hasSkill(56)) {
 				Config.AttackSkill = [-1, 56, 47, 56, 47, -1, -1];
 				Config.LowManaSkill	= [-1, -1];
-			} else if (me.getSkill(47, 1)) {
+			} else if (AutoBuildHelper.hasSkill(47)) {
 				Config.AttackSkill = [-1, 47, -1, 47, -1, -1, -1];
 				Config.LowManaSkill = [0, 0];
 			} else {
@@ -121,17 +94,17 @@ var AutoBuildTemplate = {
 			// All followers
 			Scripts.Follower        = true;
 			Config.Leader           = "Bindle-sorc";
-			Config.QuitList         = ["Bindle-sorc"];				
+			Config.QuitList         = ["Bindle-sorc"];
 			Config.AutoEquip        = true;
 			Config.TownCheck		= false;						// Don't go to town for more potions
 			Config.UseMerc 			= true;
 			Config.PacketShopping 	= true;
-			Config.PacketCasting    = 2; 
+			Config.PacketCasting    = 2;
 			Config.ClearType        = 0;                            // Monster spectype to kill in level clear scripts (0 = all)
 			Config.LowGold			= 1000;
 			Config.StashGold 		= 500;
 			Config.OpenChests		= true; 						// Open chests. Controls key buying.
-			Config.ScanShrines		= [15, 13, 12, 14, 7, 6, 2, 1];	
+			Config.ScanShrines		= [15, 13, 12, 14, 7, 6, 2, 1];
 			Config.BeltColumn		= ["hp", "hp", "hp", "mp"];		// Keep tons of health potions!
 			Config.MinColumn 		= [1, 1, 1, 1];
 			Config.Cubing           = false;                        // Don't cube yet!
@@ -148,8 +121,8 @@ var AutoBuildTemplate = {
 			Config.Inventory[2] = [1,1,1,1,1,1,1,1,1,1];
 			Config.Inventory[3] = [1,1,1,1,1,1,1,1,1,1];
 
-			//---------------------- Pickit ------------------           
-				
+			//---------------------- Pickit ------------------
+
 			Config.PickitFiles.push("Follower/misc.nip");
 			Config.PickitFiles.push("Follower/rwbase-other.nip");
 			Config.PickitFiles.push("Follower/rwbase-shield.nip");
@@ -158,7 +131,7 @@ var AutoBuildTemplate = {
 			Config.PickitFiles.push("earlyLadder.nip");
 
 			//---------------------- Runewords ------------------
-				
+
 			var runewordItem, runewordEquipment, merc;
 
 			// Stealth
@@ -167,87 +140,87 @@ var AutoBuildTemplate = {
 
 			if (runewordItem) {
 				print('No longer making Stealth');
-				stopMakingRuneword(Runeword.Stealth, runewordEquipment);
+				AutoBuildHelper.stopMakingRuneword(Runeword.Stealth, runewordEquipment);
 			} else {
-				makeRuneword(Runeword.Stealth, runewordEquipment);
+				AutoBuildHelper.makeRuneword(Runeword.Stealth, runewordEquipment);
 				Config.KeepRunewords.push("[type] == armor # [frw] == 25 && [fcr] == 25");
 			}
-				
+
 			// Insight
 			runewordEquipment = ["poleaxe", "halberd", "bill", "battlescythe", "partizan", "becdecorbin", "thresher", "crypticaxe", "greatpoleaxe", "colossusvoulge"];
 			merc = me.getMerc();
 
-			if (merc.itemcount > 0) {
+			if (merc && merc.itemcount > 0) {
 				runewordItem = merc.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Insight")))[0];
 			} else {
 				runewordItem = false;
 			}
-							
+
 			if (runewordItem) {
 				print('No longer making Insight');
-				stopMakingRuneword(Runeword.Insight, runewordEquipment);
+				AutoBuildHelper.stopMakingRuneword(Runeword.Insight, runewordEquipment);
 			} else {
-				makeRuneword(Runeword.Insight, runewordEquipment);
+				AutoBuildHelper.makeRuneword(Runeword.Insight, runewordEquipment);
 				Config.KeepRunewords.push("[type] == polearm # [meditationaura] <= 17");
 			}
-                
+
 			// Smoke
-			runewordEquipment = ["lightplate", "ghostarmor", "serpentskinarmor", "demonhidearmor", "cuirass", "mageplate", "duskShroud", "wyrmhide", "scarabHusk", "wireFleece", "greatHauberk", "boneweave", "balrogSkin", "archonPlate"]; 	
+			runewordEquipment = ["lightplate", "ghostarmor", "serpentskinarmor", "demonhidearmor", "cuirass", "mageplate", "duskShroud", "wyrmhide", "scarabHusk", "wireFleece", "greatHauberk", "boneweave", "balrogSkin", "archonPlate"];
 			runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Smoke")))[0];
-				
+
 			if (runewordItem) {
 				print('No longer making Smoke');
-				stopMakingRuneword(Runeword.Smoke, runewordEquipment);
+				AutoBuildHelper.stopMakingRuneword(Runeword.Smoke, runewordEquipment);
 			} else {
-				makeRuneword(Runeword.Smoke, runewordEquipment);
+				AutoBuildHelper.makeRuneword(Runeword.Smoke, runewordEquipment);
 				Config.KeepRunewords.push("[type] == armor # [FireResist] == 50 && [LightResist] == 50");
 			}
-                
+
 			// Ancients Pledge
-			runewordEquipment = ["kiteshield", "largeshield", "boneshield"]; 	
+			runewordEquipment = ["kiteshield", "largeshield", "boneshield"];
 			runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Ancients' Pledge")))[0];
-							
+
 			if (runewordItem) {
 				print("No longer making Ancients' Pledge");
-				stopMakingRuneword(Runeword.AncientsPledge, runewordEquipment);
+				AutoBuildHelper.stopMakingRuneword(Runeword.AncientsPledge, runewordEquipment);
 			} else {
-				makeRuneword(Runeword.AncientsPledge, runewordEquipment);
+				AutoBuildHelper.makeRuneword(Runeword.AncientsPledge, runewordEquipment);
 				Config.KeepRunewords.push("[type] == shield # [FireResist] >= 40 && [LightResist] >= 40 ");
 			}
 
 			// Lore
-			runewordEquipment = ["cap", "skullcap", "crown", "mask", "bonehelm", "warhat", "grimhelm", "GrandCrown", "Demonhead", "BoneVisage"]; 	
+			runewordEquipment = ["cap", "skullcap", "crown", "mask", "bonehelm", "warhat", "grimhelm", "GrandCrown", "Demonhead", "BoneVisage"];
 			runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Lore")))[0];
-				
+
 			if (runewordItem) {
 				print("No longer making Lore");
-				stopMakingRuneword(Runeword.Lore, runewordEquipment);
+				AutoBuildHelper.stopMakingRuneword(Runeword.Lore, runewordEquipment);
 			} else {
-				makeRuneword(Runeword.Lore, runewordEquipment);
+				AutoBuildHelper.makeRuneword(Runeword.Lore, runewordEquipment);
 				Config.KeepRunewords.push("[type] == helm # [LightResist] >= 25");
 			}
-								
+
 			// Spirit Sword
-			runewordEquipment = ["broadsword", "crystalSword"]; 	
+			runewordEquipment = ["broadsword", "crystalSword"];
 			runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Spirit") && i.itemType === 30))[0]; // itemtype sword
-						
+
 			if (runewordItem) {
 				print("No longer making Spirit sword");
-				stopMakingRuneword(Runeword.Spirit, runewordEquipment);
+				AutoBuildHelper.stopMakingRuneword(Runeword.Spirit, runewordEquipment);
 			} else {
-				makeRuneword(Runeword.Spirit, runewordEquipment);
+				AutoBuildHelper.makeRuneword(Runeword.Spirit, runewordEquipment);
 				Config.KeepRunewords.push("[type] == sword # [itemallskills] == 2");
 			}
 
 			// Spirit Shield
 			runewordEquipment = ["Monarch"];
 			runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Spirit") && i.itemType === 51))[0]; // itemtype anyshield
-					
+
 			if (runewordItem) {
 				print("No longer making Spirit shield");
-				stopMakingRuneword(Runeword.Spirit, runewordEquipment);
+				AutoBuildHelper.stopMakingRuneword(Runeword.Spirit, runewordEquipment);
 			} else {
-				makeRuneword(Runeword.Spirit, runewordEquipment);
+				AutoBuildHelper.makeRuneword(Runeword.Spirit, runewordEquipment);
 				Config.KeepRunewords.push("[type] == shield || [type] == auricshields # [fcr] <= 35");
 			}
 		}
@@ -257,20 +230,20 @@ var AutoBuildTemplate = {
 		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
-			Config.MPBuffer = 8;
+
 		}
 	},
 
 	3:	{	SkillPoints: [-1],
-		StatPoints: [-1, -1, -1, -1, -1],		
+		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
 
 		}
 	},
 
-	4:	{		
+	4:	{
 		SkillPoints: [-1],
-		StatPoints: [-1, -1, -1, -1, -1],	
+		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
 
 		}
@@ -524,7 +497,8 @@ var AutoBuildTemplate = {
 		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
-
+			Config.NoTele			= false;
+			Config.Dodge			= true;
 		}
 	},
 
