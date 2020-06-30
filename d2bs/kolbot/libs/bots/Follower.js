@@ -52,7 +52,8 @@ function Follower() {
 		attack = true,
 		openContainers = true,
 		classes = ["amazon", "sorceress", "necromancer", "paladin", "barbarian", "druid", "assassin"],
-		action = "";
+		action = "",
+		autoPick = true;
 
 	// Change areas to where leader is
 	this.checkExit = function (unit, area) {
@@ -175,7 +176,7 @@ function Follower() {
 
 		if (npc) {
 			do {
-				if (npc.name.replace(/ /g, "").toLowerCase().indexOf(name) > -1) {
+				if (npc.name.toLowerCase().indexOf(name) > -1) {
 					npc.openMenu();
 					me.cancel();
 					Town.move("portalspot");
@@ -624,15 +625,17 @@ function Follower() {
 			}
 
 			if (attack) {
-				Attack.clear(20, false, false, false, true);
+				Attack.clear(20, false, false, false, false);
 
 				if (me.classid === 4 && rand(1, 100) < 5) {
 					Precast.doPrecast(true);
 				}
 
-				Pickit.pickItems();
-				this.openContainers(20);
-				this.pickPotions(20);
+				if (autoPick) {
+					// Pickit.pickItems();
+					this.openContainers(20);
+					this.pickPotions(20);
+				}
 			}
 
 			if (me.classid === 3 && Config.AttackSkill[2] > 0) {
@@ -854,10 +857,20 @@ function Follower() {
 			}
 
 			break;
+
+		case "autopick on":
+			autoPick = true;
+			say('autopick on');
+			break;
+
+		case "autopick off":
+			autoPick = false;
+			say('autopick off');
+			break;
 		}
 
 		if (action.indexOf("talk") > -1) {
-			this.talk(action.split(" ")[1]);
+			this.talk(action.substr(action.indexOf(' ') + 1));
 		}
 
 		action = "";

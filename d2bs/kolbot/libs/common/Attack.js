@@ -472,6 +472,10 @@ var Attack = {
 				return false;
 			}
 
+			if (me.classid === 4 && rand(1, 100) < 5) {
+				Precast.doPrecast(true);
+			}
+
 			//monsterList.sort(Sort.units);
 			monsterList.sort(sortfunc);
 
