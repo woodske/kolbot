@@ -1,21 +1,3 @@
-[name] == gold # [gold] >= 1
-[name] == minorhealingpotion
-[name] == lighthealingpotion
-[name] == healingpotion
-[name] == greaterhealingpotion
-[name] == superhealingpotion
- 
-[name] == minormanapotion
-[name] == lightmanapotion
-[name] == manapotion
-[name] == greatermanapotion
-[name] == supermanapotion
- 
-[name] == rejuvenationpotion
-[name] == fullrejuvenationpotion
-[name] == scrolloftownportal
-[name] == scrollofidentify
-
 // gloves
 [type] == gloves && [flag] != ethereal # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
 [type] == gloves && [quality] == set && [flag] != ethereal # # [tier] == 2
@@ -119,19 +101,6 @@
 [name] == amulet && [quality] == rare # [itemmagicbonus] == 0 && [paladinskills] == 2 && (([strength] > 10 && [strength] <= 15) || ([maxhp] >= 30 && [maxhp] < 40)) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 60 # [tier] == 103 // 15 res all or higher
 [name] == amulet && [quality] == rare # [itemmagicbonus] == 0 && [paladinskills] == 2 && ([strength] > 15 || [maxhp] >= 40) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 60  # [tier] == 104 // 15 res all or higher
 
-//ilvl is high enough for +skills
-[type] == amulet && [quality] == rare # ([palicombatskilltab] > 0 && ([maxhp]+[maxmana] >= 90) || ([maxhp] > 50 && ([strength] > 0 || [fcr] > 0))) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 20 # [tier] == 15
-[type] == amulet && [quality] == rare # ([paladinskills] > 0 && [maxhp]+[maxmana] >= 90) || ([maxhp] > 50 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 20) # [tier] == 16
-[type] == amulet && [quality] == rare # ([palicombatskilltab] > 0 && [maxhp]+[maxmana] >= 110) || ([maxhp] > 55 && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40) # [tier] == 17
-[type] == amulet && [quality] == rare # ([paladinskills] > 0 && [maxhp]+[maxmana] >= 110) || ([maxhp] > 55 && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40) # [tier] == 18
-[type] == amulet && [quality] == rare # ([palicombatskilltab] > 0 || [paladinskills] > 0) && ([maxhp]+[maxmana] >= 130 || ([maxhp] >= 58 && ([strength] > 0 || [fcr] > 0))) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40 # [tier] == 19
-[type] == amulet && [quality] == rare # ([palicombatskilltab] > 0 || [paladinskills] > 0) && ([maxhp]+[maxmana] >= 150 || ([maxhp] >= 58 && ([strength] > 0 || [fcr] > 0)) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40) # [tier] == 20
-//highend
-[type] == amulet && [quality] == rare # ([palicombatskilltab] >= 2 || [paladinskills] > 1) && ([maxhp]+[maxmana] >= 100 || ([maxhp] > 52 && ([strength] > 5 || [fcr] > 5)) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40) # [tier] == 21
-[type] == amulet && [quality] == rare # ([palicombatskilltab] >= 2 || [paladinskills] > 1) && ([maxhp]+[maxmana] >= 110 || ([maxhp] > 52 && ([strength] > 5 || [fcr] > 5))&& [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40) # [tier] == 22
-[type] == amulet && [quality] == rare # ([palicombatskilltab] >= 2 || [paladinskills] > 1) && ([maxhp]+[maxmana] >= 120 || ([maxhp] > 52 && ([strength] > 5 || [fcr] > 5)) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40) # [tier] == 23
-[type] == amulet && [quality] == rare # ([palicombatskilltab] >= 2 || [paladinskills] > 1) && ([maxhp]+[maxmana] >= 130 || ([maxhp] > 52 && ([strength] > 5 || [fcr] > 5)) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40) # [tier] == 24
-[type] == amulet && [quality] == rare # ([palicombatskilltab] >= 2 || [paladinskills] > 1) && ([maxhp]+[maxmana] >= 145 || ([maxhp] > 52 && ([strength] > 5 || [fcr] > 5)) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40) # [tier] == 25
 
 // ring
 
@@ -174,8 +143,9 @@
 [name] == russetarmor && [quality] == unique && [flag] != ethereal # # [tier] == 14
 [name] == mesharmor && [quality] == unique && [flag] != ethereal # # [tier] == 15
 [name] == russetarmor && [quality] == unique && [flag] == ethereal # # [tier] == 16
-[type] == armor && [flag] == runeword # [fireresist] == 50 && [lightresist] == 50 # [tier] == 101
-[type] == armor && [flag] == runeword # [lightresist] >= 60 # [tier] == 102
+
+[type] == armor && [flag] == runeword # [fcr] == 25 && [frw] == 25 # [tier] == 50 // Stealth
+[type] == armor && [flag] == runeword # [fireresist] == 50 && [lightresist] == 50 # [tier] == 51 // Smoke
 
 [name] == cuirass && [quality] == unique && [flag] == ethereal # # [tier] == 103 // Duriel's shell
 
@@ -209,7 +179,7 @@
 [type] == auricshields && [quality] == rare && [flag] != ethereal # [sockets] <= 2 && [fireresist]+[lightresist]+[coldresist] >= 10 && [maxhp] > 29 && ([fbr] == 30 && [strength] >= 6) # [tier] == 9
 [type] == auricshields && [quality] <= superior && [flag] != ethereal # [sockets] <= 2 && ([poisonresist]+[fireresist]+[coldresist]+[lightresist] == 30) && [fbr] == 40 # [tier] == 10
 [type] == auricshields && [flag] == runeword # [itemgoldbonus] == 50 # [tier] == 11 //rhyme
-[type] == auricshields && [flag] == runeword # [fireresist] >= 40 && [lightresist] >= 40 # [maxquantity] == 1 && [tier] == 100 //ancient's pledge
-[type] == auricshields && [flag] == runeword # [fcr] >= 25 && [fhr] >= 55 # [maxquantity] == 1 && [tier] == 101 //spirit
+
+[type] == auricshields && [flag] == runeword # [fireresist] >= 40 && [lightresist] >= 40 # [maxquantity] == 1 && [tier] == 50 // ancient's pledge
 
 [name] == gildedshield && [quality] == unique # [enhanceddefense] >= 150 # [maxquantity] == 1 && [tier] == 101 // herald of zakarum

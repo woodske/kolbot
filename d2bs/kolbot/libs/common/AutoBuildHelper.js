@@ -4,6 +4,13 @@
 *	@desc		follower functions like getting current skills and generating NIP files
 */
 
+js_strict(true);
+
+if (!isIncluded("common/Cubing.js")) { include("common/Cubing.js"); };
+if (!isIncluded("common/Prototypes.js")) { include("common/Prototypes.js"); };
+if (!isIncluded("common/Runewords.js")) { include("common/Runewords.js"); };
+if (!isIncluded("NTItemParser.dbl")) { include("NTItemParser.dbl"); };
+
 var AutoBuildHelper = {
 
 	// Returns true if character has skill
@@ -17,7 +24,7 @@ var AutoBuildHelper = {
 
 	Removes runewords from Config
 	*/
-	stopMakingRuneword: function (runeword, equipment) {
+	unloadRuneword: function (runeword, equipment) {
 
 		for (var i = 0; i < Config.Runewords.length; i++) {
 			if (Config.Runewords[i][0] === runeword) {
@@ -36,10 +43,27 @@ var AutoBuildHelper = {
 
 		Adds runewords to Config
 	*/
-	makeRuneword: function (runeword, equipment) {
+	loadRuneword: function (runeword, equipment) {
 
 		for (var i = 0; i < equipment.length; i++) {
 			Config.Runewords.push([runeword, equipment[i]]);
+		}
+	},
+
+	getBodyLocation: function (itemType) {
+		switch (itemType) {
+		case "helm":
+			return 1;
+		case "armor":
+			return 3;
+		case "weapon":
+			return 4;
+		case "shield":
+			return 5;
+		default:
+			print("Invalid item type");
+
+			return false;
 		}
 	},
 
@@ -71,54 +95,77 @@ var AutoBuildHelper = {
 		return nipFilePath.substring(7, nipFilePath.length);
 	},
 
-	// Determines if character or merc has runeword equipped
-	hasRuneword: function (runeword, isMerc, levelRequired) {
-		var merc,
-			runewordItem = null;
+	// Determines if character should make runeword
+	makeRuneword: function (tierCheck) {
+		var result,
+			charNipFile = tierCheck.charNipFile,
+			mercNipFile = tierCheck.mercNipFile,
+			isMerc = tierCheck.isMerc,
+			tier = tierCheck.tier,
+			bodyLocation = this.getBodyLocation(tierCheck.itemType),
+			itemTier = null;
 
 		if (isMerc) {
-			merc = me.getMerc();
-
-			if (merc && merc.itemcount > 0) {
-				runewordItem = merc.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains(runeword)))[0];
-			}
-		} else {
-			runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains(runeword)))[0];
-		}
-
-		if (levelRequired && runewordItem) {
-			if (runewordItem.lvlreq >= levelRequired) {
-				return true;
+			if (me.getMerc()) {
+				NTIP.OpenFile(mercNipFile, false);
+				itemTier = Item.getEquippedItemMerc(bodyLocation).tier;
 			} else {
 				return false;
 			}
+		} else {
+			NTIP.OpenFile(charNipFile, false);
+			itemTier = Item.getEquippedItem(bodyLocation).tier;
 		}
 
-		return !!runewordItem;
+		if (itemTier < tier) {
+			result = true;
+		} else {
+			result = false;
+		}
+
+		NTIP.Clear();
+
+		return result;
 	},
 
-	handleRunewords: function (nipFileType, runeword, runewordKeep, equipment, nipConfig, forMerc, levelRequired) {
-		var nipFilePath = this.getNipFilePath(nipFileType);
-		var hasRuneword = this.hasRuneword(runeword, forMerc, levelRequired);
+	handleRunewords: function (nipFileName, runewordConfig, nipConfig, tierCheck) {
+		var nipFilePath = this.getNipFilePath(nipFileName);
+		var makeRuneword = this.makeRuneword(tierCheck);
 		var blankFilePath = 'pickit/Follower/blank.nip';
 
-		if (hasRuneword) {
-			print('No longer making ' + runeword);
-			this.stopMakingRuneword(Runeword.Insight, equipment);
+		if (!makeRuneword) {
+			print('No longer making ' + nipFileName);
+			this.unloadRuneword(runewordConfig.runes, runewordConfig.equipment);
 
 			// Remove nip file if it exists
 			if (FileTools.exists(nipFilePath)) {
 				FileTools.remove(nipFilePath);
 			}
 		} else {
-			print('Making ' + runeword);
-			this.makeRuneword(Runeword.Insight, equipment);
-			Config.KeepRunewords.push(runewordKeep);
+			print('Making ' + nipFileName);
+			this.loadRuneword(runewordConfig.runes, runewordConfig.equipment);
+			Config.KeepRunewords.push(runewordConfig.runewordKeep);
 
 			// Generate and populate the nip file
 			if (!FileTools.exists(nipFilePath)) {
 				FileTools.copy(blankFilePath, nipFilePath);
+
+				FileTools.appendText(nipFilePath, "//" + nipFileName + " pickit\n");
 				FileTools.appendText(nipFilePath, this.generateNipFileText(nipConfig));
+
+				// Add items to pickit for recipes
+				FileTools.appendText(nipFilePath, "\n\n//---Recipe pickit---\n");
+
+				for (i = 0; i < runewordConfig.recipePickit.length; i++) {
+					FileTools.appendText(nipFilePath, runewordConfig.recipePickit[i] + "\n");
+				}
+			}
+
+			var i;
+
+			// Load recipes
+			for (i = 0; i < runewordConfig.recipes.length; i++) {
+				Config.Recipes.push(runewordConfig.recipes[i]);
 			}
 
 			Config.PickitFiles.push(this.getPickitFile(nipFilePath));

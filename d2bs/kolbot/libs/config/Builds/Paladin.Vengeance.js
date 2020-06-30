@@ -35,8 +35,12 @@ var AutoBuildTemplate = {
 		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
+			var charPickit = "Follower/paladin-vengeance.xpac.nip";
+			var mercPickit = "Follower/merc.xpac.nip";
+
 			// Class specific
-			Config.PickitFiles.push("Follower/paladin-vengeance.xpac.nip");
+			Config.PickitFiles.push(charPickit);
+			Config.PickitFiles.push(mercPickit);
 
 			Config.Charge 			= false;
 
@@ -119,69 +123,146 @@ var AutoBuildTemplate = {
 			Config.Inventory[2] = [1,1,1,1,1,1,1,1,1,1];
 			Config.Inventory[3] = [1,1,1,1,1,1,1,1,1,1];
 
+			//---------------------- Pickit ------------------
+
 			Config.PickitFiles.push("Follower/misc.nip");
-			Config.PickitFiles.push("Follower/rwbase-other.nip");
-			Config.PickitFiles.push("Follower/rwbase-pallyshield.nip");
-			Config.PickitFiles.push("Follower/merc.xpac.nip");
 			Config.PickitFiles.push("earlyLadder.nip");
 
 			//---------------------- Runewords ------------------
-
-			var runewordItem, runewordEquipment, merc;
-
-			// Insight
-			runewordEquipment = ["poleaxe", "halberd", "bill", "battlescythe", "partizan", "becdecorbin", "thresher", "crypticaxe", "greatpoleaxe", "colossusvoulge"];
-			merc = me.getMerc();
-
-			if (merc && merc.itemcount > 0) {
-				runewordItem = merc.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Insight")))[0];
-			} else {
-				runewordItem = false;
+			// Get corpse and merc to compare items
+			if (me.inTown) {
+				Town.getCorpse();
+				Town.reviveMerc();
 			}
 
-			if (runewordItem) {
-				print('No longer making Insight');
-				AutoBuildHelper.stopMakingRuneword(Runeword.Insight, runewordEquipment);
-			} else {
-				AutoBuildHelper.makeRuneword(Runeword.Insight, runewordEquipment);
-				Config.KeepRunewords.push("[type] == polearm # [meditationaura] <= 17");
-			}
+			var equipment,
+				nipConfig,
+				nipFileName,
+				runewordKeep,
+				runes,
+				tierCheck,
+				runewordConfig;
 
-			// Smoke
-			runewordEquipment = ["lightplate", "ghostarmor", "serpentskinarmor", "demonhidearmor", "cuirass", "mageplate", "duskShroud", "wyrmhide", "scarabHusk", "wireFleece", "greatHauberk", "boneweave", "balrogSkin", "archonPlate"];
-			runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Smoke")))[0];
 
-			if (runewordItem) {
-				print('No longer making Smoke');
-				AutoBuildHelper.stopMakingRuneword(Runeword.Smoke, runewordEquipment);
-			} else {
-				AutoBuildHelper.makeRuneword(Runeword.Smoke, runewordEquipment);
-				Config.KeepRunewords.push("[type] == armor # [FireResist] == 50 && [LightResist] == 50");
-			}
+			// --- Insight ---
+			nipFileName = 'earlyInsight';
+			runewordConfig = {
+				runes: Runeword.Insight,
+				runewordKeep: "[type] == polearm # [meditationaura] <= 17",
+				equipment: ["poleaxe", "halberd", "bill", "battlescythe", "partizan", "becdecorbin", "thresher", "crypticaxe", "greatpoleaxe"],
+				recipes: [[Recipe.Socket.Weapon, "Thresher", Roll.Eth]],
+				recipePickit: ["[name] == thresher && [quality] == normal && [flag] == ethereal # [sockets] == 0 # [maxquantity] == 1"]
+			};
+			nipConfig = {
+				name: ['==', runewordConfig.equipment],
+				type: '[quality] <= superior && [flag] != ethereal # [sockets] == 4 # [MaxQuantity] == 1'
+			};
+			tierCheck = {
+				charNipFile: "pickit/" + charPickit,
+				mercNipFile: "pickit/" + mercPickit,
+				isMerc: true,
+				tier: 50,
+				itemType: "weapon"
+			};
 
-			// Ancients Pledge
-			runewordEquipment = ["targe", "rondache", "aerinshield", "crownshield", "royalshield"];
-			runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Ancients' Pledge")))[0];
+			AutoBuildHelper.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
 
-			if (runewordItem) {
-				print("No longer making Ancients' Pledge");
-				AutoBuildHelper.stopMakingRuneword(Runeword.AncientsPledge, runewordEquipment);
-			} else {
-				AutoBuildHelper.makeRuneword(Runeword.AncientsPledge, runewordEquipment);
-				Config.KeepRunewords.push("[type] == auricshields # [FireResist] >= 40 && [LightResist] >= 40 ");
-			}
+			nipFileName = 'lateInsight';
+			runes = Runeword.Insight;
+			runewordKeep = "[type] == polearm # [meditationaura] <= 17";
+			equipment = ["thresher", "crypticaxe", "greatpoleaxe", "giantthresher"];
+			nipConfig = {
+				name: ['==', equipment],
+				type: '[quality] <= superior && [flag] == ethereal # [sockets] == 4 # [MaxQuantity] == 1'
+			};
+			tierCheck = {
+				charNipFile: "pickit/" + charPickit,
+				mercNipFile: "pickit/" + mercPickit,
+				isMerc: true,
+				tier: 100,
+				itemType: "weapon"
+			};
 
-			// Lore
-			runewordEquipment = ["cap", "skullcap", "crown", "mask", "bonehelm", "warhat", "grimhelm", "GrandCrown", "Demonhead", "BoneVisage"];
-			runewordItem = me.getItems().filter(i => (i.getFlag(0x4000000) && i.fname.contains("Lore")))[0];
+			AutoBuildHelper.handleRunewords(nipFileName, runes, runewordKeep, equipment, nipConfig, tierCheck);
 
-			if (runewordItem) {
-				print("No longer making Lore");
-				AutoBuildHelper.stopMakingRuneword(Runeword.Lore, runewordEquipment);
-			} else {
-				AutoBuildHelper.makeRuneword(Runeword.Lore, runewordEquipment);
-				Config.KeepRunewords.push("[type] == helm # [LightResist] >= 25");
-			}
+
+			// --- Stealth ---
+			nipFileName = 'stealth';
+			runes = Runeword.Stealth;
+			runewordKeep = "[type] == armor # [frw] == 25 && [fcr] == 25";
+			equipment = ["quiltedarmor", "hardleatherarmor", "leatherarmor"];
+			nipConfig = {
+				name: ['==', equipment],
+				type: '[quality] <= superior && [flag] != ethereal # [sockets] == 2 # [MaxQuantity] == 1'
+			};
+			tierCheck = {
+				charNipFile: "pickit/" + charPickit,
+				mercNipFile: "pickit/" + mercPickit,
+				isMerc: false,
+				tier: 50,
+				itemType: "armor"
+			};
+
+			AutoBuildHelper.handleRunewords(nipFileName, runes, runewordKeep, equipment, nipConfig, tierCheck);
+
+
+			// --- Smoke ---
+			nipFileName = 'smoke';
+			runes = Runeword.Smoke;
+			runewordKeep = "[type] == armor # [FireResist] == 50 && [LightResist] == 50";
+			equipment = ["lightplate", "ghostarmor", "serpentskinarmor", "demonhidearmor", "cuirass", "mageplate", "duskShroud", "wyrmhide", "scarabHusk", "wireFleece", "greatHauberk", "boneweave", "balrogSkin", "archonPlate"];
+			nipConfig = {
+				name: ['==', equipment],
+				type: '[quality] <= superior && [flag] != ethereal # [sockets] == 2 # [MaxQuantity] == 1'
+			};
+			tierCheck = {
+				charNipFile: "pickit/" + charPickit,
+				mercNipFile: "pickit/" + mercPickit,
+				isMerc: false,
+				tier: 51,
+				itemType: "armor"
+			};
+
+			AutoBuildHelper.handleRunewords(nipFileName, runes, runewordKeep, equipment, nipConfig, tierCheck);
+
+
+			// --- Ancient's Pledge ---
+			nipFileName = 'ancientspledge';
+			runes = Runeword.AncientsPledge;
+			runewordKeep = "[type] == auricshields && [flag] == runeword # [fireresist] >= 40 && [lightresist] >= 40";
+			equipment = ["targe", "rondache", "aerinshield", "crownshield", "royalshield"];
+			nipConfig = {
+				name: ['==', equipment],
+				type: '[quality] <= superior && [flag] != ethereal # [sockets] == 3 # [MaxQuantity] == 1'
+			};
+			tierCheck = {
+				charNipFile: "pickit/" + charPickit,
+				mercNipFile: "pickit/" + mercPickit,
+				isMerc: false,
+				tier: 50,
+				itemType: "shield"
+			};
+
+			AutoBuildHelper.handleRunewords(nipFileName, runes, runewordKeep, equipment, nipConfig, tierCheck);
+
+			// --- Lore ---
+			nipFileName = 'lore';
+			runes = Runeword.Lore;
+			runewordKeep = "[type] == helm # [LightResist] >= 25";
+			equipment = ["cap", "skullcap", "crown", "mask", "bonehelm", "warhat", "grimhelm", "GrandCrown", "Demonhead", "BoneVisage"];
+			nipConfig = {
+				name: ['==', equipment],
+				type: '[quality] <= superior && [flag] != ethereal # [sockets] == 2 # [MaxQuantity] == 1'
+			};
+			tierCheck = {
+				charNipFile: "pickit/" + charPickit,
+				mercNipFile: "pickit/" + mercPickit,
+				isMerc: false,
+				tier: 50,
+				itemType: "helm"
+			};
+
+			AutoBuildHelper.handleRunewords(nipFileName, runes, runewordKeep, equipment, nipConfig, tierCheck);
 		}
 	},
 
@@ -658,8 +739,26 @@ var AutoBuildTemplate = {
 		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
-			Config.LowGold = 55000;
-			Config.Charge = true;
+			Scripts.Follower = false;
+			Scripts.MFHelper = true;
+			Scripts.DiabloHelper = true; // Chaos helper, kills monsters and doesn't open seals on its own.
+				Config.DiabloHelper.Wait = 120; // Seconds to wait for a runner to be in Chaos. If Config.Leader is set, it will wait only for the leader.
+				Config.DiabloHelper.Entrance = false; // Start from entrance. Set to false to start from star.
+				Config.DiabloHelper.SkipTP = false; // Don't wait for town portal and directly head to chaos. It will clear monsters around chaos entrance and wait for the runner.
+				Config.DiabloHelper.SkipIfBaal = false; // End script if there are party members in a Baal run.
+				Config.DiabloHelper.OpenSeals = false; // Open seals as the helper
+				Config.DiabloHelper.SafePrecast = false; // take random WP to safely precast
+				Config.DiabloHelper.SealOrder = ["vizier", "seis", "infector"]; // the order in which to clear the seals. If seals are excluded, they won't be checked unless diablo fails to appear
+				Config.DiabloHelper.RecheckSeals = false; // Teleport to each seal and double-check that it was opened and boss was killed if Diablo doesn't appear
+			Scripts.BaalHelper = true;
+				Config.BaalHelper.Wait = 120; // Seconds to wait for a runner to be in Throne
+				Config.BaalHelper.KillNihlathak = false; // Kill Nihlathak before going to Throne
+				Config.BaalHelper.FastChaos = false; // Kill Diablo before going to Throne
+				Config.BaalHelper.DollQuit = false; // End script if Dolls (Undead Soul Killers) are found.
+				Config.BaalHelper.KillBaal = true; // Kill Baal. If set to false, you must configure Config.QuitList or the bot will wait indefinitely.
+				Config.BaalHelper.SkipTP = false; // Don't wait for a TP, go to WSK3 and wait for someone to go to throne. Anti PK measure.
+
+			Config.LocalChat.Mode = 1;
 		}
 	},
 

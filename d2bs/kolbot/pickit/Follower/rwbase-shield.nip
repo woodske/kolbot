@@ -1,5 +1,0 @@
-// Ancient's Pledge
-([name] == kiteshield || [name] == largeshield || [name] == boneshield) && [quality] <= superior && [flag] != ethereal # [sockets] == 3 # [MaxQuantity] == 1 
-
-// Spirit
-[name] == monarch && [quality] <= superior && [flag] != ethereal # [sockets] == 4 # [MaxQuantity] == 1 
