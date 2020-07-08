@@ -192,9 +192,9 @@ var RunewordManager = {
 
 		for (var i = 0; i < runewords.length; i++) {
 			switch (runewords[i]) {
-			// --- Insight ---
-			case "Insight":
-				nipFileName = 'low-insight';
+			// --- InsightMerc ---
+			case "InsightMerc":
+				nipFileName = 'low-insightmerc';
 				runewordConfig = {
 					runes: Runeword.Insight,
 					runewordKeep: "[type] == polearm # [meditationaura] <= 17",
@@ -216,7 +216,7 @@ var RunewordManager = {
 
 				this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
 
-				nipFileName = 'high-insight';
+				nipFileName = 'high-insightmerc';
 				runewordConfig = {
 					runes: Runeword.Insight,
 					runewordKeep: "[type] == polearm # [meditationaura] <= 17",
@@ -240,9 +240,9 @@ var RunewordManager = {
 
 				break;
 
-			// --- Treachery ---
-			case "Treachery":
-				nipFileName = 'low-treachery';
+			// --- TreacheryMerc ---
+			case "TreacheryMerc":
+				nipFileName = 'low-treacherymerc';
 				runewordConfig = {
 					runes: Runeword.Treachery,
 					runewordKeep: "[type] == armor # [assassinskills] == 2",
@@ -264,7 +264,7 @@ var RunewordManager = {
 
 				this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
 
-				nipFileName = 'high-treachery';
+				nipFileName = 'high-treacherymerc';
 				runewordConfig = {
 					runes: Runeword.Treachery,
 					runewordKeep: "[type] == armor # [assassinskills] == 2",
@@ -288,9 +288,9 @@ var RunewordManager = {
 
 				break;
 
-			// --- Infinity ---
-			case "Infinity":
-				nipFileName = 'infinity';
+			// --- InfinityMerc ---
+			case "InfinityMerc":
+				nipFileName = 'infinitymerc';
 				runewordConfig = {
 					runes: Runeword.Infinity,
 					runewordKeep: "[name] == thresher # [frw] == 35 && [itemcrushingblow] == 40 && [itemmagicbonus] == 30",

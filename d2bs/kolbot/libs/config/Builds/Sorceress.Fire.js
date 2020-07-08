@@ -152,7 +152,7 @@ var AutoBuildTemplate = {
 				Town.reviveMerc();
 			}
 
-			var runewords = ["Insight", "Infinity", "Treachery", "Stealth", "Smoke", "Ancient's Pledge", "Spirit Shield", "Lore", "Spirit Sword"];
+			var runewords = ["InsightMerc", "InfinityMerc", "TreacheryMerc", "Stealth", "Smoke", "Ancient's Pledge", "Spirit Shield", "Lore", "Spirit Sword"];
 
 			RunewordManager.manageRunewords(charPickit, mercPickit, runewords, false);
 		}
