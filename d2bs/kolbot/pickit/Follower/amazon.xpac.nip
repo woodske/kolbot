@@ -98,10 +98,10 @@
 [name] == shako && [quality] == unique # [itemallskills] == 2 # [maxquantity] == 1 && [tier] ==15
 
 // amulet
-[type] == amulet # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
-[type] == amulet # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 && ([hpregen] > 0 || [maxhp] > 0) # [tier] == 2
-[type] == amulet # [maxhp] > 15 # [tier] == 2
-[type] == amulet # [maxhp] > 15 && [maxmana] > 15 # [tier] == 3
+[type] == amulet && ([quality] == rare || [quality] == magic) # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
+[type] == amulet && ([quality] == rare || [quality] == magic) # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 && ([hpregen] > 0 || [maxhp] > 0) # [tier] == 2
+[type] == amulet && ([quality] == rare || [quality] == magic) # [maxhp] > 15 # [tier] == 2
+[type] == amulet && ([quality] == rare || [quality] == magic) # [maxhp] > 15 && [maxmana] > 15 # [tier] == 3
 [type] == amulet && [quality] == rare # [maxhp] > 0 && [maxmana] > 0 && ([fcr] > 0 || [strength] > 0) # [tier] == 4
 [type] == amulet && [quality] == rare # [maxhp] > 0 && [maxmana] > 0 && ([fcr] > 0 && [strength] > 0) # [tier] == 5
 [type] == amulet && [quality] == unique # [itemallskills] == 1 # [tier] == 6
@@ -115,7 +115,7 @@
 [type] == amulet && [quality] == rare # [maxhp]+[maxmana] >= 150 || ([maxhp] >= 58 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40) # [tier] == 14
 [type] == amulet && [quality] == unique # [fireresist] >= 50 # [maxquantity] == 1 && [tier] == 30
 [type] == amulet && [quality] == unique # [itemabsorbfireperlevel] >= 0 # [maxquantity] == 1 && [tier] == 31
-[type] == amulet && [quality] == unique # [itemallskills] == 2 # [maxquantity] == 1 && [tier] == 32
+[type] == amulet && [quality] == unique # [itemallskills] == 2 && [fireresist] >= 20 # [maxquantity] == 1 && [tier] == 32
 
 //ilvl is high enough for +skills
 [type] == amulet && [quality] == rare # ([] > 0 && ([maxhp]+[maxmana] >= 90) || ([maxhp] > 50 && ([strength] > 0 || [fcr] > 0))) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 20 # [tier] == 15

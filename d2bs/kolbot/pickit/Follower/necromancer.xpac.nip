@@ -83,10 +83,10 @@
 [name] == shako && [quality] == unique && [flag] != ethereal # [itemallskills] == 2 # [tier] == 107
 
 // amulet
-[type] == amulet # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
-[type] == amulet # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 && ([hpregen] > 0 || [maxhp] > 0) # [tier] == 2
-[type] == amulet # [maxhp] > 15 # [tier] == 2
-[type] == amulet # [maxhp] > 15 && [maxmana] > 15 # [tier] == 3
+[type] == amulet && ([quality] == rare || [quality] == magic) # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
+[type] == amulet && ([quality] == rare || [quality] == magic) # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 && ([hpregen] > 0 || [maxhp] > 0) # [tier] == 2
+[type] == amulet && ([quality] == rare || [quality] == magic) # [maxhp] > 15 # [tier] == 2
+[type] == amulet && ([quality] == rare || [quality] == magic) # [maxhp] > 15 && [maxmana] > 15 # [tier] == 3
 [type] == amulet && [quality] == rare # [maxhp] > 0 && [maxmana] > 0 && ([fcr] > 0 || [strength] > 0) # [tier] == 4
 [type] == amulet && [quality] == rare # [maxhp] > 0 && [maxmana] > 0 && ([fcr] > 0 && [strength] > 0) # [tier] == 5
 [type] == amulet && [quality] == unique # [itemallskills] == 1 # [tier] == 6
@@ -111,7 +111,7 @@
 [type] == amulet && [quality] == rare # ([necromancersummoningskilltab] >= 2 || [necromancerskills] > 1) && ([maxhp]+[maxmana] >= 120 || ([maxhp] > 52 && ([strength] > 5 || [fcr] > 5)) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40) # [tier] == 23
 [type] == amulet && [quality] == rare # ([necromancersummoningskilltab] >= 2 || [necromancerskills] > 1) && ([maxhp]+[maxmana] >= 130 || ([maxhp] > 52 && ([strength] > 5 || [fcr] > 5)) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40) # [tier] == 24
 [type] == amulet && [quality] == rare # ([necromancersummoningskilltab] >= 2 || [necromancerskills] > 1) && ([maxhp]+[maxmana] >= 145 || ([maxhp] > 52 && ([strength] > 5 || [fcr] > 5)) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40) # [tier] == 25
-[type] == amulet && [quality] == unique # [itemallskills] == 2 # [tier] == 100
+[type] == amulet && [quality] == unique # [itemallskills] == 2 && [fireresist] >= 20 # [tier] == 100
 
 // ring
 [type] == ring # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
@@ -128,7 +128,12 @@
 [type] == ring && [quality] == rare # [maxhp]+[maxmana] >= 110 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 32 # [tier] == 11
 [type] == ring && [quality] == rare # [maxhp]+[maxmana] >= 120 &&([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 32 # [tier] == 12
 [type] == ring && [quality] == rare # [maxhp]+[maxmana] >= 130 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 32 # [tier] == 12
-[type] == ring && [quality] == unique # [itemallskills] == 1 # [tier] == 101 // soj
+
+[type] == ring && [quality] == unique # [itemallskills] == 1 # [tier] == 100
+
+[type] == ring && [quality] == rare # [fcr] > 0 && ([fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 32 || [maxhp] >= 30) # [tier] == 101
+[type] == ring && [quality] == rare # [fcr] == 10 && ([strength] >= 20 || [strength]+[dexterity] >= 15 && ([maxhp] >= 30 || [maxmana] >= 60) || [maxhp] >= 30 && [maxmana] >= 60) # [tier] == 102
+[type] == ring && [quality] == crafted # [fcr] == 10 && ([maxhp] >= 40 || [maxhp]+[maxmana] >= 80 || [strength]+[dexterity] >= 25) # [tier] == 103
 
 // armor
 [type] == armor # [maxhp] > 0 || [strength] > 0 # [tier] == 1

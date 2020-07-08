@@ -5,19 +5,19 @@
 // [name] == scrolloftownportal
 
 //potions
-[name] == minorhealingpotion
-[name] == lighthealingpotion
-[name] == healingpotion
-[name] == greaterhealingpotion
+//[name] == minorhealingpotion
+//[name] == lighthealingpotion
+//[name] == healingpotion
+//[name] == greaterhealingpotion
 [name] == superhealingpotion
  
-[name] == minormanapotion
-[name] == lightmanapotion
-[name] == manapotion
-[name] == greatermanapotion
+//[name] == minormanapotion
+//[name] == lightmanapotion
+//[name] == manapotion
+//[name] == greatermanapotion
 [name] == supermanapotion
- 
-[name] == rejuvenationpotion
+
+//[name] == rejuvenationpotion
 [name] == fullrejuvenationpotion
 
 // Pick up book of skills and cube
@@ -25,5 +25,4 @@
 [name] == horadriccube # # [maxquantity] == 1
 
 // runes
-[name] == istrune
-[name] >= ohmrune && [name] <= zodrune
+[name] >= berrune && [name] <= zodrune

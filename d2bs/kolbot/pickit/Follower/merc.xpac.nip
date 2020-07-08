@@ -27,3 +27,4 @@
 [type] == polearm && [flag] == runeword # [meditationaura] >= 12 # [mercTier] == 50 // Insight
 
 [type] == polearm && [flag] == ethereal && [flag] == runeword && [class] == elite # [meditationaura] >= 12 # [mercTier] == 100 // Insight
+[name] == thresher && [flag] == ethereal && [flag] == runeword # [frw] == 35 && [itemcrushingblow] == 40 && [itemmagicbonus] == 30 # [mercTier] == 101 // Infinity

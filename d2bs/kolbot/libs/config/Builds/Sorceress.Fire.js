@@ -31,7 +31,7 @@ if (!isIncluded("common/Cubing.js")) { include("common/Cubing.js"); };
 if (!isIncluded("common/Prototypes.js")) { include("common/Prototypes.js"); };
 if (!isIncluded("common/Runewords.js")) { include("common/Runewords.js"); };
 if (!isIncluded("common/Town.js")) { include("common/Town.js"); };
-if (!isIncluded("common/AutoBuildHelper.js")) { include("common/AutoBuildHelper.js"); };
+if (!isIncluded("common/RunewordManager.js")) { include("common/RunewordManager.js"); };
 
 var AutoBuildTemplate = {
 
@@ -67,10 +67,10 @@ var AutoBuildTemplate = {
 				[41, 20, false] // Max Inferno
 			];
 
-			if (AutoBuildHelper.hasSkill(56)) {
-				Config.AttackSkill = [-1, 56, 47, 56, 47, -1, -1];
+			if (RunewordManager.hasSkill(56)) {
+				Config.AttackSkill = [-1, 56, 47, 56, 47, 42, -1];
 				Config.LowManaSkill	= [-1, -1];
-			} else if (AutoBuildHelper.hasSkill(47)) {
+			} else if (RunewordManager.hasSkill(47)) {
 				Config.AttackSkill = [-1, 47, -1, 47, -1, -1, -1];
 				Config.LowManaSkill = [0, 0];
 			} else {
@@ -124,256 +124,37 @@ var AutoBuildTemplate = {
 			Config.Inventory[2] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 			Config.Inventory[3] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
-			//---------------------- Pickit ------------------
+			//--------------------- Pickit ----------------------
 
 			Config.PickitFiles.push("Follower/misc.nip");
 			Config.PickitFiles.push("earlyLadder.nip");
 
-			//---------------------- Runewords ------------------
+			//-------------- Recipes & Gambling -----------------
+
+			// Gambling config
+			Config.Gamble = true;
+			Config.GambleGoldStart = 1000000;
+			Config.GambleGoldStop = 500000;
+
+			// List of item names or classids for gambling. Check libs/NTItemAlias.dbl file for other item classids.
+			Config.GambleItems.push("Amulet");
+			Config.GambleItems.push("Ring");
+			Config.GambleItems.push("Circlet");
+			Config.GambleItems.push("Coronet");
+
+			Config.Recipes.push([Recipe.Reroll.Magic, "Grand Charm"]);
+			Config.Recipes.push([Recipe.Reroll.Rare, "Diadem"]);
+
+			//-------------------- Runewords --------------------
 			// Get corpse and merc to compare items
 			if (me.inTown) {
 				Town.getCorpse();
 				Town.reviveMerc();
 			}
 
-			var nipFileName,
-				runewordConfig,
-				nipConfig,
-				tierCheck;
+			var runewords = ["Insight", "Infinity", "Treachery", "Stealth", "Smoke", "Ancient's Pledge", "Spirit Shield", "Lore", "Spirit Sword"];
 
-
-			// --- Insight ---
-			nipFileName = 'earlyInsight';
-			runewordConfig = {
-				runes: Runeword.Insight,
-				runewordKeep: "[type] == polearm # [meditationaura] <= 17",
-				equipment: ["poleaxe", "halberd", "bill", "battlescythe", "partizan", "becdecorbin", "thresher", "crypticaxe", "greatpoleaxe"],
-				recipes: [],
-				recipePickit: []
-			};
-			nipConfig = {
-				name: ['==', runewordConfig.equipment],
-				type: '[quality] <= superior && [flag] != ethereal # [sockets] == 4 # [MaxQuantity] == 1'
-			};
-			tierCheck = {
-				charNipFile: "pickit/" + charPickit,
-				mercNipFile: "pickit/" + mercPickit,
-				isMerc: true,
-				tier: 50,
-				itemType: "weapon"
-			};
-
-			AutoBuildHelper.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
-
-			nipFileName = 'lateInsight';
-			runewordConfig = {
-				runes: Runeword.Insight,
-				runewordKeep: "[type] == polearm # [meditationaura] <= 17",
-				equipment: ["thresher", "crypticaxe", "greatpoleaxe", "giantthresher"],
-				recipes: [[Recipe.Socket.Weapon, "Thresher", Roll.Eth]],
-				recipePickit: ["[name] == thresher && [quality] == normal && [flag] == ethereal # [sockets] == 0 # [maxquantity] == 1"]
-			};
-			nipConfig = {
-				name: ['==', runewordConfig.equipment],
-				type: '[quality] <= superior && [flag] == ethereal # [sockets] == 4 # [MaxQuantity] == 1'
-			};
-			tierCheck = {
-				charNipFile: "pickit/" + charPickit,
-				mercNipFile: "pickit/" + mercPickit,
-				isMerc: true,
-				tier: 100,
-				itemType: "weapon"
-			};
-
-			AutoBuildHelper.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
-
-
-			// --- Stealth ---
-			nipFileName = 'stealth';
-			runewordConfig = {
-				runes: Runeword.Stealth,
-				runewordKeep: "[type] == armor # [frw] == 25 && [fcr] == 25",
-				equipment: ["quiltedarmor", "hardleatherarmor", "leatherarmor"],
-				recipes: [],
-				recipePickit: []
-			};
-			nipConfig = {
-				name: ['==', runewordConfig.equipment],
-				type: '[quality] <= superior && [flag] != ethereal # [sockets] == 2 # [MaxQuantity] == 1'
-			};
-			tierCheck = {
-				charNipFile: "pickit/" + charPickit,
-				mercNipFile: "pickit/" + mercPickit,
-				isMerc: false,
-				tier: 50,
-				itemType: "armor"
-			};
-
-			AutoBuildHelper.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
-
-
-			// --- Smoke ---
-			nipFileName = 'smoke';
-			runewordConfig = {
-				runes: Runeword.Smoke,
-				runewordKeep: "[type] == armor # [FireResist] == 50 && [LightResist] == 50",
-				equipment: ["lightplate", "ghostarmor", "serpentskinarmor", "demonhidearmor", "cuirass", "mageplate", "duskShroud", "wyrmhide", "scarabHusk", "wireFleece", "greatHauberk", "archonPlate"],
-				recipes: [],
-				recipePickit: []
-			};
-			nipConfig = {
-				name: ['==', runewordConfig.equipment],
-				type: '[quality] <= superior && [flag] != ethereal # [sockets] == 2 # [MaxQuantity] == 1'
-			};
-			tierCheck = {
-				charNipFile: "pickit/" + charPickit,
-				mercNipFile: "pickit/" + mercPickit,
-				isMerc: false,
-				tier: 51,
-				itemType: "armor"
-			};
-
-			AutoBuildHelper.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
-
-
-			// --- Ancient's Pledge ---
-			nipFileName = 'ancientspledge';
-			runewordConfig = {
-				runes: Runeword.AncientsPledge,
-				runewordKeep: "[type] == shield && [flag] == runeword # [fireresist] >= 40 && [lightresist] >= 40",
-				equipment: ["kiteshield", "largeshield", "boneshield"],
-				recipes: [],
-				recipePickit: []
-			};
-			nipConfig = {
-				name: ['==', runewordConfig.equipment],
-				type: '[quality] <= superior && [flag] != ethereal # [sockets] == 3 # [MaxQuantity] == 1'
-			};
-			tierCheck = {
-				charNipFile: "pickit/" + charPickit,
-				mercNipFile: "pickit/" + mercPickit,
-				isMerc: false,
-				tier: 50,
-				itemType: "shield"
-			};
-
-			AutoBuildHelper.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
-
-
-			// --- Spirit Shield ---
-			nipFileName = 'low-spiritshield';
-			runewordConfig = {
-				runes: Runeword.Spirit,
-				runewordKeep: "[type] == shield || [type] == auricshields # [fcr] <= 35",
-				equipment: ["Monarch"],
-				recipes: [[Recipe.Socket.Shield, "Monarch", Roll.NonEth]],
-				recipePickit: ["[name] == monarch && [quality] == normal && [flag] != ethereal # [sockets] == 0 # [maxquantity] == 1"]
-			};
-			nipConfig = {
-				name: ['==', runewordConfig.equipment],
-				type: '[quality] <= superior && [flag] != ethereal # [sockets] == 4 # [MaxQuantity] == 1'
-			};
-			tierCheck = {
-				charNipFile: "pickit/" + charPickit,
-				mercNipFile: "pickit/" + mercPickit,
-				isMerc: false,
-				tier: 51,
-				itemType: "shield"
-			};
-
-			AutoBuildHelper.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
-
-			nipFileName = 'high-spiritshield';
-			runewordConfig = {
-				runes: Runeword.Spirit,
-				runewordKeep: "[type] == shield || [type] == auricshields # [fcr] == 35",
-				equipment: ["Monarch"],
-				recipes: [[Recipe.Socket.Shield, "Monarch", Roll.NonEth]],
-				recipePickit: ["[name] == monarch && [quality] == normal && [flag] != ethereal # [sockets] == 0 # [maxquantity] == 1"]
-			};
-			nipConfig = {
-				name: ['==', runewordConfig.equipment],
-				type: '[quality] <= superior && [flag] != ethereal # [sockets] == 4 # [MaxQuantity] == 1'
-			};
-			tierCheck = {
-				charNipFile: "pickit/" + charPickit,
-				mercNipFile: "pickit/" + mercPickit,
-				isMerc: false,
-				tier: 100,
-				itemType: "shield"
-			};
-
-			AutoBuildHelper.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
-
-
-			// --- Lore ---
-			nipFileName = 'lore';
-			runewordConfig = {
-				runes: Runeword.Lore,
-				runewordKeep: "[type] == helm # [LightResist] >= 25",
-				equipment: ["cap", "skullcap", "crown", "mask", "bonehelm", "warhat", "grimhelm", "GrandCrown", "Demonhead", "BoneVisage"],
-				recipes: [],
-				recipePickit: []
-			};
-			nipConfig = {
-				name: ['==', runewordConfig.equipment],
-				type: '[quality] <= superior && [flag] != ethereal # [sockets] == 2 # [MaxQuantity] == 1'
-			};
-			tierCheck = {
-				charNipFile: "pickit/" + charPickit,
-				mercNipFile: "pickit/" + mercPickit,
-				isMerc: false,
-				tier: 50,
-				itemType: "helm"
-			};
-
-			AutoBuildHelper.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
-
-
-			// --- Spirit Sword ---
-			nipFileName = 'low-spiritsword';
-			runewordConfig = {
-				runes: Runeword.Spirit,
-				runewordKeep: "[type] == sword # [itemallskills] == 2  && [fcr] >= 25",
-				equipment: ["broadsword", "crystalSword"],
-				recipes: [],
-				recipePickit: []
-			};
-			nipConfig = {
-				name: ['==', runewordConfig.equipment],
-				type: '[quality] <= superior && [flag] != ethereal # [sockets] == 4 # [MaxQuantity] == 1'
-			};
-			tierCheck = {
-				charNipFile: "pickit/" + charPickit,
-				mercNipFile: "pickit/" + mercPickit,
-				isMerc: false,
-				tier: 50,
-				itemType: "weapon"
-			};
-
-			AutoBuildHelper.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
-
-			nipFileName = 'high-spiritsword';
-			runewordConfig = {
-				runes: Runeword.Spirit,
-				runewordKeep: "[type] == sword # [itemallskills] == 2  && [fcr] == 35",
-				equipment: ["broadsword", "crystalSword"],
-				recipes: [],
-				recipePickit: []
-			};
-			nipConfig = {
-				name: ['==', runewordConfig.equipment],
-				type: '[quality] <= superior # [sockets] == 4 # [MaxQuantity] == 1'
-			};
-			tierCheck = {
-				charNipFile: "pickit/" + charPickit,
-				mercNipFile: "pickit/" + mercPickit,
-				isMerc: false,
-				tier: 51,
-				itemType: "weapon"
-			};
-
-			AutoBuildHelper.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
+			RunewordManager.manageRunewords(charPickit, mercPickit, runewords, false);
 		}
 	},
 
@@ -388,7 +169,7 @@ var AutoBuildTemplate = {
 			Scripts.MFHelper = true;
 			Scripts.DiabloHelper = true; // Chaos helper, kills monsters and doesn't open seals on its own.
 				Config.DiabloHelper.Wait = 120; // Seconds to wait for a runner to be in Chaos. If Config.Leader is set, it will wait only for the leader.
-				Config.DiabloHelper.Entrance = false; // Start from entrance. Set to false to start from star.
+				Config.DiabloHelper.Entrance = true; // Start from entrance. Set to false to start from star.
 				Config.DiabloHelper.SkipTP = false; // Don't wait for town portal and directly head to chaos. It will clear monsters around chaos entrance and wait for the runner.
 				Config.DiabloHelper.SkipIfBaal = false; // End script if there are party members in a Baal run.
 				Config.DiabloHelper.OpenSeals = false; // Open seals as the helper
@@ -404,6 +185,8 @@ var AutoBuildTemplate = {
 				Config.BaalHelper.SkipTP = false; // Don't wait for a TP, go to WSK3 and wait for someone to go to throne. Anti PK measure.
 
 			Config.LocalChat.Mode = 1;
+			Config.LifeChicken = 5;
+
 		}
 	},
 
@@ -870,7 +653,10 @@ var AutoBuildTemplate = {
 		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
-
+			Config.BeltColumn = ["hp", "mp", "rv", "rv"];
+			Config.MinColumn = [3, 3, 0, 0];
+			Config.HPBuffer = 0;
+			Config.MPBuffer = 0;
 		}
 	},
 

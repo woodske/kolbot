@@ -78,10 +78,10 @@
 [name] == corona && [quality] == unique # # [tier] == 107 // crown of ages
 
 // amulet
-[type] == amulet # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
-[type] == amulet # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 && ([hpregen] > 0 || [maxhp] > 0) # [tier] == 2
-[type] == amulet # [maxhp] > 15 # [tier] == 2
-[type] == amulet # [maxhp] > 15 && [maxmana] > 15 # [tier] == 3
+[type] == amulet && ([quality] == rare || [quality] == magic) # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
+[type] == amulet && ([quality] == rare || [quality] == magic) # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 && ([hpregen] > 0 || [maxhp] > 0) # [tier] == 2
+[type] == amulet && ([quality] == rare || [quality] == magic) # [maxhp] > 15 # [tier] == 2
+[type] == amulet && ([quality] == rare || [quality] == magic) # [maxhp] > 15 && [maxmana] > 15 # [tier] == 3
 [type] == amulet && [quality] == rare # [maxhp] > 0 && [maxmana] > 0 && ([fcr] > 0 || [strength] > 0) # [tier] == 4
 [type] == amulet && [quality] == rare # [maxhp] > 0 && [maxmana] > 0 && ([fcr] > 0 && [strength] > 0) # [tier] == 5
 [type] == amulet && [quality] == unique # [itemallskills] == 1 # [tier] == 6
@@ -96,7 +96,7 @@
 [type] == amulet && [quality] == unique # [fireresist] >= 50 # [tier] == 98
 [type] == amulet && [quality] == unique # [itemabsorbfireperlevel] >= 0 # [tier] == 99
 [name] == amulet && [quality] == unique # [lightresist] == 35 # [tier] == 100 // highlord
-[type] == amulet && [quality] == unique # [itemallskills] == 2 # [tier] == 101
+[type] == amulet && [quality] == unique # [itemallskills] == 2 && [fireresist] >= 20 # [tier] == 101
 [name] == amulet && [quality] == rare # [itemmagicbonus] == 0 && [paladinskills] == 2 && (([strength] > 5 && [strength] <= 10) || ([maxhp] >= 20 && [maxhp] < 30)) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 60 # [tier] == 102 // 15 res all or higher
 [name] == amulet && [quality] == rare # [itemmagicbonus] == 0 && [paladinskills] == 2 && (([strength] > 10 && [strength] <= 15) || ([maxhp] >= 30 && [maxhp] < 40)) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 60 # [tier] == 103 // 15 res all or higher
 [name] == amulet && [quality] == rare # [itemmagicbonus] == 0 && [paladinskills] == 2 && ([strength] > 15 || [maxhp] >= 40) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 60  # [tier] == 104 // 15 res all or higher
@@ -104,10 +104,10 @@
 
 // ring
 
-[type] == ring # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
-[type] == ring # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 && ([hpregen] > 0 || [maxhp] > 0) # [tier] == 2
-[type] == ring # [maxhp] > 15 # [tier] == 2
-[type] == ring # [maxhp] > 15 && [maxmana] > 15 # [tier] == 3
+[type] == ring && ([quality] == rare || [quality] == magic) # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
+[type] == ring && ([quality] == rare || [quality] == magic) # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 && ([hpregen] > 0 || [maxhp] > 0) # [tier] == 2
+[type] == ring && ([quality] == rare || [quality] == magic) # [maxhp] > 15 # [tier] == 2
+[type] == ring && ([quality] == rare || [quality] == magic) # [maxhp] > 15 && [maxmana] > 15 # [tier] == 3
 [type] == ring && [quality] == rare # [maxhp]+[maxmana] >= 30 || ([maxhp] > 20 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 32) # [tier] == 7
 [type] == ring && [quality] == rare # [maxhp]+[maxmana] >= 50 || ([maxhp] > 25 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 32) # [tier] == 8
 [type] == ring && [quality] == rare # [maxhp]+[maxmana] >= 70 || ([maxhp] > 30 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 32) # [tier] == 9

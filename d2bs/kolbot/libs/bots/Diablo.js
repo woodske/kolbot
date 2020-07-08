@@ -463,6 +463,7 @@ function Diablo() {
 	this.initLayout();
 
 	if (Config.Diablo.Entrance) {
+		Pather.makePortal();
 		Attack.clear(30, 0, false, this.sort);
 		Pather.moveTo(7790, 5544);
 
