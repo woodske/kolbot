@@ -1,12 +1,11 @@
 // helm
 [type] == helm # [fireresist]+[lightresist]+[coldresist] >= 10 # [MercTier] == 1
-[type] == helm # [fireresist]+[lightresist]+[coldresist] >= 30 # [MercTier] == 2
 
-[name] == grandcrown && [quality] == unique # # [MercTier] == 50 // Crown of Thiefs
-[name] == grimhelm && [quality] == unique # # [MercTier] == 51 // Vampire Gaze
-[name] == demonhead && [quality] == unique # # [MercTier] == 52 // Andariel's Visage
+[name] == grandcrown && [quality] == unique # # [MercTier] == 20 // Crown of Thiefs
+[name] == grimhelm && [quality] == unique # # [MercTier] == 21 // Vampire Gaze
+[name] == demonhead && [quality] == unique # # [MercTier] == 22 // Andariel's Visage
 
-[name] == demonhead && [flag] == ethereal && [quality] == unique # # [MercTier] == 101 // Andariel's Visage
+[name] == demonhead && [flag] == ethereal && [quality] == unique # # [MercTier] == 100 // Andariel's Visage
 
 // armor
 [type] == armor # [fireresist]+[lightresist]+[coldresist] >= 10 # [MercTier] == 1
@@ -16,13 +15,14 @@
 
 [type] == armor && [flag] == runeword # [assassinskills] == 2 # [MercTier] == 50 // Treachery
 
-[type] == armor && [flag] == ethereal && [flag] == runeword && [class] == elite # [assassinskills] == 2 # [MercTier] == 101 // Treachery
+[type] == armor && [flag] == ethereal && [flag] == runeword && [class] == elite # [assassinskills] == 2 # [MercTier] == 100 // Treachery
 
 // weapon (Act 2 merc)
-([type] == spear || [type] == polearm || [type] == javelin) # [lifeleech] >= 1 # [MercTier] == 2
+([type] == spear || [type] == polearm || [type] == javelin) # [lifeleech] >= 1 # [MercTier] == 1
 
-[name] == brandistock && [quality] == unique # # [MercTier] == 20 // Bloodthief
-[name] == bill && [quality] == unique # # [MercTier] == 21 // Blackleach Blade
+[name] == poleaxe && [quality] == unique # # [MercTier] == 20 // The Battlebranch
+[name] == brandistock && [quality] == unique # # [MercTier] == 21 // Bloodthief
+[name] == bill && [quality] == unique # # [MercTier] == 22 // Blackleach Blade
 
 [type] == polearm && [flag] == runeword # [meditationaura] >= 12 # [mercTier] == 50 // Insight
 
