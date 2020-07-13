@@ -22,7 +22,7 @@
 [name] == gauntlets && [quality] == set && [flag] != ethereal # [strength] > 10 # [maxquantity] == 1 && [tier] == 43
 [name] == lightgauntlets && [quality] == set && [flag] != ethereal # [coldresist] >= 30 # [maxquantity] == 1 && [tier] == 44
 
-[name] == heavybracers && [quality] == set && [flag] != ethereal # [coldresist] >= 30 # [maxquantity] == 1 && [tier] == 100
+[name] == heavybracers && [quality] == set && [flag] != ethereal # [coldresist] >= 30 # [maxquantity] == 1 && [tier] == 99
 
 // belt
 [name] == sash && [flag] != ethereal # # [tier] == 1

@@ -1,0 +1,226 @@
+// --- gloves ---
+[type] == gloves && [flag] != ethereal # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
+[type] == gloves && [flag] != ethereal # [dexterity] > 0 && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 2
+
+[name] == leathergloves && [quality] == unique && [flag] != ethereal # # [tier] == 10 // The Hand of Broc
+[name] == heavygloves && [quality] == unique && [flag] != ethereal # # [tier] == 11 // Bloodfist
+//[name] == chaingloves && [quality] == unique && [flag] != ethereal # # [tier] == 12 // Chance Guards
+//[name] == lightgauntlets && [quality] == unique && [flag] != ethereal # # [tier] == 13 // Magefist
+//[name] == gauntlets && [quality] == unique && [flag] != ethereal # # [tier] == 14 // Frostburn
+
+[name] == demonhidegloves && [quality] == unique && [flag] != ethereal # # [tier] == 20 // Venomgrip
+[name] == sharkskingloves && [quality] == unique && [flag] != ethereal # # [tier] == 21 // Gravepalm
+[name] == heavybracers && [quality] == unique && [flag] != ethereal # # [tier] == 22 // Ghoulhide
+[name] == battlegauntlets && [quality] == unique && [flag] != ethereal # # [tier] == 23 // Lava Gout
+[name] == wargauntlets && [quality] == unique && [flag] != ethereal # # [tier] == 24 // Hellmouth
+
+[name] == vampirebonegloves && [quality] == unique && [flag] != ethereal # # [tier] == 60 // Dracul's Grasp
+[name] == vambraces && [quality] == unique && [flag] != ethereal # # [tier] == 61 // Soul Drainer
+//[name] == ogregauntlets && [quality] == unique && [flag] != ethereal # # [tier] == 62 // Steelrend
+
+[name] == bramblemitts && [quality] == set && [flag] != ethereal # # [tier] == 99 // Laying of Hands
+
+// --- belt ---
+[name] == sash && [flag] != ethereal # # [tier] == 1
+[name] == sash && [flag] != ethereal # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 2
+[name] == belt && [flag] != ethereal # # [tier] == 3
+[type] == belt && [quality] == set # # [tier] == 4
+
+[name] == sash && [quality] == unique && [flag] != ethereal # # [tier] == 10 // Lenymo
+[name] == lightbelt && [quality] == unique && [flag] != ethereal # # [tier] == 11 // Snakecord
+[name] == belt && [quality] == unique && [flag] != ethereal # # [tier] == 12 // Nightsmoke
+[name] == heavybelt && [quality] == unique && [flag] != ethereal # # [tier] == 13 // Goldwrap
+[name] == platedbelt && [quality] == unique && [flag] != ethereal # # [tier] == 14 // Bladebuckle
+
+[name] == demonhidesash && [quality] == unique && [flag] != ethereal # # [tier] == 20 // String of Ears
+//[name] == sharkskinbelt && [quality] == unique && [flag] != ethereal # # [tier] == 21 // Razortail
+//[name] == meshbelt && [quality] == unique && [flag] != ethereal # # [tier] == 22 // Gloom's trap
+//[name] == battlebelt && [quality] == unique && [flag] != ethereal # # [tier] == 23 // Snowclash
+//[name] == warbelt && [quality] == unique && [flag] != ethereal # # [tier] == 24 // Thundergod's Vigor
+
+//[name] == spiderwebsash && [quality] == unique && [flag] != ethereal # # [tier] == 60 // Arachnid Mesh
+//[name] == vampirefangbelt && [quality] == unique && [flag] != ethereal # # [tier] == 61 // Nosferatu's Coil
+[name] == mithrilcoil && [quality] == unique && [flag] != ethereal # # [tier] == 62 // Verdungo's Hearty Coil
+
+[name] == vampirefangbelt && [quality] == unique && [flag] != ethereal # # [tier] == 98 // Nosferatu's Coil
+[name] == sharkskinbelt && [quality] == unique && [flag] != ethereal # # [tier] == 99 // Razortail
+
+// --- boots ---
+[type] == boots # [maxhp] > 0 || [maxmana] > 0 # [tier] == 1
+
+[name] == boots && [quality] == unique && [flag] != ethereal # # [tier] == 10 // Hotspur
+[name] == heavyboots && [quality] == unique && [flag] != ethereal # # [tier] == 11 // Gorefoot
+[name] == chainboots && [quality] == unique && [flag] != ethereal # # [tier] == 12 // Treads of Cthon
+[name] == lightplatedboots && [quality] == unique && [flag] != ethereal # # [tier] == 13 // Goblin Toe
+[name] == greaves && [quality] == unique && [flag] != ethereal # # [tier] == 14 // Tearhaunch
+
+[name] == demonhideboots && [quality] == unique && [flag] != ethereal # # [tier] == 20 // Infernostride
+[name] == sharkskinboots && [quality] == unique && [flag] != ethereal # # [tier] == 21 // Waterwalk
+[name] == meshboots && [quality] == unique && [flag] != ethereal # # [tier] == 22 // Silkweave
+//[name] == battleboots && [quality] == unique && [flag] != ethereal # # [tier] == 23 // War Traveler
+//[name] == warboots && [quality] == unique && [flag] != ethereal # # [tier] == 24 // Gore Rider
+
+//[name] == scarabshellboots && [quality] == unique && [flag] != ethereal # # [tier] == 60 // Sandstorm Trek
+//[name] == boneweaveboots && [quality] == unique && [flag] != ethereal # # [tier] == 61 // Marrowwaalk
+//[name] == mirroredboots && [quality] == unique && [flag] != ethereal # # [tier] == 62 // Shadow Dancer
+
+[name] == warboots && [quality] == unique && [flag] != ethereal # # [tier] == 98 // Gore Rider
+[name] == battleboots && [quality] == unique && [flag] != ethereal # # [tier] == 99 // War Traveler
+
+// --- helm ---
+[type] == helm # [maxhp] > 0 # [tier] == 1
+[type] == helm # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 2
+[type] == helm # [maxhp] > 5 # [tier] == 3
+[type] == helm && [quality] == set # # [tier] == 4
+
+[name] == cap && [quality] == unique && [flag] != ethereal # # [tier] == 10 // Biggin's Bonnet
+[name] == skullcap && [quality] == unique && [flag] != ethereal # # [tier] == 11 // Tarnhelm
+[name] == helm && [quality] == unique && [flag] != ethereal # # [tier] == 12 // Coif of Glory
+[name] == fullhelm && [quality] == unique && [flag] != ethereal # # [tier] == 13 // Duskdeep
+[name] == greathelm && [quality] == unique && [flag] != ethereal # # [tier] == 14 // Howltusk
+[name] == mask && [quality] == unique && [flag] != ethereal # # [tier] == 15 // The Face of Horror
+[name] == crown && [quality] == unique && [flag] != ethereal # # [tier] == 16 // Undead Crown
+[name] == bonehelm && [quality] == unique && [flag] != ethereal # # [tier] == 17 // Wormskull
+
+[name] == warhat && [quality] == unique && [flag] != ethereal # # [tier] == 20 // Peasant Crown
+[name] == sallet && [quality] == unique && [flag] != ethereal # # [tier] == 21 // Rockstopper
+[name] == casque && [quality] == unique && [flag] != ethereal # # [tier] == 22 // Stealskull
+[name] == basinet && [quality] == unique && [flag] != ethereal # # [tier] == 23 // Darksight Helm
+[name] == wingedhelm && [quality] == unique && [flag] != ethereal # # [tier] == 24 // Valkyrie Wing
+[name] == deathmask && [quality] == unique && [flag] != ethereal # # [tier] == 25 // Blackhorn's Face
+[name] == grandcrown && [quality] == unique && [flag] != ethereal # # [tier] == 26 // Crown of Thieves
+[name] == grimhelm && [quality] == unique && [flag] != ethereal # # [tier] == 27 // Vampire Gaze
+
+[name] == shako && [quality] == unique && [flag] != ethereal # # [tier] == 60 // Halequin Crest
+//[name] == armet && [quality] == unique && [flag] != ethereal # # [tier] == 61 // Steel Shade
+//[name] == spiredhelm && [quality] == unique && [flag] != ethereal # [fireresist] == 50 # [tier] == 62 // Veil of Steel
+//[name] == spiredhelm && [quality] == unique && [flag] != ethereal # [itemallskills] == 2 # [tier] == 63 // Nightwing's Veil
+//[name] == demonhead && [quality] == unique && [flag] != ethereal # # [tier] == 64 // Andariel's Visage
+//[name] == corona && [quality] == unique && [flag] != ethereal # # [tier] == 65 // Crown of Ages
+[name] == bonevisage && [quality] == unique && [flag] != ethereal # # [tier] == 66 // Giant Skull
+
+[name] == demonhead && [quality] == unique && [flag] != ethereal # # [tier] == 99 // Andariel's Visage
+
+// amulet
+[type] == amulet && ([quality] == rare || [quality] == magic) # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
+[type] == amulet && ([quality] == rare || [quality] == magic) # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 && ([hpregen] > 0 || [maxhp] > 0) # [tier] == 2
+[type] == amulet && ([quality] == rare || [quality] == magic) # [maxhp] > 15 # [tier] == 2
+[type] == amulet && ([quality] == rare || [quality] == magic) # [maxhp] > 15 && [maxmana] > 15 # [tier] == 3
+[type] == amulet && [quality] == rare # [maxhp] > 0 && [maxmana] > 0 && ([fcr] > 0 || [strength] > 0) # [tier] == 4
+[type] == amulet && [quality] == rare # [maxhp] > 0 && [maxmana] > 0 && ([fcr] > 0 && [strength] > 0) # [tier] == 5
+[type] == amulet && [quality] == unique # [itemallskills] == 1 # [tier] == 6
+[type] == amulet && [quality] == rare # [maxhp]+[maxmana] >= 30 || ([maxhp] > 20 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40) # [tier] == 7
+[type] == amulet && [quality] == rare # [maxhp]+[maxmana] >= 50 || ([maxhp] > 30 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40) # [tier] == 8
+[type] == amulet && [quality] == rare # [maxhp]+[maxmana] >= 70 || ([maxhp] > 40 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 60) # [tier] == 9
+[type] == amulet && [quality] == rare # ([maxhp]+[maxmana] >= 90 || ([maxhp] >= 50 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 60)) # [tier] == 10
+[type] == amulet # ([fireresist]+[lightresist]+[coldresist]+[poisonresist] > 110) # [tier] == 11
+[type] == amulet && [quality] == rare # [maxhp]+[maxmana] >= 110 || (([maxhp] >= 55) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40) # [tier] == 12
+[type] == amulet && [quality] == rare # [maxhp]+[maxmana] >= 130 || ([maxhp] >= 58 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40) # [tier] == 13
+[type] == amulet && [quality] == rare # [maxhp]+[maxmana] >= 150 || ([maxhp] >= 58 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 40) # [tier] == 14
+[type] == amulet && [quality] == unique # [fireresist] >= 50 # [maxquantity] == 1 && [tier] == 30
+[type] == amulet && [quality] == unique # [itemabsorbfireperlevel] >= 0 # [maxquantity] == 1 && [tier] == 31
+[type] == amulet && [quality] == unique # [itemallskills] == 2 && [fireresist] >= 20 # [maxquantity] == 1 && [tier] == 32
+
+[name] == amulet && [quality] == unique # [dexterity] == 25 # [tier] == 99 // Cat's eye
+
+// ring
+
+[type] == ring # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
+[type] == ring # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 && ([hpregen] > 0 || [maxhp] > 0) # [tier] == 2
+[type] == ring # [maxhp] > 15 # [tier] == 2
+[type] == ring # [maxhp] > 15 && [maxmana] > 15 # [tier] == 3
+[type] == ring && [quality] == rare # [maxhp] > 0 && [maxmana] > 0 && [fcr] > 0 || [strength] > 0 # [tier] == 4
+[type] == ring && [quality] == rare # [maxhp] > 0 && [maxmana] > 0 && [fcr] > 0 && [strength] > 0 # [tier] == 5
+[type] == ring && [quality] == unique # [itemallskills] == 1 # [tier] == 6
+[type] == ring && [quality] == rare # [maxhp]+[maxmana] >= 30 || ([maxhp] > 20 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 32) # [tier] == 7
+[type] == ring && [quality] == rare # [maxhp]+[maxmana] >= 50 || ([maxhp] > 25 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 32) # [tier] == 8
+[type] == ring && [quality] == rare # [maxhp]+[maxmana] >= 70 || ([maxhp] > 30 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 32) # [tier] == 9
+[type] == ring && [quality] == rare # [maxhp]+[maxmana] >= 90 || ([maxhp] > 35 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 32) # [tier] == 10
+[type] == ring && [quality] == rare # [maxhp]+[maxmana] >= 110 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 32 # [tier] == 11
+[type] == ring && [quality] == rare # [maxhp]+[maxmana] >= 120 &&([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 32 # [tier] == 12
+[type] == ring && [quality] == rare # [maxhp]+[maxmana] >= 130 && ([strength] > 0 || [fcr] > 0) && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 32 # [tier] == 12
+[name] == ring && ([quality] == magic || [quality] == rare) # [maxhp] >= 30 && [strength] >= 5 && [strength] < 10 && ([coldresist] >= 10) + ([fireresist] >= 10) + ([lightresist] >= 10) >= 1 # [tier] == 23
+[name] == ring && ([quality] == magic || [quality] == rare) # [maxhp] >= 30 && [strength] >= 5 && [strength] < 10 && ([coldresist] >= 10) + ([fireresist] >= 10) + ([lightresist] >= 10) >= 1 # [tier] == 24
+[name] == ring && ([quality] == magic || [quality] == rare) # [maxhp] >= 30 && [strength] >= 10 && [strength] < 15 && ([coldresist] >= 10) + ([fireresist] >= 10) + ([lightresist] >= 10) >= 1 # [tier] == 25
+[name] == ring && ([quality] == magic || [quality] == rare) # [maxhp] >= 30 && [strength] >= 10 && [strength] < 15 && ([coldresist] >= 10) + ([fireresist] >= 10) + ([lightresist] >= 10) >= 2 # [tier] == 26
+[name] == ring && ([quality] == magic || [quality] == rare) # [maxhp] >= 30 && [strength] >= 15 && ([coldresist] >= 10) + ([fireresist] >= 10) + ([lightresist] >= 10) >= 2# [tier] == 27
+[name] == ring && ([quality] == magic || [quality] == rare) # [maxhp] >= 30 && [strength] >= 15 && ([coldresist] >= 10) + ([fireresist] >= 10) + ([lightresist] >= 10) >= 2 # [tier] == 28
+
+[name] == ring && [quality] == unique # [dexterity] >= 15 # [tier] == 99 // Raven Frost
+
+// --- armor ---
+[type] == armor # [maxhp] > 0 # [tier] == 1
+
+[name] == quiltedarmor && [quality] == unique && [flag] != ethereal # # [tier] == 10 // Greyform
+[name] == leatherarmor && [quality] == unique && [flag] != ethereal # # [tier] == 11 // Blinkbat's Form
+[name] == hardleatherarmor && [quality] == unique && [flag] != ethereal # # [tier] == 12 // The Centurion
+[name] == studdedleather && [quality] == unique && [flag] != ethereal # # [tier] == 13 // Twitchthroe
+[name] == ringmail && [quality] == unique && [flag] != ethereal # # [tier] == 14 // Darkglow
+[name] == scalemail && [quality] == unique && [flag] != ethereal # # [tier] == 15 // Hawkmail
+[name] == breastplate && [quality] == unique && [flag] != ethereal # # [tier] == 16 // Venomward
+[name] == chainmail && [quality] == unique && [flag] != ethereal # # [tier] == 17 // Sparking Mail
+[name] == splintmail && [quality] == unique && [flag] != ethereal # # [tier] == 18 // Iceblink
+[name] == lightplate && [quality] == unique && [flag] != ethereal # # [tier] == 19 // Heavenly Garb
+[name] == fieldplate && [quality] == unique && [flag] != ethereal # # [tier] == 20 // Rockfleece
+[name] == platemail && [quality] == unique && [flag] != ethereal # # [tier] == 21 // Boneflesh
+[name] == gothicplate && [quality] == unique && [flag] != ethereal # # [tier] == 22 // Rattlecage
+[name] == fullplatemail && [quality] == unique && [flag] != ethereal # # [tier] == 23 // Goldskin
+[name] == ancientarmor && [quality] == unique && [flag] != ethereal # # [tier] == 24 // Silks of the Victor
+
+[name] == ghostarmor && [quality] == unique && [flag] != ethereal # # [tier] == 30 // The Spirit Shroud
+[name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # # [tier] == 31 // Skin of the Vipermagi
+[name] == demonhidearmor && [quality] == unique && [flag] != ethereal # # [tier] == 32 // Skin of the Flayed One
+[name] == trellisedarmor && [quality] == unique && [flag] != ethereal # # [tier] == 33 // Iron Pelt
+[name] == tigulatedmail && [quality] == unique && [flag] != ethereal # # [tier] == 34 // Crow Caw
+[name] == linkedmail && [quality] == unique && [flag] != ethereal # # [tier] == 35 // Spirit Forge
+[name] == cuirass && [quality] == unique && [flag] != ethereal # # [tier] == 36 // Duriel's Shell
+[name] == mesharmor && [quality] == unique && [flag] != ethereal # # [tier] == 37 // Shaftstop
+[name] == russetarmor && [quality] == unique && [flag] != ethereal # # [tier] == 38 // Skullder's Ire
+[name] == mageplate && [quality] == unique && [flag] != ethereal # # [tier] == 39 // Que-Hegan's Wisdom
+[name] == sharktootharmor && [quality] == unique && [flag] != ethereal # # [tier] == 40 // Toothrow
+[name] == templarcoat && [quality] == unique && [flag] != ethereal # # [tier] == 41 // Guardian Angel
+[name] == embossedplate && [quality] == unique && [flag] != ethereal # # [tier] == 42 // Atma's Wail
+[name] == chaosarmor && [quality] == unique && [flag] != ethereal # # [tier] == 43 // Black Hades
+[name] == ornateplate && [quality] == unique && [flag] != ethereal # # [tier] == 44 // Corpsemourn
+
+//[name] == duskshroud && [quality] == unique && [flag] != ethereal # # [tier] == 60 // Ormus' Robes
+[name] == wirefleece && [quality] == unique && [flag] != ethereal # # [tier] == 61 // The Gladiator's Bane
+//[name] == balrogskin && [quality] == unique && [flag] != ethereal # # [tier] == 62 // Arkaine's Valor
+//[name] == krakenshell && [quality] == unique && [flag] != ethereal # # [tier] == 63 // Leviathan
+//[name] == shadowplate && [quality] == unique && [flag] != ethereal # # [tier] == 64 // Steel Carapace
+//[name] == sacredarmor && [quality] == unique && [flag] != ethereal # [fhr] == 20 # [tier] == 65 // Templar's Might
+[name] == sacredarmor && [quality] == unique && [flag] != ethereal # [frw] == 20 # [tier] == 66 // Tyrael's Might
+
+// --- weapon ---
+[type] == bow || [type] == amazonbow # # [tier] = 1
+[type] == bow || [type] == amazonbow && [quality] == magic # # [tier] = 2
+[type] == bow || [type] == amazonbow && [quality] == rare # # [tier] = 3
+
+[name] == shortbow && [quality] == unique # # [tier] = 10 // Pluckeye
+[name] == huntersbow && [quality] == unique # # [tier] = 11 // Witherstring
+[name] == longbow && [quality] == unique # # [tier] = 12 // Raven Claw
+[name] == compositebow && [quality] == unique # # [tier] = 13 // Rogue's Bow
+[name] == shortbattlebow && [quality] == unique # # [tier] = 14 // Stormstride
+[name] == longbattlebow && [quality] == unique # # [tier] = 15 // Wizendraw
+[name] == shortwarbow && [quality] == unique # # [tier] = 16 // Hellclap
+[name] == longwarbow && [quality] == unique # # [tier] = 17 // Blastbark
+
+[name] == edgebow && [quality] == unique # # [tier] = 20 // Skystrike
+[name] == razorbow && [quality] == unique # # [tier] = 21 // Riphook
+[name] == cedarbow && [quality] == unique # # [tier] = 22 // Kuko Shakaku
+[name] == doublebow && [quality] == unique # # [tier] = 23 // Endlesshail
+[name] == shortsiegebow && [quality] == unique # # [tier] = 24 // Witchwild String
+[name] == largesiegebow && [quality] == unique # # [tier] = 25 // Cliffkiller
+[name] == runebow && [quality] == unique # # [tier] = 26 // Magewrath
+[name] == gothicbow && [quality] == unique # # [tier] = 27 // Goldstrike Arch
+
+[type] == bow || [type] == amazonbow && [flag] == runeword && [class] == exceptional # [enhanceddamage] >= 200 && [dexterity] == 10 # [tier] = 50 // Harmony
+
+[name] == ceremonialbow && [quality] == unique # # [tier] = 60 // Lycander's Aim
+[name] == ballista && [quality] == unique # # [tier] = 61 // Buriza-Do Kyanon
+
+[name] == matriarchalbow && [quality] == unique # # [tier] = 70 // Blood Raven's Charge
+[name] == wardbow && [quality] == unique # # [tier] = 71 // Widowmaker
+[name] == crusaderbow && [quality] == unique # # [tier] = 72 // Eaglehorn
+
+[name] == hydrabow && [quality] == unique # # [tier] = 99 // Windforce

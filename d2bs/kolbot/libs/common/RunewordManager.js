@@ -12,6 +12,15 @@ if (!isIncluded("common/Prototypes.js")) { include("common/Prototypes.js"); };
 if (!isIncluded("common/Runewords.js")) { include("common/Runewords.js"); };
 if (!isIncluded("NTItemParser.dbl")) { include("NTItemParser.dbl"); };
 
+/*
+	These are some arrays of commonly used equipment
+*/
+
+var elite_light_armor = ["duskshroud", "wyrmhide", "scarabhusk", "wirefleece", "greathauberk", "archonplate"];
+var elite_merc_polearms = ["thresher", "crypticaxe", "greatpoleaxe", "giantthresher"];
+var exceptional_bows = ["razorbow", "cedarbow", "doublebow", "shortsiegebow", "largesiegebow", "runebow", "gothicbow"];
+var exceptional_bows_amazon = ["ashwoodbow", "ceremonialbow"];
+
 var RunewordManager = {
 
 	// Returns true if character has skill
@@ -220,7 +229,7 @@ var RunewordManager = {
 				runewordConfig = {
 					runes: Runeword.Insight,
 					runewordKeep: "[type] == polearm # [meditationaura] <= 17",
-					equipment: ["thresher", "crypticaxe", "greatpoleaxe", "giantthresher"],
+					equipment: elite_merc_polearms,
 					recipes: [[Recipe.Socket.Weapon, "Thresher", Roll.Eth]],
 					recipePickit: ["[name] == thresher && [quality] == normal && [flag] == ethereal # [sockets] == 0 # [maxquantity] == 1"]
 				};
@@ -268,7 +277,7 @@ var RunewordManager = {
 				runewordConfig = {
 					runes: Runeword.Treachery,
 					runewordKeep: "[type] == armor # [assassinskills] == 2",
-					equipment: ["duskshroud", "wyrmhide", "scarabhusk", "wirefleece", "greathauberk", "archonplate"],
+					equipment: elite_light_armor,
 					recipes: [[Recipe.Socket.Armor, "Dusk Shroud", Roll.Eth], [Recipe.Socket.Armor, "Archon Plate", Roll.Eth], [Recipe.Socket.Armor, "Scarab Husk", Roll.Eth]],
 					recipePickit: ["([name] == duskshroud  || [name] == archonplate || [name] == scarabhusk) && [quality] == normal && [flag] == ethereal # [sockets] == 0 # [maxquantity] == 1"]
 				};
@@ -314,6 +323,32 @@ var RunewordManager = {
 
 				break;
 
+			// --- PrideMerc ---
+			case "PrideMerc":
+				nipFileName = 'pridemerc';
+				runewordConfig = {
+					runes: Runeword.Pride,
+					runewordKeep: "[type] == polearm # [concentrationaura] <= 20",
+					equipment: elite_merc_polearms,
+					recipes: [[Recipe.Socket.Weapon, "Thresher", Roll.Eth], [Recipe.Socket.Weapon, "Cryptic Axe", Roll.Eth], [Recipe.Socket.Weapon, "Great Poleaxe", Roll.Eth], [Recipe.Socket.Weapon, "Giant Thresher", Roll.Eth]],
+					recipePickit: ["[name] >= thresher && [name] <= giantthresher && [quality] == normal && [flag] == ethereal # [sockets] == 0 # [maxquantity] == 1"]
+				};
+				nipConfig = {
+					name: ['==', runewordConfig.equipment],
+					type: '[quality] <= superior && [flag] == ethereal # [sockets] == 4 # [MaxQuantity] == 1'
+				};
+				tierCheck = {
+					charNipFile: "pickit/" + charPickit,
+					mercNipFile: "pickit/" + mercPickit,
+					isMerc: true,
+					tier: 101,
+					itemType: "weapon"
+				};
+
+				this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
+
+				break;
+
 			default:
 			}
 		}
@@ -327,6 +362,10 @@ var RunewordManager = {
 
 		for (var i = 0; i < runewords.length; i++) {
 			switch (runewords[i]) {
+
+			/*
+				ARMORS
+			*/
 
 			// --- Stealth ---
 			case "Stealth":
@@ -379,6 +418,62 @@ var RunewordManager = {
 				this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
 
 				break;
+
+			// --- Treachery ---
+			case "Treachery":
+				nipFileName = 'treachery';
+				runewordConfig = {
+					runes: Runeword.Treachery,
+					runewordKeep: "[type] == armor # [assassinskills] == 2",
+					equipment: elite_light_armor,
+					recipes: [],
+					recipePickit: []
+				};
+				nipConfig = {
+					name: ['==', runewordConfig.equipment],
+					type: '[quality] <= superior # [sockets] == 3 # [MaxQuantity] == 1'
+				};
+				tierCheck = {
+					charNipFile: "pickit/" + charPickit,
+					mercNipFile: "pickit/" + mercPickit,
+					isMerc: false,
+					tier: 52,
+					itemType: "armor"
+				};
+
+				this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
+
+				break;
+
+			// --- Fortitude ---
+			case "Fortitude":
+				nipFileName = 'fortitude';
+				runewordConfig = {
+					runes: Runeword.Fortitude,
+					runewordKeep: "[type] == armor # [enhanceddamage] == 300",
+					equipment: elite_light_armor,
+					recipes: [],
+					recipePickit: []
+				};
+				nipConfig = {
+					name: ['==', runewordConfig.equipment],
+					type: '[quality] <= superior # [sockets] == 4 # [MaxQuantity] == 1'
+				};
+				tierCheck = {
+					charNipFile: "pickit/" + charPickit,
+					mercNipFile: "pickit/" + mercPickit,
+					isMerc: false,
+					tier: 101,
+					itemType: "armor"
+				};
+
+				this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
+
+				break;
+
+			/*
+				SHIELDS
+			*/
 
 			// --- Ancient's Pledge ---
 			case "Ancient's Pledge":
@@ -436,14 +531,14 @@ var RunewordManager = {
 					nipFileName = 'low-spiritshield';
 					runewordConfig = {
 						runes: Runeword.Spirit,
-						runewordKeep: "[type] == shield || [type] == auricshields # [fcr] <= 35",
+						runewordKeep: "[type] == shield # [fcr] <= 35",
 						equipment: ["Monarch"],
 						recipes: [[Recipe.Socket.Shield, "Monarch", Roll.NonEth]],
-						recipePickit: ["[name] == monarch && [quality] == normal && [flag] != ethereal # [sockets] == 0 # [maxquantity] == 1"]
+						recipePickit: []
 					};
 					nipConfig = {
 						name: ['==', runewordConfig.equipment],
-						type: '[quality] <= superior && [flag] != ethereal # [sockets] == 4 # [MaxQuantity] == 1'
+						type: '[quality] <= superior && [flag] != ethereal # ([sockets] == 4 || [sockets] == 0) # [MaxQuantity] == 1'
 					};
 					tierCheck = {
 						charNipFile: "pickit/" + charPickit,
@@ -458,14 +553,14 @@ var RunewordManager = {
 					nipFileName = 'high-spiritshield';
 					runewordConfig = {
 						runes: Runeword.Spirit,
-						runewordKeep: "[type] == shield || [type] == auricshields # [fcr] == 35",
+						runewordKeep: "[type] == shield # [fcr] == 35",
 						equipment: ["Monarch"],
 						recipes: [[Recipe.Socket.Shield, "Monarch", Roll.NonEth]],
-						recipePickit: ["[name] == monarch && [quality] == normal && [flag] != ethereal # [sockets] == 0 # [maxquantity] == 1"]
+						recipePickit: []
 					};
 					nipConfig = {
 						name: ['==', runewordConfig.equipment],
-						type: '[quality] <= superior && [flag] != ethereal # [sockets] == 4 # [MaxQuantity] == 1'
+						type: '[quality] <= superior && [flag] != ethereal # ([sockets] == 4 || [sockets] == 0) # [MaxQuantity] == 1'
 					};
 					tierCheck = {
 						charNipFile: "pickit/" + charPickit,
@@ -546,6 +641,10 @@ var RunewordManager = {
 
 				break;
 
+			/*
+				HELMS
+			*/
+
 			// --- Lore ---
 			case "Lore":
 				nipFileName = 'lore';
@@ -571,6 +670,10 @@ var RunewordManager = {
 				this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
 
 				break;
+
+			/*
+				WEAPONS
+			*/
 
 			// --- Spirit Sword ---
 			case "Spirit Sword":
@@ -661,6 +764,32 @@ var RunewordManager = {
 					mercNipFile: "pickit/" + mercPickit,
 					isMerc: false,
 					tier: 101,
+					itemType: "weapon"
+				};
+
+				RunewordManager.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
+
+				break;
+
+			// --- Harmony ---
+			case "Harmony":
+				nipFileName = 'harmony';
+				runewordConfig = {
+					runes: Runeword.Harmony,
+					runewordKeep: "[type] == amazonbow || [type] == bow # [enhanceddamage] >= 200 && [dexterity] == 10",
+					equipment: exceptional_bows.concat(exceptional_bows_amazon),
+					recipes: [],
+					recipePickit: []
+				};
+				nipConfig = {
+					name: ['==', runewordConfig.equipment],
+					type: '[quality] <= superior # [sockets] == 4 # [MaxQuantity] == 1'
+				};
+				tierCheck = {
+					charNipFile: "pickit/" + charPickit,
+					mercNipFile: "pickit/" + mercPickit,
+					isMerc: false,
+					tier: 50,
 					itemType: "weapon"
 				};
 

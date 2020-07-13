@@ -20,13 +20,10 @@
 
 [name] == grandcharm && [quality] == unique # [itemmagicbonus] >= 30 // || [itemgoldbonus] >= 150
 
-// --------sets------------
-// # Tal Rasha's Wrappings #
-[Name] == SwirlingCrystal && [Quality] == Set // Tal Rasha's Lidless Eye
-//[Name] == DeathMask && [Quality] == Set // Tal Rasha's Horadric Crest
+// --------toons------------
 [Name] == LacqueredPlate && [Quality] == Set // Tal Rasha's Guardianship
-//[Type] == Amulet && [Quality] == Set # [SorceressSkills] == 2 // Tal Rasha's Adjucation
-//[Name] == MeshBelt && [Quality] == Set # [ItemMagicBonus] >= 10 // Tal Rasha's Fine-Spun Cloth
+[Type] == Amulet && [Quality] == Set # [SorceressSkills] == 2 // Tal Rasha's Adjucation
+[name] == shako && [quality] == unique && [flag] != ethereal
 
 // --------uniques------------
 [name] == corona && [quality] == unique // crown of ages

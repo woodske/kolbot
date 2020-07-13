@@ -26,3 +26,5 @@
 
 // runes
 [name] >= berrune && [name] <= zodrune
+[name] == malrune
+[name] == istrune

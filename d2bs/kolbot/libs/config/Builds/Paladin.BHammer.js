@@ -165,8 +165,7 @@ var AutoBuildTemplate = {
 		Update: function () {
 			Config.Charge = true;
 
-			Scripts.Follower = false;
-			Scripts.MFHelper = true;
+			Scripts.Follower = false;     
 			Scripts.DiabloHelper = true; // Chaos helper, kills monsters and doesn't open seals on its own.
 				Config.DiabloHelper.Wait = 120; // Seconds to wait for a runner to be in Chaos. If Config.Leader is set, it will wait only for the leader.
 				Config.DiabloHelper.Entrance = true; // Start from entrance. Set to false to start from star.
@@ -183,9 +182,12 @@ var AutoBuildTemplate = {
 				Config.BaalHelper.DollQuit = false; // End script if Dolls (Undead Soul Killers) are found.
 				Config.BaalHelper.KillBaal = true; // Kill Baal. If set to false, you must configure Config.QuitList or the bot will wait indefinitely.
 				Config.BaalHelper.SkipTP = false; // Don't wait for a TP, go to WSK3 and wait for someone to go to throne. Anti PK measure.
+			Scripts.MFHelper = true;
+				Config.BreakClearLevel = true;
 
 			Config.LocalChat.Mode = 1;
 			Config.LifeChicken = 5;
+			Config.OpenChests = false;
 		}
 	},
 

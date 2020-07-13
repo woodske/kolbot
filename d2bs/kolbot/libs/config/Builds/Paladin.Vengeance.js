@@ -118,10 +118,10 @@ var AutoBuildTemplate = {
 			Config.LocalChat.Enabled = true;                        // enable the LocalChat system
 			Config.LocalChat.Mode   = 2;                            // 0 = disabled, 1 = chat from 'say' (recommended), 2 = all chat (for manual play)
 
-			Config.Inventory[0] = [1,1,1,1,1,1,1,1,1,1];
-			Config.Inventory[1] = [1,1,1,1,1,1,1,1,1,1];
-			Config.Inventory[2] = [1,1,1,1,1,1,1,1,1,1];
-			Config.Inventory[3] = [1,1,1,1,1,1,1,1,1,1];
+			Config.Inventory[0] = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
+			Config.Inventory[1] = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
+			Config.Inventory[2] = [1, 0, 1, 1, 1, 1, 1, 1, 1, 1];
+			Config.Inventory[3] = [1, 0, 1, 1, 1, 1, 1, 1, 1, 1];
 
 			//---------------------- Pickit ------------------
 
@@ -741,6 +741,7 @@ var AutoBuildTemplate = {
 		Update: function () {
 			Scripts.Follower = false;
 			Scripts.MFHelper = true;
+                Config.BreakClearLevel = true;
 			Scripts.DiabloHelper = true; // Chaos helper, kills monsters and doesn't open seals on its own.
 				Config.DiabloHelper.Wait = 120; // Seconds to wait for a runner to be in Chaos. If Config.Leader is set, it will wait only for the leader.
 				Config.DiabloHelper.Entrance = false; // Start from entrance. Set to false to start from star.
