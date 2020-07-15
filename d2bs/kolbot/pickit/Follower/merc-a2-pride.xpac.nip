@@ -25,4 +25,7 @@
 [name] == brandistock && [quality] == unique # # [MercTier] == 21 // Bloodthief
 [name] == bill && [quality] == unique # # [MercTier] == 22 // Blackleach Blade
 
+([type] == spear || [type] == polearm || [type] == javelin) && [quality] >= rare && [class] == exceptional # [lifeleech] >= 1 # [MercTier] == 30
+([type] == spear || [type] == polearm || [type] == javelin) && [quality] >= rare && [class] == elite # [lifeleech] >= 1 # [MercTier] == 31
+
 [name] >= thresher && [name] <= giantthresher && [flag] == ethereal && [flag] == runeword # [concentrationaura] <= 20 # [mercTier] == 101 // Pride

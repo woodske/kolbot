@@ -28,12 +28,11 @@
 [name] == heavybelt && [quality] == unique && [flag] != ethereal # # [tier] == 13 // Goldwrap
 [name] == platedbelt && [quality] == unique && [flag] != ethereal # # [tier] == 14 // Bladebuckle
 
+[name] == sharkskinbelt && [quality] == unique && [flag] != ethereal # # [tier] == 19 // Razortail
 [name] == demonhidesash && [quality] == unique && [flag] != ethereal # # [tier] == 20 // String of Ears
 
-[name] == mithrilcoil && [quality] == unique && [flag] != ethereal # # [tier] == 62 // Verdungo's Hearty Coil
-
-[name] == vampirefangbelt && [quality] == unique && [flag] != ethereal # # [tier] == 98 // Nosferatu's Coil
-[name] == sharkskinbelt && [quality] == unique && [flag] != ethereal # # [tier] == 99 // Razortail
+[name] == mithrilcoil && [quality] == unique && [flag] != ethereal # # [tier] == 98 // Verdungo's Hearty Coil
+[name] == vampirefangbelt && [quality] == unique && [flag] != ethereal # # [tier] == 99 // Nosferatu's Coil
 
 // --- boots ---
 [type] == boots # [maxhp] > 0 || [maxmana] > 0 # [tier] == 1
@@ -48,8 +47,8 @@
 [name] == sharkskinboots && [quality] == unique && [flag] != ethereal # # [tier] == 21 // Waterwalk
 [name] == meshboots && [quality] == unique && [flag] != ethereal # # [tier] == 22 // Silkweave
 
-[name] == warboots && [quality] == unique && [flag] != ethereal # # [tier] == 98 // Gore Rider
-[name] == battleboots && [quality] == unique && [flag] != ethereal # # [tier] == 99 // War Traveler
+[name] == battleboots && [quality] == unique && [flag] != ethereal # # [tier] == 98 // War Traveler
+[name] == warboots && [quality] == unique && [flag] != ethereal # # [tier] == 99 // Gore Rider
 
 // --- helm ---
 [type] == helm # [maxhp] > 0 # [tier] == 1
@@ -78,7 +77,8 @@
 [name] == grandcrown && [quality] == unique && [flag] != ethereal # # [tier] == 60 // Crown of Thieves
 [name] == grimhelm && [quality] == unique && [flag] != ethereal # # [tier] == 61 // Vampire Gaze
 
-[name] == demonhead && [quality] == unique && [flag] != ethereal # # [tier] == 99 // Andariel's Visage
+[name] == demonhead && [quality] == unique && [flag] != ethereal # # [tier] == 98 // Andariel's Visage
+[name] == slayerguard && [quality] == unique  # # [tier] == 99 // Arreat's Face
 
 // amulet
 [type] == amulet && ([quality] == rare || [quality] == magic) # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
@@ -100,7 +100,8 @@
 [type] == amulet && [quality] == unique # [itemabsorbfireperlevel] >= 0 # [maxquantity] == 1 && [tier] == 31
 [type] == amulet && [quality] == unique # [itemallskills] == 2 && [fireresist] >= 20 # [maxquantity] == 1 && [tier] == 32
 
-[name] == amulet && [quality] == unique # [dexterity] == 25 # [tier] == 99 // Cat's eye
+[name] == amulet && [quality] == unique # [dexterity] == 25 # [tier] == 98 // Cat's eye
+[name] == amulet && [quality] == unique # [lightresist] == 35 # [tier] == 99 // Highlord's Wrath
 
 // ring
 
@@ -168,35 +169,19 @@
 [type] == armor && [flag] == runeword # [enhanceddamage] == 300 # [tier] == 101 // Fortitude
 
 // --- weapon ---
-[type] == bow || [type] == amazonbow # # [tier] == 1
-[type] == bow || [type] == amazonbow && [quality] == magic # # [tier] == 2
-[type] == bow || [type] == amazonbow && [quality] == rare # # [tier] == 3
+([type] == throwingknife || [type] == throwingaxe) # # [tier] == 1
+([type] == throwingknife || [type] == throwingaxe) && [quality] == magic # # [tier] == 2
+([type] == throwingknife || [type] == throwingaxe) && [quality] == rare # # [tier] == 3
+([type] == throwingknife || [type] == throwingaxe) && [quality] == rare # [itemreplenishquantity] > 0 # [tier] == 4
+([type] == throwingknife || [type] == throwingaxe) && [quality] == rare && [flag] == ethereal # [itemreplenishquantity] > 0 # [tier] == 5
 
-[name] == shortbow && [quality] == unique # # [tier] == 10 // Pluckeye
-[name] == hunter'sbow && [quality] == unique # # [tier] == 11 // Witherstring
-[name] == longbow && [quality] == unique # # [tier] == 12 // Raven Claw
-[name] == compositebow && [quality] == unique # # [tier] == 13 // Rogue's Bow
-[name] == shortbattlebow && [quality] == unique # # [tier] == 14 // Stormstride
-[name] == longbattlebow && [quality] == unique # # [tier] == 15 // Wizendraw
-[name] == shortwarbow && [quality] == unique # # [tier] == 16 // Hellclap
-[name] == longwarbow && [quality] == unique # # [tier] == 17 // Blastbark
+[name] == battledart && [quality] == unique # # [tier] == 30 // Deathbit
+[name] == francisca && [quality] == unique # # [tier] == 31 // The Scalper
 
-[name] == edgebow && [quality] == unique # # [tier] == 20 // Skystrike
-[name] == razorbow && [quality] == unique # # [tier] == 21 // Riphook
-[name] == cedarbow && [quality] == unique # # [tier] == 22 // Kuko Shakaku
-[name] == doublebow && [quality] == unique # # [tier] == 23 // Endlesshail
-[name] == shortsiegebow && [quality] == unique # # [tier] == 24 // Witchwild String
-[name] == largesiegebow && [quality] == unique # # [tier] == 25 // Cliffkiller
-[name] == runebow && [quality] == unique # # [tier] == 26 // Magewrath
-[name] == gothicbow && [quality] == unique # # [tier] == 27 // Goldstrike Arch
+[name] == flyingaxe && [quality] == unique # # [tier] == 61 // Gimmershred
 
-[type] == bow || [type] == amazonbow && [flag] == runeword && [class] == exceptional # [enhanceddamage] >= 200 && [dexterity] == 10 # [tier] == 50 // Harmony
+[name] == wingedknife && [quality] == unique && [flag] != ethereal # # [tier] == 98 // warshrike
+[name] == wingedaxe && [quality] == unique && [flag] != ethereal # # [tier] == 98 // lacerator
 
-[name] == ceremonialbow && [quality] == unique # # [tier] == 60 // Lycander's Aim
-[name] == ballista && [quality] == unique # # [tier] == 61 // Buriza-Do Kyanon
-
-[name] == matriarchalbow && [quality] == unique # # [tier] == 70 // Blood Raven's Charge
-[name] == wardbow && [quality] == unique # # [tier] == 71 // Widowmaker
-[name] == crusaderbow && [quality] == unique # # [tier] == 72 // Eaglehorn
-
-[name] == hydrabow && [quality] == unique # # [tier] == 99 // Windforce
+[name] == wingedknife && [quality] == unique && [flag] == ethereal # # [tier] == 99 // warshrike
+[name] == wingedaxe && [quality] == unique && [flag] == ethereal # # [tier] == 99 // lacerator
