@@ -28,11 +28,13 @@
 [name] == heavybelt && [quality] == unique && [flag] != ethereal # # [tier] == 13 // Goldwrap
 [name] == platedbelt && [quality] == unique && [flag] != ethereal # # [tier] == 14 // Bladebuckle
 
-[name] == demonhidesash && [quality] == unique && [flag] != ethereal # # [tier] == 20 // String of Ears
+[name] == sharkskinbelt && [quality] == unique && [flag] != ethereal # # [tier] == 19 // Razortail
 
-[name] == mithrilcoil && [quality] == unique && [flag] != ethereal # # [tier] == 97 // Verdungo's Hearty Coil
-[name] == vampirefangbelt && [quality] == unique && [flag] != ethereal # # [tier] == 98 // Nosferatu's Coil
-[name] == sharkskinbelt && [quality] == unique && [flag] != ethereal # # [tier] == 99 // Razortail
+[name] == vampirefangbelt && [quality] == unique && [flag] != ethereal # # [tier] == 80 // Nosferatu's Coil
+[name] == mithrilcoil && [quality] == unique && [flag] != ethereal # # [tier] == 81 // Verdungo's Hearty Coil
+
+[name] == demonhidesash && [quality] == unique && [flag] != ethereal # # [tier] == 98 // String of Ears
+[name] == demonhidesash && [quality] == unique && [flag] != ethereal # [damageresist] == 15 # [tier] == 99 // string of ears
 
 // --- boots ---
 [type] == boots # [maxhp] > 0 || [maxmana] > 0 # [tier] == 1
@@ -78,7 +80,7 @@
 [name] == grimhelm && [quality] == unique && [flag] != ethereal # # [tier] == 61 // Vampire Gaze
 
 [name] == demonhead && [quality] == unique && [flag] != ethereal # # [tier] == 98 // Andariel's Visage
-[name] == slayerguard && [quality] == unique  # # [tier] == 99 // Arreat's Face
+[name] == totemicmask && [quality] == unique # # [tier] == 99 // Jalal's Mane
 
 // amulet
 [type] == amulet && ([quality] == rare || [quality] == magic) # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
@@ -169,19 +171,16 @@
 [type] == armor && [flag] == runeword # [enhanceddamage] == 300 # [tier] == 101 // Fortitude
 
 // --- weapon ---
-([type] == throwingknife || [type] == throwingaxe) # # [tier] == 1
-([type] == throwingknife || [type] == throwingaxe) && [quality] == magic # # [tier] == 2
-([type] == throwingknife || [type] == throwingaxe) && [quality] == rare # # [tier] == 3
-([type] == throwingknife || [type] == throwingaxe) && [quality] == rare # [itemreplenishquantity] > 0 # [tier] == 4
-([type] == throwingknife || [type] == throwingaxe) && [quality] == rare && [flag] == ethereal # [itemreplenishquantity] > 0 # [tier] == 5
+([type] == stavesandrods || [type] == polearm || [type] == spear) # # [tier] == 1
+([type] == stavesandrods || [type] == polearm || [type] == spear) && [quality] == magic # # [tier] == 2
+([type] == stavesandrods || [type] == polearm || [type] == spear) && [quality] == rare # # [tier] == 3
+([type] == stavesandrods || [type] == polearm || [type] == spear) && [quality] == unique # # [tier] == 4
 
-[name] == battledart && [quality] == unique # # [tier] == 30 // Deathbit
-[name] == francisca && [quality] == unique # # [tier] == 31 // The Scalper
+([type] == stavesandrods || [type] == polearm || [type] == spear) && [quality] == rare && [class] == exceptional # # [tier] == 5
+([type] == stavesandrods || [type] == polearm || [type] == spear) && [quality] == unique && [class] == exceptional # # [tier] == 6
 
-[name] == flyingaxe && [quality] == unique # # [tier] == 61 // Gimmershred
+([type] == stavesandrods || [type] == polearm || [type] == spear) && [quality] == rare && [class] == elite # # [tier] == 7
+([type] == stavesandrods || [type] == polearm || [type] == spear) && [quality] == unique && [class] == elite # # [tier] == 8
 
-[name] == wingedknife && [quality] == unique && [flag] != ethereal # # [tier] == 98 // warshrike
-[name] == wingedaxe && [quality] == unique && [flag] != ethereal # # [tier] == 98 // lacerator
-
-[name] == wingedknife && [quality] == unique && [flag] == ethereal # # [tier] == 99 // warshrike
-[name] == wingedaxe && [quality] == unique && [flag] == ethereal # # [tier] == 99 // lacerator
+[name] == quarterstaff && [quality] == unique # # [tier] == 98 // Ribcracker
+[name] == stalagmite && [quality] == unique # # [tier] == 99 // Up'd Ribcracker

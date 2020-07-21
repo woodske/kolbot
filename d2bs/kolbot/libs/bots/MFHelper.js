@@ -148,7 +148,7 @@ MainLoop:
 				break MainLoop;
 			}
 
-			if (command !== oldCommand) {
+			// if (command !== oldCommand) {
 				oldCommand = command;
 
 				if (command.indexOf("quit") > -1) {
@@ -230,7 +230,7 @@ MainLoop:
 						}
 					}
 				}
-			}
+			// }
 		}
 
 		delay(100);

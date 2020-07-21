@@ -28,11 +28,13 @@
 [name] == heavybelt && [quality] == unique && [flag] != ethereal # # [tier] == 13 // Goldwrap
 [name] == platedbelt && [quality] == unique && [flag] != ethereal # # [tier] == 14 // Bladebuckle
 
-[name] == demonhidesash && [quality] == unique && [flag] != ethereal # # [tier] == 20 // String of Ears
+[name] == sharkskinbelt && [quality] == unique && [flag] != ethereal # # [tier] == 19 // Razortail
 
-[name] == mithrilcoil && [quality] == unique && [flag] != ethereal # # [tier] == 97 // Verdungo's Hearty Coil
-[name] == vampirefangbelt && [quality] == unique && [flag] != ethereal # # [tier] == 98 // Nosferatu's Coil
-[name] == sharkskinbelt && [quality] == unique && [flag] != ethereal # # [tier] == 99 // Razortail
+[name] == vampirefangbelt && [quality] == unique && [flag] != ethereal # # [tier] == 80 // Nosferatu's Coil
+[name] == mithrilcoil && [quality] == unique && [flag] != ethereal # # [tier] == 81 // Verdungo's Hearty Coil
+
+[name] == demonhidesash && [quality] == unique && [flag] != ethereal # # [tier] == 98 // String of Ears
+[name] == demonhidesash && [quality] == unique && [flag] != ethereal # [damageresist] == 15 # [tier] == 99 // string of ears
 
 // --- boots ---
 [type] == boots # [maxhp] > 0 || [maxmana] > 0 # [tier] == 1
@@ -78,7 +80,6 @@
 [name] == grimhelm && [quality] == unique && [flag] != ethereal # # [tier] == 61 // Vampire Gaze
 
 [name] == demonhead && [quality] == unique && [flag] != ethereal # # [tier] == 98 // Andariel's Visage
-[name] == slayerguard && [quality] == unique  # # [tier] == 99 // Arreat's Face
 
 // amulet
 [type] == amulet && ([quality] == rare || [quality] == magic) # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
@@ -168,20 +169,64 @@
 
 [type] == armor && [flag] == runeword # [enhanceddamage] == 300 # [tier] == 101 // Fortitude
 
+// --- shield ---
+[type] == shield # [sockets] <= 2 && ([fireresist]+[lightresist]+[coldresist] >= 10 || [maxhp] > 9) # [tier] == 1
+[type] == auricshields # [sockets] <= 2 && [fireresist]+[lightresist]+[coldresist] >= 0 # [tier] == 2
+[type] == auricshields # [sockets] <= 2 && ([fireresist]+[lightresist]+[coldresist] >= 40 || [maxhp] > 29) # [tier] == 3
+[type] == auricshields # [sockets] <= 2 && [fireresist]+[lightresist]+[coldresist] >= 10 && [maxhp] > 9 # [tier] == 4
+[type] == auricshields # [sockets] <= 2 && [fireresist]+[lightresist]+[coldresist] >= 20 && [maxhp] > 19 # [tier] == 5
+[type] == auricshields # [sockets] <= 2 && [fireresist]+[lightresist]+[coldresist] >= 40 && [maxhp] > 29 # [tier] == 6
+[type] == auricshields && [quality] == rare && [flag] != ethereal # [sockets] <= 2 && [fireresist]+[lightresist]+[coldresist] >= 10 && [maxhp] > 29 && ([fbr] > 0 || [strength] > 0) # [tier] == 7
+[type] == auricshields && [quality] == rare && [flag] != ethereal # [sockets] <= 2 && [fireresist]+[lightresist]+[coldresist] >= 10 && [maxhp] > 29 && ([fbr] > 0 && [strength] >= 3) # [tier] == 8
+[type] == auricshields && [quality] == rare && [flag] != ethereal # [sockets] <= 2 && [fireresist]+[lightresist]+[coldresist] >= 10 && [maxhp] > 29 && ([fbr] == 30 && [strength] >= 6) # [tier] == 9
+[type] == auricshields && [quality] <= superior && [flag] != ethereal # [sockets] <= 2 && ([poisonresist]+[fireresist]+[coldresist]+[lightresist] == 30) && [fbr] == 40 # [tier] == 10
+[type] == auricshields && [flag] == runeword # [itemgoldbonus] == 50 # [tier] == 11 //rhyme
+
+[type] == auricshields && [flag] == runeword # [fireresist] >= 40 && [lightresist] >= 40 # [maxquantity] == 1 && [tier] == 50 //ancient's pledge
+
+[name] == gildedshield && [quality] == unique # # [tier] == 99 // herald of zakarum
+
 // --- weapon ---
-([type] == throwingknife || [type] == throwingaxe) # # [tier] == 1
-([type] == throwingknife || [type] == throwingaxe) && [quality] == magic # # [tier] == 2
-([type] == throwingknife || [type] == throwingaxe) && [quality] == rare # # [tier] == 3
-([type] == throwingknife || [type] == throwingaxe) && [quality] == rare # [itemreplenishquantity] > 0 # [tier] == 4
-([type] == throwingknife || [type] == throwingaxe) && [quality] == rare && [flag] == ethereal # [itemreplenishquantity] > 0 # [tier] == 5
+[type] == sword # # [tier] == 1
+[type] == sword && [quality] == magic # # [tier] == 2
+[type] == sword && [quality] == rare # # [tier] == 3
 
-[name] == battledart && [quality] == unique # # [tier] == 30 // Deathbit
-[name] == francisca && [quality] == unique # # [tier] == 31 // The Scalper
+[name] == shortsword && [quality] == unique # # [tier] == 10 // Rixot's Keen
+[name] == scimitar && [quality] == unique # # [tier] == 11 // Blood Crescent
+[name] == sabre && [quality] == unique # # [tier] == 12 // Skewer of Krintiz
+[name] == falchion && [quality] == unique # # [tier] == 13 // Gleamscythe
+[name] == broadsword && [quality] == unique # # [tier] == 14 // Griswold's Edge
+[name] == longsword && [quality] == unique # # [tier] == 15 // Hellplague
+[name] == warsword && [quality] == unique # # [tier] == 16 // Culwen's Point
+[name] == twohandedsword && [quality] == unique # # [tier] == 17 // Shadowfang
+[name] == claymore && [quality] == unique # # [tier] == 18 // Soulflay
+[name] == giantsword && [quality] == unique # # [tier] == 19 // Kinemil's Awl
+[name] == bastardsword && [quality] == unique # # [tier] == 20 // Blacktongue
+[name] == flamberge && [quality] == unique # # [tier] == 21 // Ripsaw
+[name] == greatsword && [quality] == unique # # [tier] == 22 // The Patriarch
 
-[name] == flyingaxe && [quality] == unique # # [tier] == 61 // Gimmershred
+[name] == gladius && [quality] == unique # # [tier] == 30 // Bloodletter
+[name] == cutlass && [quality] == unique # # [tier] == 31 // Coldsteel Eye
+[name] == shamshir && [quality] == unique # # [tier] == 32 // Hexfire
+[name] == tulwar && [quality] == unique # # [tier] == 33 // Blade of Ali Baba
+[name] == dimensionalblade && [quality] == unique # # [tier] == 34 // Ginther's Rift
+[name] == battlesword && [quality] == unique # # [tier] == 35 // Headstriker
+[name] == runesword && [quality] == unique # # [tier] == 36 // Plague Bearer
+[name] == ancientsword && [quality] == unique # # [tier] == 37 // The Atlantean
+[name] == espandon && [quality] == unique # # [tier] == 38 // Crainte Vomir
+[name] == dacianfalx && [quality] == unique # # [tier] == 39 // Bing Sz Wang
+[name] == tusksword && [quality] == unique # # [tier] == 40 // The Vile Husk
+[name] == gothicsword && [quality] == unique # # [tier] == 41 // Cloudcrack
+[name] == zweihander && [quality] == unique # # [tier] == 42 // Todesfaelle Flamme
+[name] == executionersword && [quality] == unique # # [tier] == 43 // Swordguard
 
-[name] == wingedknife && [quality] == unique && [flag] != ethereal # # [tier] == 98 // warshrike
-[name] == wingedaxe && [quality] == unique && [flag] != ethereal # # [tier] == 98 // lacerator
+[name] == ataghan && [quality] == unique # # [tier] == 60 // Djinn Slayer
+[name] == elegantblade && [quality] == unique # # [tier] == 61 // Bloodmoon
+[name] == phaseblade && [quality] == unique # [itemlightradius] == 7 # [tier] == 62 // Lightsabre
+[name] == phaseblade && [quality] == unique # [itemlightradius] == 3 # [tier] == 63// Azurewrath
+[name] == crypticsword && [quality] == unique # # [tier] == 64 // Frostwind
+[name] == balrogblade && [quality] == unique # # [tier] == 65 // Flamebellow
+[name] == championsword && [quality] == unique # # [tier] == 66 // Doombringer
+[name] == colossusblade && [quality] == unique # # [tier] == 67 // The Grandfather
 
-[name] == wingedknife && [quality] == unique && [flag] == ethereal # # [tier] == 99 // warshrike
-[name] == wingedaxe && [quality] == unique && [flag] == ethereal # # [tier] == 99 // lacerator
+[type] == sword && [flag] == runeword # [ias] >= 30 # [tier] == 101 // Grief

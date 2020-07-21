@@ -135,8 +135,10 @@
 [type] == armor && [flag] == runeword # [fcr] == 25 && [frw] == 25 # [tier] == 50 // Stealth
 [type] == armor && [flag] == runeword # [fireresist] == 50 && [lightresist] == 50 # [tier] == 51 // Smoke
 
-[name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [itemallskills] == 1 && [fireresist] >=20 && [lightresist] >= 20 # [maxquantity] == 1 && [tier] == 99
-[name] == lacqueredplate && [quality] == set && [flag] != ethereal # # tier == 100
+[name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [itemallskills] == 1 && [fireresist] >=20 && [lightresist] >= 20 # [maxquantity] == 1 && [tier] == 98
+[name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [itemallskills] == 1 && [fireresist] >=30 && [lightresist] >= 20 # [maxquantity] == 1 && [tier] == 99
+
+[name] == lacqueredplate && [quality] == set && [flag] != ethereal # # [tier] == 100
 
 // weapon
 [type] == orb && [quality] <= rare # # [tier] ==9

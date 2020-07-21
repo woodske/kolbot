@@ -172,7 +172,7 @@ var AutoBuildTemplate = {
 				Town.reviveMerc();
 			}
 
-			var runewords = ["InsightMerc", "TreacheryMerc", "Stealth", "Smoke", "Ancient's Pledge", "Spirit Shield", "Lore", "Spirit Sword", "Hoto"];
+			var runewords = ["InsightMerc", "TreacheryMerc", "Stealth", "Smoke", "Ancient's Pledge", "Enigma", "Spirit Shield", "Lore", "Spirit Sword", "Hoto"];
 
 			RunewordManager.manageRunewords(charPickit, mercPickit, runewords, false);
 
@@ -190,7 +190,7 @@ var AutoBuildTemplate = {
 				Config.DiabloHelper.SkipTP = false; // Don't wait for town portal and directly head to chaos. It will clear monsters around chaos entrance and wait for the runner.
 				Config.DiabloHelper.SkipIfBaal = false; // End script if there are party members in a Baal run.
 				Config.DiabloHelper.OpenSeals = false; // Open seals as the helper
-				Config.DiabloHelper.SafePrecast = false; // take random WP to safely precast
+				Config.DiabloHelper.SafePrecast = true; // take random WP to safely precast
 				Config.DiabloHelper.SealOrder = ["vizier", "seis", "infector"]; // the order in which to clear the seals. If seals are excluded, they won't be checked unless diablo fails to appear
 				Config.DiabloHelper.RecheckSeals = false; // Teleport to each seal and double-check that it was opened and boss was killed if Diablo doesn't appear
 			Scripts.BaalHelper = true;
@@ -201,7 +201,7 @@ var AutoBuildTemplate = {
 				Config.BaalHelper.KillBaal = true; // Kill Baal. If set to false, you must configure Config.QuitList or the bot will wait indefinitely.
 				Config.BaalHelper.SkipTP = false; // Don't wait for a TP, go to WSK3 and wait for someone to go to throne. Anti PK measure.
 			Scripts.MFHelper = true;
-				Config.BreakClearLevel = true;
+				Config.MFHelper.BreakClearLevel = true;
 
 			Config.LocalChat.Mode = 1;
 			Config.LifeChicken = 5;

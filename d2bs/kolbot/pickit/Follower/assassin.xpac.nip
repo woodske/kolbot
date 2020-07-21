@@ -14,7 +14,7 @@
 [name] == sash && [flag] != ethereal # # [tier] == 1
 [name] == sash && [flag] != ethereal # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 2
 [name] == belt && [flag] != ethereal # # [tier] == 3
-[type] == belt && [quality] == set && [flag] != ethereal # # [tier] == 4
+[type] == belt && [quality] == set # # [tier] == 4
 [name] == belt && [flag] != ethereal # [maxhp] > 40 || [maxmana] > 40 # [tier] == 5
 [name] == belt && [flag] != ethereal # [maxhp] > 15 && [maxmana] > 15 # [tier] == 6
 [name] == belt && [flag] != ethereal # [maxhp] > 25 && [maxmana] > 25 # [tier] == 7
@@ -27,10 +27,13 @@
 ([name] == demonhidesash || [name] == sharkskinbelt || [name] == meshbelt) && [quality] == rare && [flag] != ethereal # [maxhp]+[maxmana] > 70 && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 21 && ([fhr] > 0 || [strength] > 0 ) # [tier] == 14
 ([name] == demonhidesash || [name] == sharkskinbelt || [name] == meshbelt) && [quality] == rare && [flag] != ethereal # [maxhp]+[maxmana] > 75 && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 28 && ([fhr] > 0 || [strength] > 0 ) # [tier] == 15
 [name] == demonhidesash && [quality] == unique && [flag] != ethereal # [lifedrainmindam] >= 6 # [tier] == 81
-[name] == belt && [quality] == unique && [flag] != ethereal # [fireresist] >= 10 && [lightresist] >= 10 # [maxquantity] == 1 && [tier] == 99
-([name] == demonhidesash || [name] == sharkskinbelt || [name] == meshbelt) && [quality] == rare && [flag] != ethereal # [strength] > 10 && [strength] <= 15 && ([fhr] >= 10 || [maxhp] >= 30) && [maxhp] >= 20 && [fireresist] >= 10 && [lightresist] >= 10 # [tier] == 103
-([name] == demonhidesash || [name] == sharkskinbelt || [name] == meshbelt) && [quality] == rare && [flag] != ethereal # [strength] > 15 && ([fhr] >= 10 || [maxhp] >= 30) && [maxhp] >= 20 && [fireresist] >= 10 && [lightresist] >= 10 # [tier] == 104
-[name] == meshbelt && [quality] == unique && [flag] != ethereal # [itemmaxmanapercent] == 15 # [tier] == 107 
+[name] == belt && [quality] == unique && [flag] != ethereal # [fireresist] >= 10 && [lightresist] >= 10 # [maxquantity] == 1 && [tier] == 97
+[name] == meshbelt && [quality] == unique && [flag] != ethereal # [itemmaxmanapercent] == 15 # [tier] == 98
+[name] == battlebelt && [quality] == unique # [itemabsorbcoldpercent] >= 0 # [tier] == 99 
+([name] == demonhidesash || [name] == sharkskinbelt || [name] == meshbelt) && [quality] == rare && [flag] != ethereal # [strength] > 10 && [strength] <= 15 && ([fhr] >= 10 || [maxhp] >= 30) && [maxhp] >= 20 && [fireresist] >= 10 && [lightresist] >= 10 # [tier] == 100
+([name] == demonhidesash || [name] == sharkskinbelt || [name] == meshbelt) && [quality] == rare && [flag] != ethereal # [strength] > 15 && ([fhr] >= 10 || [maxhp] >= 30) && [maxhp] >= 20 && [fireresist] >= 10 && [lightresist] >= 10 # [tier] == 101
+
+[name] == spiderwebsash && [quality] == unique && [flag] != ethereal # # [tier] == 102
 
 // boots
 [type] == boots # [maxhp] > 0 || [maxmana] > 0 # [tier] == 1
@@ -135,6 +138,7 @@
 [name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [itemallskills] == 1 && [fireresist] >=20 && [lightresist] >= 20 # [maxquantity] == 1 && [tier] == 99
 [name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [itemallskills] == 1 && [fireresist] == 35 # [maxquantity] == 1 && [tier] == 100
 
+[type] == armor && [flag] == runeword # [frw] == 45 # [tier] == 101 // Enigma
 
 // weapon
 [type] == wand # [fcr] > 0 # [tier] == 1

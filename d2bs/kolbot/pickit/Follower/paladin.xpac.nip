@@ -159,6 +159,8 @@
 [name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [itemallskills] == 1 && [fireresist] >=20 && [lightresist] >= 20 # [maxquantity] == 1 && [tier] == 99
 [name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [itemallskills] == 1 && [fireresist] == 35 # [maxquantity] == 1 && [tier] == 100
 
+[type] == armor && [flag] == runeword # [frw] == 45 # [tier] == 101 // Enigma
+
 // weapon
 [type] == scepter && [quality] == magic && [flag] != ethereal # # [tier] == 9
 [type] == scepter && [quality] == rare && [flag] != ethereal # # [tier] == 10

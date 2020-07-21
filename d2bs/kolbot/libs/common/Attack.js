@@ -924,6 +924,14 @@ var Attack = {
 
 			result = Pather.getNearestWalkable(room[0], room[1], 18, 3);
 
+			if (Config.MFLeader) {
+				if (me.area > 65 && me.area < 73) { // tombs exception
+					say("clearlevel " + me.area);
+				} else {
+					say("clearlevel " + getArea().name);
+				}
+			}
+
 			if (result) {
 				Pather.moveTo(result[0], result[1], 3, spectype);
 				previousArea = result;

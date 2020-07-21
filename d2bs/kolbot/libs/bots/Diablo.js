@@ -448,7 +448,6 @@ function Diablo() {
 	Pather._teleport = Pather.teleport;
 
 	// start
-	delay(10000);
 	Town.doChores();
 	Pather.useWaypoint(Config.RandomPrecast ? "random" : 107);
 	Precast.doPrecast(true);

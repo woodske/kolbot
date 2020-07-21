@@ -17,7 +17,7 @@
 [name] == greatermanapotion
 [name] == supermanapotion
 
-[name] == rejuvenationpotion
+//[name] == rejuvenationpotion
 [name] == fullrejuvenationpotion
 
 // Pick up book of skills and cube
@@ -25,6 +25,6 @@
 [name] == horadriccube # # [maxquantity] == 1
 
 // runes
-[name] >= berrune && [name] <= zodrune
+[name] >= ohmrune && [name] <= zodrune
 [name] == malrune
 [name] == istrune

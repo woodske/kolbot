@@ -23,11 +23,12 @@
 // --------toons------------
 [Name] == LacqueredPlate && [Quality] == Set // Tal Rasha's Guardianship
 [Type] == Amulet && [Quality] == Set # [SorceressSkills] == 2 // Tal Rasha's Adjucation
-[name] == shako && [quality] == unique && [flag] != ethereal
+//[name] == shako && [quality] == unique && [flag] != ethereal
 
 // --------uniques------------
 [name] == corona && [quality] == unique // crown of ages
 [name] == diadem && [quality] == unique // griffon's eye
+[name] == quarterstaff && [quality] == unique && [flag] == ethereal // Ribcracker
 [Name] == jewel && [quality] == unique # [passivecoldpierce]+[passivecoldmastery] >= 10 || [passivepoispierce]+[passivepoismastery] >= 10 || [passiveltngpierce]+[passiveltngmastery] >= 10 || [passivefirepierce]+[passivefiremastery] >= 10
 
 // --------whites------------
@@ -37,6 +38,8 @@
 [name] == berserkeraxe && [quality] <= superior && [flag] != ethereal # [enhanceddamage] == 15 && ([sockets] == 3 || [sockets] == 4 || [sockets] == 5)
 [name] == berserkeraxe && [quality] <= superior && [flag] == ethereal # [enhanceddamage] == 15 && ([sockets] == 0 || [sockets] == 5 || [sockets] == 6)
 [type] == auricshields && [quality] == normal && [class] == elite && [flag] == ethereal # ([enhanceddamage] == 65 && [tohit] == 121 || [fireresist] >= 45) && [sockets] == 0 // exile
+([name] == greatertalons || [name] == runictalons) && [quality] <= superior && [flag] != ethereal # ([sockets] == 0 || [sockets] == 3) && ([skillvenom] >= 3 || [skilllightningsentry] >= 3) && ([skillmindblast] >= 1 || [skilldragonflight] >= 1) && ([skillbladeshield] >= 1 || [skillweaponblock] >= 1 || [skillshadowmaster] >= 1)
+([name] == suwayyah || [name] == feralclaws) && [quality] <= superior && [flag] != ethereal # ([sockets] == 0 || [sockets] == 3) && ([skillvenom] >= 3 || [skilllightningsentry] >= 3) && ([skillmindblast] >= 1 || [skilldragonflight] >= 1) && ([skillbladeshield] >= 1 || [skillweaponblock] >= 1 || [skillshadowmaster] >= 1)
 
 
 // --------rares------------

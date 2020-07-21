@@ -57,8 +57,8 @@
 [type] == boots && [quality] == unique # # [tier] == 4
 [type] == boots # [fireresist]+[lightresist]+[coldresist] >= 40 && ([maxmana] > 10 || [fhr] > 0) # [tier] == 5
 [type] == boots # [fireresist]+[lightresist]+[coldresist] >= 40 && ([maxmana] > 20 || [fhr] > 0) # [tier] == 6
-[name] == sharkskinboots && [quality] == unique && [flag] != ethereal # # [maxquantity] == 1 && [tier] == 101
-[name] == battleboots && [quality] == unique && [flag] != ethereal # # [maxquantity] == 1 && [tier] == 102
+[name] == sharkskinboots && [quality] == unique && [flag] != ethereal # # [maxquantity] == 1 && [tier] == 98
+[name] == battleboots && [quality] == unique && [flag] != ethereal # # [maxquantity] == 1 && [tier] == 99
 
 
 // helm
@@ -79,7 +79,7 @@
 
 [type] == helm && [flag] == runeword # [lightresist] >= 30 # [tier] == 50 // Lore
 
-[name] == shako && [quality] == unique && [flag] != ethereal # # [tier] == 100 // harlequin crest
+[name] == shako && [quality] == unique && [flag] != ethereal # # [tier] == 99 // harlequin crest
 
 // amulet
 [type] == amulet && ([quality] == rare || [quality] == magic) # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
@@ -159,9 +159,10 @@
 [type] == armor && [flag] == runeword # [fcr] == 25 && [frw] == 25 # [tier] == 50 // Stealth
 [type] == armor && [flag] == runeword # [fireresist] == 50 && [lightresist] == 50 # [tier] == 51 // Smoke
 
-[name] == serpentskinarmor && [quality] == unique # [itemallskills] == 1 && [fireresist] >=20 && [lightresist] >= 20 # [maxquantity] == 1 && [tier] == 99
-[name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [itemallskills] == 1 && [fireresist] == 35 # [maxquantity] == 1 && [tier] == 100
+[name] == serpentskinarmor && [quality] == unique # [itemallskills] == 1 && [fireresist] >=20 && [lightresist] >= 20 # [maxquantity] == 1 && [tier] == 98
+[name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [itemallskills] == 1 && [fireresist] == 35 # [maxquantity] == 1 && [tier] == 99
 
+[type] == armor && [flag] == runeword # [frw] == 45 # [tier] == 101 // Enigma
 
 // weapon
 ([type] == axe || [type] == mace || [type] == sword) && [quality] == magic # # [tier] == 8

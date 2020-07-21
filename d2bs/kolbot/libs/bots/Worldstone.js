@@ -8,6 +8,7 @@ function Worldstone() {
 	Town.doChores();
 	Pather.useWaypoint(129);
 	Precast.doPrecast(true);
+	delay(10000);
 	Attack.clearLevel(Config.ClearType);
 
 	if (Pather.moveToExit(128, true)) {

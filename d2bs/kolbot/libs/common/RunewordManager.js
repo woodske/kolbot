@@ -8,6 +8,7 @@
 js_strict(true);
 
 if (!isIncluded("common/Cubing.js")) { include("common/Cubing.js"); };
+if (!isIncluded("common/Misc.js")) { include("common/Misc.js"); };
 if (!isIncluded("common/Prototypes.js")) { include("common/Prototypes.js"); };
 if (!isIncluded("common/Runewords.js")) { include("common/Runewords.js"); };
 if (!isIncluded("NTItemParser.dbl")) { include("NTItemParser.dbl"); };
@@ -18,8 +19,12 @@ if (!isIncluded("NTItemParser.dbl")) { include("NTItemParser.dbl"); };
 
 var elite_light_armor = ["duskshroud", "wyrmhide", "scarabhusk", "wirefleece", "greathauberk", "archonplate"];
 var elite_merc_polearms = ["thresher", "crypticaxe", "greatpoleaxe", "giantthresher"];
+var normal_merc_polearms = ["voulge", "scythe", "poleaxe", "halberd", "warscythe"];
+var exceptional_merc_polearms = ["bill", "battlescythe", "partizan", "becdecorbin", "grimscythe"];
 var exceptional_bows = ["razorbow", "cedarbow", "doublebow", "shortsiegebow", "largesiegebow", "runebow", "gothicbow"];
 var exceptional_bows_amazon = ["ashwoodbow", "ceremonialbow"];
+
+var verbose = false;
 
 var RunewordManager = {
 
@@ -97,7 +102,7 @@ var RunewordManager = {
 
 	// Generates nip file path based on character name and runeword
 	getNipFilePath: function (runewordName) {
-		var basePath = 'pickit/Follower/',
+		var basePath = 'pickit/Follower/Generated/',
 			pickitSuffix = '-' + me.name + '.nip';
 
 		return basePath + runewordName + pickitSuffix;
@@ -144,10 +149,13 @@ var RunewordManager = {
 	handleRunewords: function (nipFileName, runewordConfig, nipConfig, tierCheck) {
 		var nipFilePath = this.getNipFilePath(nipFileName);
 		var makeRuneword = this.makeRuneword(tierCheck);
-		var blankFilePath = 'pickit/Follower/blank.nip';
+		var blankFilePath = 'pickit/Follower/Generated/blank.nip';
 
 		if (!makeRuneword) {
-			print('No longer making ' + nipFileName);
+			if (verbose) { 
+				print('No longer making ' + nipFileName); 
+			}
+
 			this.unloadRuneword(runewordConfig.runes, runewordConfig.equipment);
 
 			// Remove nip file if it exists
@@ -155,7 +163,10 @@ var RunewordManager = {
 				FileTools.remove(nipFilePath);
 			}
 		} else {
-			print('Making ' + nipFileName);
+			if (verbose) {
+				print('Making ' + nipFileName);
+			}
+
 			this.loadRuneword(runewordConfig.runes, runewordConfig.equipment);
 			Config.KeepRunewords.push(runewordConfig.runewordKeep);
 
@@ -207,13 +218,13 @@ var RunewordManager = {
 				runewordConfig = {
 					runes: Runeword.Insight,
 					runewordKeep: "[type] == polearm # [meditationaura] <= 17",
-					equipment: ["poleaxe", "halberd", "bill", "battlescythe", "partizan", "becdecorbin", "thresher", "crypticaxe", "greatpoleaxe"],
+					equipment: normal_merc_polearms,
 					recipes: [],
 					recipePickit: []
 				};
 				nipConfig = {
 					name: ['==', runewordConfig.equipment],
-					type: '[quality] <= superior && [flag] != ethereal # [sockets] == 4 # [MaxQuantity] == 1'
+					type: '[quality] <= superior # [sockets] == 4 # [MaxQuantity] == 1'
 				};
 				tierCheck = {
 					charNipFile: "pickit/" + charPickit,
@@ -225,13 +236,35 @@ var RunewordManager = {
 
 				this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
 
+				nipFileName = 'mid-insightmerc';
+				runewordConfig = {
+					runes: Runeword.Insight,
+					runewordKeep: "[type] == polearm # [meditationaura] <= 17",
+					equipment: exceptional_merc_polearms,
+					recipes: [],
+					recipePickit: []
+				};
+				nipConfig = {
+					name: ['==', runewordConfig.equipment],
+					type: '[quality] <= superior # [sockets] == 4 # [MaxQuantity] == 1'
+				};
+				tierCheck = {
+					charNipFile: "pickit/" + charPickit,
+					mercNipFile: "pickit/" + mercPickit,
+					isMerc: true,
+					tier: 51,
+					itemType: "weapon"
+				};
+
+				this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
+
 				nipFileName = 'high-insightmerc';
 				runewordConfig = {
 					runes: Runeword.Insight,
 					runewordKeep: "[type] == polearm # [meditationaura] <= 17",
 					equipment: elite_merc_polearms,
-					recipes: [[Recipe.Socket.Weapon, "Thresher", Roll.Eth]],
-					recipePickit: ["[name] == thresher && [quality] == normal && [flag] == ethereal # [sockets] == 0 # [maxquantity] == 1"]
+					recipes: [[Recipe.Socket.Weapon, "Thresher", Roll.Eth], [Recipe.Socket.Weapon, "Cryptic Axe", Roll.Eth], [Recipe.Socket.Weapon, "Great Poleaxe", Roll.Eth], [Recipe.Socket.Weapon, "Giant Thresher", Roll.Eth]],
+					recipePickit: ["[name] >= thresher && [name] <= giantthresher && [quality] == normal && [flag] == ethereal # [sockets] == 0 # [maxquantity] == 1"]
 				};
 				nipConfig = {
 					name: ['==', runewordConfig.equipment],
@@ -431,7 +464,7 @@ var RunewordManager = {
 				};
 				nipConfig = {
 					name: ['==', runewordConfig.equipment],
-					type: '[quality] <= superior # [sockets] == 3 # [MaxQuantity] == 1'
+					type: '[quality] <= superior && [flag] != ethereal # [sockets] == 3 # [MaxQuantity] == 1'
 				};
 				tierCheck = {
 					charNipFile: "pickit/" + charPickit,
@@ -457,7 +490,33 @@ var RunewordManager = {
 				};
 				nipConfig = {
 					name: ['==', runewordConfig.equipment],
-					type: '[quality] <= superior # [sockets] == 4 # [MaxQuantity] == 1'
+					type: '[quality] <= superior && [flag] != ethereal # [sockets] == 4 # [MaxQuantity] == 1'
+				};
+				tierCheck = {
+					charNipFile: "pickit/" + charPickit,
+					mercNipFile: "pickit/" + mercPickit,
+					isMerc: false,
+					tier: 101,
+					itemType: "armor"
+				};
+
+				this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
+
+				break;
+
+			// --- Enigma ---
+			case "Enigma":
+				nipFileName = 'enigma';
+				runewordConfig = {
+					runes: Runeword.Enigma,
+					runewordKeep: "[type] == armor # [frw] == 45",
+					equipment: ["mageplate"],
+					recipes: [[Recipe.Rune, "Ohm Rune"], [Recipe.Rune, "Lo Rune"], [Recipe.Rune, "Sur Rune"], [Recipe.Rune, "Ber Rune"]],
+					recipePickit: []
+				};
+				nipConfig = {
+					name: ['==', runewordConfig.equipment],
+					type: '[quality] <= superior && [flag] != ethereal # [sockets] == 3 # [MaxQuantity] == 1'
 				};
 				tierCheck = {
 					charNipFile: "pickit/" + charPickit,
@@ -520,7 +579,7 @@ var RunewordManager = {
 						itemType: "shield"
 					};
 
-					RunewordManager.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
+					this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
 				}
 
 				break;
@@ -592,7 +651,7 @@ var RunewordManager = {
 						itemType: "shield"
 					};
 
-					RunewordManager.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
+					this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
 
 					nipFileName = 'mid-spiritshield';
 					runewordConfig = {
@@ -614,7 +673,7 @@ var RunewordManager = {
 						itemType: "shield"
 					};
 
-					RunewordManager.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
+					this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
 
 					nipFileName = 'high-spiritshield';
 					runewordConfig = {
@@ -636,7 +695,7 @@ var RunewordManager = {
 						itemType: "shield"
 					};
 
-					RunewordManager.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
+					this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
 				}
 
 				break;
@@ -687,7 +746,7 @@ var RunewordManager = {
 				};
 				nipConfig = {
 					name: ['==', runewordConfig.equipment],
-					type: '[quality] <= superior && [flag] != ethereal # [sockets] == 4 # [MaxQuantity] == 1'
+					type: '[quality] <= superior # [sockets] == 4 # [MaxQuantity] == 1'
 				};
 				tierCheck = {
 					charNipFile: "pickit/" + charPickit,
@@ -745,7 +804,7 @@ var RunewordManager = {
 					itemType: "weapon"
 				};
 
-				RunewordManager.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
+				this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
 
 				nipFileName = 'high-hoto';
 				runewordConfig = {
@@ -767,7 +826,7 @@ var RunewordManager = {
 					itemType: "weapon"
 				};
 
-				RunewordManager.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
+				this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
 
 				break;
 
@@ -793,7 +852,33 @@ var RunewordManager = {
 					itemType: "weapon"
 				};
 
-				RunewordManager.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
+				this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
+
+				break;
+
+			// --- Grief ---
+			case "Grief":
+				nipFileName = 'grief';
+				runewordConfig = {
+					runes: Runeword.Grief,
+					runewordKeep: "[name] == phaseblade # [ias] >= 30",
+					equipment: ["phaseblade"],
+					recipes: [],
+					recipePickit: []
+				};
+				nipConfig = {
+					name: ['==', runewordConfig.equipment],
+					type: '[quality] <= superior # [sockets] == 5 # [MaxQuantity] == 1'
+				};
+				tierCheck = {
+					charNipFile: "pickit/" + charPickit,
+					mercNipFile: "pickit/" + mercPickit,
+					isMerc: false,
+					tier: 101,
+					itemType: "weapon"
+				};
+
+				this.handleRunewords(nipFileName, runewordConfig, nipConfig, tierCheck);
 
 				break;
 

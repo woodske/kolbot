@@ -632,7 +632,7 @@ function Follower() {
 				}
 
 				if (autoPick) {
-					// Pickit.pickItems();
+					Pickit.pickItems();
 					this.openContainers(20);
 					this.pickPotions(20);
 				}

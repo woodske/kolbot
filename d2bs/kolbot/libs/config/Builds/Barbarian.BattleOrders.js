@@ -58,13 +58,13 @@ var AutoBuildTemplate = {
 				[137, 20, false], // Max Taunt
 			];
 
-			if (RunewordManager.hasSkill(154)) {
+			if (RunewordManager.hasSkill(154)) { // War Cry
 				Config.AttackSkill = [146, 154, 154, 154, 154];
 				Config.LowManaSkill	= [-1, -1];
-			} else if (RunewordManager.hasSkill(146)) {
+			} else if (RunewordManager.hasSkill(146)) { // Battle Cry
 				Config.AttackSkill = [146, 0, 0, 0, 0];
 				Config.LowManaSkill = [0, 0];
-			} else if (RunewordManager.hasSkill(130)) {
+			} else if (RunewordManager.hasSkill(130)) { // Howl
 				Config.AttackSkill = [130, 0, 0, 0, 0];
 				Config.LowManaSkill = [0, 0];
 			} else {
@@ -108,9 +108,9 @@ var AutoBuildTemplate = {
 			Config.LocalChat.Enabled = true;                        // enable the LocalChat system
 		    Config.LocalChat.Mode   = 2;                              // 0 = disabled, 1 = chat from 'say' (recommended), 2 = all chat (for manual play)
 
-			Config.Inventory[0] = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
-			Config.Inventory[1] = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
-			Config.Inventory[2] = [1, 0, 1, 1, 1, 1, 1, 1, 1, 1];
+			Config.Inventory[0] = [0, 0, 0, 1, 1, 1, 1, 1, 1, 1];
+			Config.Inventory[1] = [0, 0, 0, 1, 1, 1, 1, 1, 1, 1];
+			Config.Inventory[2] = [1, 0, 0, 1, 1, 1, 1, 1, 1, 1];
 			Config.Inventory[3] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
 			//--------------------- Pickit ----------------------
@@ -141,7 +141,7 @@ var AutoBuildTemplate = {
 				Town.reviveMerc();
 			}
 
-			var runewords = ["InsightMerc", "TreacheryMerc", "Stealth", "Smoke", "Ancient's Pledge", "Spirit Shield", "Lore", "Spirit Sword", "Hoto"];
+			var runewords = ["InsightMerc", "TreacheryMerc", "Stealth", "Smoke", "Enigma", "Ancient's Pledge", "Spirit Shield", "Lore", "Spirit Sword", "Hoto"];
 
 			RunewordManager.manageRunewords(charPickit, mercPickit, runewords, false);
 		}
@@ -151,6 +151,15 @@ var AutoBuildTemplate = {
 		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
+			// Battle orders script - Use this for 2+ characters (for example BO barb + sorc)
+			Scripts.BattleOrders = true;
+				Config.BattleOrders.Mode = 0; // 0 = give BO, 1 = get BO
+				Config.BattleOrders.Idle = false; // Idle until the player that received BO leaves.
+				Config.BattleOrders.Getters = ["Bindle-sorc"]; // List of players to wait for before casting Battle Orders (mode 0). All players must be in the same area as the BOer.
+				Config.BattleOrders.QuitOnFailure = false; // Quit the game if BO fails
+				Config.BattleOrders.SkipIfTardy = true; // Proceed with scripts if other players already moved on from BO spot
+				Config.BattleOrders.Wait = 10; // Duration to wait for players to join game in seconds (default: 10)
+
 			Scripts.Follower = false;     
 			Scripts.DiabloHelper = true; // Chaos helper, kills monsters and doesn't open seals on its own.
 				Config.DiabloHelper.Wait = 120; // Seconds to wait for a runner to be in Chaos. If Config.Leader is set, it will wait only for the leader.
@@ -158,7 +167,7 @@ var AutoBuildTemplate = {
 				Config.DiabloHelper.SkipTP = false; // Don't wait for town portal and directly head to chaos. It will clear monsters around chaos entrance and wait for the runner.
 				Config.DiabloHelper.SkipIfBaal = false; // End script if there are party members in a Baal run.
 				Config.DiabloHelper.OpenSeals = false; // Open seals as the helper
-				Config.DiabloHelper.SafePrecast = false; // take random WP to safely precast
+				Config.DiabloHelper.SafePrecast = true; // take random WP to safely precast
 				Config.DiabloHelper.SealOrder = ["vizier", "seis", "infector"]; // the order in which to clear the seals. If seals are excluded, they won't be checked unless diablo fails to appear
 				Config.DiabloHelper.RecheckSeals = false; // Teleport to each seal and double-check that it was opened and boss was killed if Diablo doesn't appear
 			Scripts.BaalHelper = true;
@@ -169,7 +178,7 @@ var AutoBuildTemplate = {
 				Config.BaalHelper.KillBaal = true; // Kill Baal. If set to false, you must configure Config.QuitList or the bot will wait indefinitely.
 				Config.BaalHelper.SkipTP = false; // Don't wait for a TP, go to WSK3 and wait for someone to go to throne. Anti PK measure.
 			Scripts.MFHelper = true;
-				Config.BreakClearLevel = true;
+				Config.MFHelper.BreakClearLevel = true;
 
 			Config.LocalChat.Mode = 1;
 			Config.LifeChicken = 5;

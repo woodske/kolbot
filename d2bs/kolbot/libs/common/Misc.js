@@ -510,6 +510,7 @@ var Item = {
 			return false;
 		}
 
+
 		// Already equipped in the right slot
 		if (item.mode === 1 && item.bodylocation === bodyLoc) {
 			return true;
@@ -570,8 +571,7 @@ var Item = {
 
 		for (i = 0; i < 3; i += 1) {
 			if (item.toCursor()) {
-				clickItem(4, bodyLoc);
-				delay(me.ping * 2 + 500);
+				clickItemAndWait(4, bodyLoc);
 
 				if (Number(this.getBodyLoc(item)) === bodyLoc) {
 					if (getCursorType() === 3) {
@@ -647,17 +647,15 @@ var Item = {
 
 		switch (item.itemType) {
 		case 2: // Shield
+		case 5: // Arrows
+		case 6: // Bolts
+		case 69: // Voodoo Heads
 		case 70: // Auric Shields
 			bodyLoc = 5;
 
 			break;
 		case 3: // Armor
 			bodyLoc = 3;
-
-			break;
-		case 5: // Arrows
-		case 6: // Bolts
-			bodyLoc = 5;
 
 			break;
 		case 10: // Ring
@@ -682,35 +680,49 @@ var Item = {
 			break;
 		case 37: // Helm
 		case 71: // Barb Helm
+		case 72: // Druid Pelt
 		case 75: // Circlet
 			bodyLoc = 1;
 
 			break;
-		case 24: //
-		case 25: //
-		case 26: //
-		case 27: //
-		case 28: //
-		case 29: //
-		case 30: //
-		case 31: //
-		case 32: //
-		case 33: //
-		case 34: //
-		case 35: //
-		case 36: //
-		case 42: //
-		case 43: //
-		case 44: //
-		case 67: // Handtohand (Assasin Claw)
-		case 68: //
-		case 69: //
-		case 72: //
-		case 85: //
-		case 86: //
-		case 87: //
-		case 88: //
+		case 25: // Wand
+		case 26: // Staff
+		case 27: // Bow
+		case 33: // Spear
+		case 34: // Polearm
+		case 35: // Crossbow
+		case 68: // Orb
+		case 85: // Amazon Bow
+		case 86: // Amazon Spear
+		case 87: // Amazon Javelin
 			bodyLoc = 4;
+
+			break;
+		case 24: // Scepter
+		case 28: // Axe
+		case 29: // Club
+		case 30: // Sword
+		case 31: // Hammer
+		case 32: // Knife
+		case 36: // Mace
+		case 38: // Missile Potion
+		case 42: // Throwing Knife
+		case 43: // Throwing Axe
+		case 44: // Javelin
+			if (Config.AutoEquip.Dualwield && me.classid === 4) {
+				bodyLoc = [4, 5];
+			} else {
+				bodyLoc = 4;
+			}
+
+			break;
+		case 67: // Handtohand (Assasin Claw)
+		case 88: // Assassin Claw
+			if (Config.AutoEquip.Dualwield && me.classid === 6) {
+				bodyLoc = [4, 5];
+			} else {
+				bodyLoc = 4;
+			}
 
 			break;
 		default:
@@ -775,7 +787,6 @@ var Item = {
 		var i,
 			tier = NTIP.GetTier(item),
 			bodyLoc = this.getBodyLoc(item);
-
 
 		if (tier > 0 && bodyLoc) {
 			for (i = 0; i < bodyLoc.length; i += 1) {
@@ -882,8 +893,6 @@ var Item = {
 						}
 
 						gid = items[0].gid;
-
-						print(items[0].name);
 
 						if (this.equip(items[0], bodyLoc[j])) {
 							Misc.logItem("Equipped", me.getItem(-1, -1, gid));
