@@ -51,7 +51,7 @@ var AutoBuildTemplate = {
 			Config.CastStatic 		= 60; // Cast static until the target is at designated life percent. 100 = disabled.
 			Config.StaticList 		= ["Diablo", "Duriel", "Baal", "Mephisto"];
 
-			//---------------------- Attacks ------------------
+			//---------------------- Skills ------------------
 			Config.AutoSkill.Enabled	= true; // Enable or disable AutoSkill system
 			Config.AutoSkill.Build 	= [
 				[56, 1, false], // Meteor
@@ -96,8 +96,8 @@ var AutoBuildTemplate = {
 
 			// All followers
 			Scripts.Follower        = true;
-			Config.Leader           = "Bindle-sorc";
-			Config.QuitList         = ["Bindle-sorc"];
+			Config.Leader           = FollowerHelper.getLeader();
+			Config.QuitList         = [FollowerHelper.getLeader()];
 			Config.AutoEquip        = true;
 			Config.TownCheck		= false;						// Don't go to town for more potions
 			Config.UseMerc 			= true;

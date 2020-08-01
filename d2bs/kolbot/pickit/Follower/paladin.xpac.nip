@@ -40,15 +40,17 @@
 
 // boots
 [type] == boots # [maxhp] > 0 || [maxmana] > 0 # [tier] == 1
-[type] == boots && [quality] == set # # [tier] == 1
-[type] == boots # [fireresist]+[lightresist]+[coldresist] >= 10 # [tier] == 2
+[type] == boots && [quality] == set # # [tier] == 2
 [type] == boots # [fireresist]+[lightresist]+[coldresist] >= 10 # [tier] == 3
-[type] == boots && [quality] == unique # # [tier] == 4
-[type] == boots # [fireresist]+[lightresist]+[coldresist] >= 40 && ([maxmana] > 10 || [fhr] > 0) # [tier] == 5
-[type] == boots # [fireresist]+[lightresist]+[coldresist] >= 40 && ([maxmana] > 20 || [fhr] > 0) # [tier] == 6
+[type] == boots # [fireresist]+[lightresist]+[coldresist] >= 20 # [tier] == 4
+[type] == boots && [quality] == unique # # [tier] == 5
+[type] == boots # [fireresist]+[lightresist]+[coldresist] >= 40 && ([maxmana] > 10 || [fhr] > 0) # [tier] == 6
+[type] == boots # [fireresist]+[lightresist]+[coldresist] >= 40 && ([maxmana] > 20 || [fhr] > 0) # [tier] == 7
 
-[name] == sharkskinboots && [quality] == unique && [flag] != ethereal # # [maxquantity] == 1 && [tier] == 98
-[name] == battleboots && [quality] == unique && [flag] != ethereal # # [maxquantity] == 1 && [tier] == 99
+[name] == sharkskinboots && [quality] == unique && [flag] != ethereal # # [maxquantity] == 1 && [tier] == 96
+[name] == battleboots && [quality] == unique && [flag] != ethereal # [itemmagicbonus] >= 30 # [maxquantity] == 1 && [tier] == 97
+[name] == battleboots && [quality] == unique && [flag] != ethereal # [itemmagicbonus] >= 40 # [maxquantity] == 1 && [tier] == 98
+[name] == battleboots && [quality] == unique && [flag] != ethereal # [itemmagicbonus] == 50 # [maxquantity] == 1 && [tier] == 99
 
 // helm
 [type] == helm && [flag] != ethereal # [maxhp] > 0 # [tier] == 1
@@ -71,7 +73,7 @@
 
 [type] == helm && [flag] == runeword # [lightresist] >= 30 # [tier] == 50 // Lore
 
-[name] == shako && [quality] == unique && [flag] != ethereal # # [tier] == 100
+[name] == shako && [quality] == unique && [flag] != ethereal # # [tier] == 99
 
 // amulet
 [type] == amulet && ([quality] == rare || [quality] == magic) # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1

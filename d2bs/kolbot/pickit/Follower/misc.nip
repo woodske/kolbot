@@ -26,5 +26,5 @@
 
 // runes
 [name] >= ohmrune && [name] <= zodrune
-[name] == malrune
-[name] == istrune
+//[name] == malrune
+//[name] == istrune

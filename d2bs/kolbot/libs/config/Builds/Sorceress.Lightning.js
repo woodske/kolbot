@@ -49,7 +49,7 @@ var AutoBuildTemplate = {
 			Config.CastStatic 		= 60; // Cast static until the target is at designated life percent. 100 = disabled.
 			Config.StaticList 		= ["Diablo", "Duriel", "Baal", "Mephisto", "Andariel"];
 
-			//---------------------- Attacks ------------------
+			//---------------------- Skills ------------------
 			Config.AutoSkill.Enabled	= true; // Enable or disable AutoSkill system
 			Config.AutoSkill.Build 	= [
 				[53, 1, false], // Chain Lightning
@@ -93,8 +93,8 @@ var AutoBuildTemplate = {
 
 			// All followers
 			Scripts.Follower        = true;
-			Config.Leader           = "Bindle-sorc";
-			Config.QuitList         = ["Bindle-sorc"];
+			Config.Leader           = FollowerHelper.getLeader();
+			Config.QuitList         = [FollowerHelper.getLeader()];
 			Config.AutoEquip        = true;
 			Config.TownCheck		= false;						// Don't go to town for more potions
 			Config.UseMerc 			= true;
@@ -116,9 +116,9 @@ var AutoBuildTemplate = {
 			Config.LocalChat.Enabled = true;                        // enable the LocalChat system
 			Config.LocalChat.Mode   = 2;                              // 0 = disabled, 1 = chat from 'say' (recommended), 2 = all chat (for manual play)
 
-			Config.Inventory[0] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-			Config.Inventory[1] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-			Config.Inventory[2] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+			Config.Inventory[0] = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
+			Config.Inventory[1] = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
+			Config.Inventory[2] = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
 			Config.Inventory[3] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
 			//--------------------- Pickit ----------------------

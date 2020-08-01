@@ -150,7 +150,6 @@
 [name] == grimwand && [quality] == unique # # [tier] == 5
 [name] == burntwand && [quality] == unique # # [tier] == 6
 [name] == petrifiedwand && [quality] == unique # # [tier] == 7
-[type] == sword && [flag] == runeword # [itemallskills] == 2 # [tier] == 8
 [name] == tombwand && [quality] == unique # # [tier] == 9
 
 [type] == sword && [flag] == runeword # [itemallskills] == 2 && [fcr] >= 25 && [fhr] >= 55 # [tier] == 50 //spirit

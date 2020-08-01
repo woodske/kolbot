@@ -28,6 +28,8 @@
 // --------uniques------------
 [name] == corona && [quality] == unique // crown of ages
 [name] == diadem && [quality] == unique // griffon's eye
+[name] == ring && [quality] == unique # [itemmaxmanapercent] == 25 // soj
+[name] == ring && [quality] == unique # [maxstamina] == 50 && [lifeleech] >= 3 // bk
 [name] == quarterstaff && [quality] == unique && [flag] == ethereal // Ribcracker
 [Name] == jewel && [quality] == unique # [passivecoldpierce]+[passivecoldmastery] >= 10 || [passivepoispierce]+[passivepoismastery] >= 10 || [passiveltngpierce]+[passiveltngmastery] >= 10 || [passivefirepierce]+[passivefiremastery] >= 10
 

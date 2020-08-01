@@ -164,16 +164,16 @@
 [name] == ornateplate && [quality] == unique && [flag] != ethereal # # [tier] == 44 // Corpsemourn
 
 [type] == armor && [flag] == runeword # [fireresist] == 50 && [lightresist] == 50 # [tier] == 51 // Smoke
-[type] == armor && [flag] == runeword # [assassinskills] == 2 # [tier] == 52 // Treachery
+[type] == armor && [flag] == runeword && [flag] != ethereal && [class] == elite # [assassinskills] == 2 # [tier] == 52 // Treachery
 
 [type] == armor && [flag] == runeword # [enhanceddamage] == 300 # [tier] == 101 // Fortitude
 
 // --- weapon ---
-([type] == throwingknife || [type] == throwingaxe) # # [tier] == 1
-([type] == throwingknife || [type] == throwingaxe) && [quality] == magic # # [tier] == 2
-([type] == throwingknife || [type] == throwingaxe) && [quality] == rare # # [tier] == 3
-([type] == throwingknife || [type] == throwingaxe) && [quality] == rare # [itemreplenishquantity] > 0 # [tier] == 4
-([type] == throwingknife || [type] == throwingaxe) && [quality] == rare && [flag] == ethereal # [itemreplenishquantity] > 0 # [tier] == 5
+([type] == throwingknife || [type] == throwingaxe) && [flag] != ethereal # # [tier] == 1
+([type] == throwingknife || [type] == throwingaxe) && [flag] != ethereal && [quality] == magic # # [tier] == 2
+([type] == throwingknife || [type] == throwingaxe) && [flag] == ethereal && [quality] == magic # [itemreplenishquantity] > 0 # [tier] == 3
+([type] == throwingknife || [type] == throwingaxe) && [flag] != ethereal && [quality] == rare # # [tier] == 4
+([type] == throwingknife || [type] == throwingaxe) && [flag] == ethereal && [quality] == rare # [itemreplenishquantity] > 0 # [tier] == 5
 
 [name] == battledart && [quality] == unique # # [tier] == 30 // Deathbit
 [name] == francisca && [quality] == unique # # [tier] == 31 // The Scalper

@@ -511,7 +511,7 @@ var RunewordManager = {
 					runes: Runeword.Enigma,
 					runewordKeep: "[type] == armor # [frw] == 45",
 					equipment: ["mageplate"],
-					recipes: [[Recipe.Rune, "Ohm Rune"], [Recipe.Rune, "Lo Rune"], [Recipe.Rune, "Sur Rune"], [Recipe.Rune, "Ber Rune"]],
+					recipes: [[Recipe.Rune, "Um Rune"], [Recipe.Rune, "Mal Rune"], [Recipe.Rune, "Ist Rune"], [Recipe.Rune, "Gul Rune"], [Recipe.Rune, "Vex Rune"], [Recipe.Rune, "Ohm Rune"], [Recipe.Rune, "Lo Rune"], [Recipe.Rune, "Sur Rune"], [Recipe.Rune, "Ber Rune"]],
 					recipePickit: []
 				};
 				nipConfig = {
@@ -710,7 +710,7 @@ var RunewordManager = {
 				runewordConfig = {
 					runes: Runeword.Lore,
 					runewordKeep: "[type] == helm # [LightResist] >= 25",
-					equipment: ["cap", "skullcap", "crown", "mask", "bonehelm", "warhat", "grimhelm", "GrandCrown", "Demonhead", "BoneVisage"],
+					equipment: ["mask", "bonehelm", "warhat", "grimhelm", "GrandCrown", "Demonhead", "BoneVisage"],
 					recipes: [],
 					recipePickit: []
 				};

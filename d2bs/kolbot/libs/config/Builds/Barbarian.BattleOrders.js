@@ -43,7 +43,7 @@ var AutoBuildTemplate = {
 
 			Config.FindItem 		= false;
 
-			//---------------------- Attacks ------------------
+			//---------------------- Skills ------------------
 			Config.AutoSkill.Enabled	= true; // Enable or disable AutoSkill system
 			Config.AutoSkill.Build 	= [
 				[146, 1, false], // Battle Cry
@@ -86,8 +86,8 @@ var AutoBuildTemplate = {
 
 			// All followers
 			Scripts.Follower        = true;
-			Config.Leader           = "Bindle-sorc";
-			Config.QuitList         = ["Bindle-sorc"];
+			Config.Leader           = FollowerHelper.getLeader();
+			Config.QuitList         = [FollowerHelper.getLeader()];
 			Config.AutoEquip        = true;
 			Config.TownCheck		= false;						// Don't go to town for more potions
 			Config.UseMerc 			= true;

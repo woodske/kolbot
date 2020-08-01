@@ -163,14 +163,17 @@
 [name] == ornateplate && [quality] == unique && [flag] != ethereal # # [tier] == 44 // Corpsemourn
 
 [type] == armor && [flag] == runeword # [fireresist] == 50 && [lightresist] == 50 # [tier] == 51 // Smoke
-[type] == armor && [flag] == runeword # [assassinskills] == 2 # [tier] == 52 // Treachery
+[type] == armor && [flag] == runeword && [flag] != ethereal && [class] == elite # [assassinskills] == 2 # [tier] == 52 // Treachery
 
 [type] == armor && [flag] == runeword # [enhanceddamage] == 300 # [tier] == 101 // Fortitude
 
 // --- weapon ---
 [type] == bow || [type] == amazonbow # # [tier] == 1
-[type] == bow || [type] == amazonbow && [quality] == magic # # [tier] == 2
-[type] == bow || [type] == amazonbow && [quality] == rare # # [tier] == 3
+([type] == bow || [type] == amazonbow) && [quality] == magic # # [tier] == 2
+([type] == bow || [type] == amazonbow) && [quality] == rare # # [tier] == 3
+
+[name] >= longbattlebow && [name] <= longwarbow && [quality] == rare # # [tier] == 4
+[name] >= stagbow && [name] <= reflexbow && [quality] == rare # # [tier] == 5
 
 [name] == shortbow && [quality] == unique # # [tier] == 10 // Pluckeye
 [name] == hunter'sbow && [quality] == unique # # [tier] == 11 // Witherstring
@@ -181,14 +184,22 @@
 [name] == shortwarbow && [quality] == unique # # [tier] == 16 // Hellclap
 [name] == longwarbow && [quality] == unique # # [tier] == 17 // Blastbark
 
-[name] == edgebow && [quality] == unique # # [tier] == 20 // Skystrike
-[name] == razorbow && [quality] == unique # # [tier] == 21 // Riphook
-[name] == cedarbow && [quality] == unique # # [tier] == 22 // Kuko Shakaku
-[name] == doublebow && [quality] == unique # # [tier] == 23 // Endlesshail
-[name] == shortsiegebow && [quality] == unique # # [tier] == 24 // Witchwild String
-[name] == largesiegebow && [quality] == unique # # [tier] == 25 // Cliffkiller
-[name] == runebow && [quality] == unique # # [tier] == 26 // Magewrath
-[name] == gothicbow && [quality] == unique # # [tier] == 27 // Goldstrike Arch
+[name] >= edgebow && [name] <= doublebow && [quality] == rare # # [tier] == 20
+[name] >= shortsiegebow && [name] <= reflexbow && [quality] == rare # # [tier] == 21
+[name] >= ashwoodbow && [name] <= ceremonialbow && [quality] == rare # # [tier] == 22
+
+[name] == edgebow && [quality] == unique # # [tier] == 30 // Skystrike
+[name] == razorbow && [quality] == unique # # [tier] == 31 // Riphook
+[name] == cedarbow && [quality] == unique # # [tier] == 33 // Kuko Shakaku
+[name] == doublebow && [quality] == unique # # [tier] == 33 // Endlesshail
+[name] == shortsiegebow && [quality] == unique # # [tier] == 34 // Witchwild String
+[name] == largesiegebow && [quality] == unique # # [tier] == 35 // Cliffkiller
+[name] == runebow && [quality] == unique # # [tier] == 36 // Magewrath
+[name] == gothicbow && [quality] == unique # # [tier] == 37 // Goldstrike Arch
+
+//[name] >= spiderbow && [name] <= greatbow && [quality] == rare # # [tier] == 40
+//[name] >= diamondbow && [name] <= hydrabow && [quality] == rare # # [tier] == 41
+//[name] >= matriarchalbow && [name] <= grandmatronbow && [quality] == rare # # [tier] == 42
 
 [type] == bow || [type] == amazonbow && [flag] == runeword && [class] == exceptional # [enhanceddamage] >= 200 && [dexterity] == 10 # [tier] == 50 // Harmony
 

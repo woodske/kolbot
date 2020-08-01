@@ -165,7 +165,7 @@
 [name] == ornateplate && [quality] == unique && [flag] != ethereal # # [tier] == 44 // Corpsemourn
 
 [type] == armor && [flag] == runeword # [fireresist] == 50 && [lightresist] == 50 # [tier] == 51 // Smoke
-[type] == armor && [flag] == runeword # [assassinskills] == 2 # [tier] == 52 // Treachery
+[type] == armor && [flag] == runeword && [flag] != ethereal && [class] == elite # [assassinskills] == 2 # [tier] == 52 // Treachery
 
 [type] == armor && [flag] == runeword # [enhanceddamage] == 300 # [tier] == 101 // Fortitude
 
@@ -187,46 +187,39 @@
 [name] == gildedshield && [quality] == unique # # [tier] == 99 // herald of zakarum
 
 // --- weapon ---
-[type] == sword # # [tier] == 1
-[type] == sword && [quality] == magic # # [tier] == 2
-[type] == sword && [quality] == rare # # [tier] == 3
+[name] >= shortsword && [name] <= warsword && [flag] != ethereal # # [tier] == 1
+[name] >= shortsword && [name] <= warsword && [quality] == magic && [flag] != ethereal # # [tier] == 2
+[name] >= shortsword && [name] <= warsword && [quality] == rare && [flag] != ethereal # # [tier] == 3
 
-[name] == shortsword && [quality] == unique # # [tier] == 10 // Rixot's Keen
-[name] == scimitar && [quality] == unique # # [tier] == 11 // Blood Crescent
-[name] == sabre && [quality] == unique # # [tier] == 12 // Skewer of Krintiz
-[name] == falchion && [quality] == unique # # [tier] == 13 // Gleamscythe
-[name] == broadsword && [quality] == unique # # [tier] == 14 // Griswold's Edge
-[name] == longsword && [quality] == unique # # [tier] == 15 // Hellplague
-[name] == warsword && [quality] == unique # # [tier] == 16 // Culwen's Point
-[name] == twohandedsword && [quality] == unique # # [tier] == 17 // Shadowfang
-[name] == claymore && [quality] == unique # # [tier] == 18 // Soulflay
-[name] == giantsword && [quality] == unique # # [tier] == 19 // Kinemil's Awl
-[name] == bastardsword && [quality] == unique # # [tier] == 20 // Blacktongue
-[name] == flamberge && [quality] == unique # # [tier] == 21 // Ripsaw
-[name] == greatsword && [quality] == unique # # [tier] == 22 // The Patriarch
+[name] >= crystalsword && [name] <= warsword && [quality] == rare && [flag] != ethereal # # [tier] == 4
 
-[name] == gladius && [quality] == unique # # [tier] == 30 // Bloodletter
-[name] == cutlass && [quality] == unique # # [tier] == 31 // Coldsteel Eye
-[name] == shamshir && [quality] == unique # # [tier] == 32 // Hexfire
-[name] == tulwar && [quality] == unique # # [tier] == 33 // Blade of Ali Baba
-[name] == dimensionalblade && [quality] == unique # # [tier] == 34 // Ginther's Rift
-[name] == battlesword && [quality] == unique # # [tier] == 35 // Headstriker
-[name] == runesword && [quality] == unique # # [tier] == 36 // Plague Bearer
-[name] == ancientsword && [quality] == unique # # [tier] == 37 // The Atlantean
-[name] == espandon && [quality] == unique # # [tier] == 38 // Crainte Vomir
-[name] == dacianfalx && [quality] == unique # # [tier] == 39 // Bing Sz Wang
-[name] == tusksword && [quality] == unique # # [tier] == 40 // The Vile Husk
-[name] == gothicsword && [quality] == unique # # [tier] == 41 // Cloudcrack
-[name] == zweihander && [quality] == unique # # [tier] == 42 // Todesfaelle Flamme
-[name] == executionersword && [quality] == unique # # [tier] == 43 // Swordguard
+[name] == shortsword && [quality] == unique && [flag] != ethereal # # [tier] == 10 // Rixot's Keen
+[name] == scimitar && [quality] == unique && [flag] != ethereal # # [tier] == 11 // Blood Crescent
+[name] == sabre && [quality] == unique && [flag] != ethereal # # [tier] == 12 // Skewer of Krintiz
+[name] == falchion && [quality] == unique && [flag] != ethereal # # [tier] == 13 // Gleamscythe
+[name] == broadsword && [quality] == unique && [flag] != ethereal # # [tier] == 14 // Griswold's Edge
+[name] == longsword && [quality] == unique && [flag] != ethereal # # [tier] == 15 // Hellplague
+[name] == warsword && [quality] == unique && [flag] != ethereal # # [tier] == 16 // Culwen's Point
 
-[name] == ataghan && [quality] == unique # # [tier] == 60 // Djinn Slayer
-[name] == elegantblade && [quality] == unique # # [tier] == 61 // Bloodmoon
-[name] == phaseblade && [quality] == unique # [itemlightradius] == 7 # [tier] == 62 // Lightsabre
-[name] == phaseblade && [quality] == unique # [itemlightradius] == 3 # [tier] == 63// Azurewrath
-[name] == crypticsword && [quality] == unique # # [tier] == 64 // Frostwind
-[name] == balrogblade && [quality] == unique # # [tier] == 65 // Flamebellow
-[name] == championsword && [quality] == unique # # [tier] == 66 // Doombringer
-[name] == colossusblade && [quality] == unique # # [tier] == 67 // The Grandfather
+[name] >= gladius && [name] <= ancientsword && [quality] == rare && [flag] != ethereal # # [tier] == 20
+[name] >= dimensionalblade && [name] <= ancientsword && [quality] == rare && [flag] != ethereal # # [tier] == 21
+
+[name] == gladius && [quality] == unique && [flag] != ethereal # # [tier] == 30 // Bloodletter
+[name] == cutlass && [quality] == unique && [flag] != ethereal # # [tier] == 31 // Coldsteel Eye
+[name] == shamshir && [quality] == unique && [flag] != ethereal # # [tier] == 32 // Hexfire
+[name] == tulwar && [quality] == unique && [flag] != ethereal # # [tier] == 33 // Blade of Ali Baba
+[name] == dimensionalblade && [quality] == unique && [flag] != ethereal # # [tier] == 34 // Ginther's Rift
+[name] == battlesword && [quality] == unique && [flag] != ethereal # # [tier] == 35 // Headstriker
+[name] == runesword && [quality] == unique && [flag] != ethereal # # [tier] == 36 // Plague Bearer
+[name] == ancientsword && [quality] == unique && [flag] != ethereal # # [tier] == 37 // The Atlantean
+
+[name] >= falcata && [name] <= mythicalsword && [quality] == rare && [flag] != ethereal # # [tier] == 55
+[name] >= phaseblade && [name] <= mythicalsword && [quality] == rare && [flag] != ethereal # # [tier] == 56
+
+[name] == ataghan && [quality] == unique && [flag] != ethereal # # [tier] == 60 // Djinn Slayer
+[name] == elegantblade && [quality] == unique && [flag] != ethereal # # [tier] == 61 // Bloodmoon
+[name] == phaseblade && [quality] == unique && [flag] != ethereal # [itemlightradius] == 7 # [tier] == 62 // Lightsabre
+[name] == phaseblade && [quality] == unique && [flag] != ethereal # [itemlightradius] == 3 # [tier] == 63// Azurewrath
+[name] == crypticsword && [quality] == unique && [flag] != ethereal # # [tier] == 64 // Frostwind
 
 [type] == sword && [flag] == runeword # [ias] >= 30 # [tier] == 101 // Grief

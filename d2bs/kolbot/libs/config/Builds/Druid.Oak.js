@@ -38,7 +38,7 @@ var AutoBuildTemplate = {
 			Config.SummonSpirit     = 0;
 			Config.SummonVine       = 0;
 
-			//---------------------- Attacks ------------------
+			//---------------------- Skills ------------------
 			Config.AutoSkill.Enabled	= true; // Enable or disable AutoSkill system
 			Config.AutoSkill.Build 	= [
 				[250, 1, false], // Hurricane
@@ -92,8 +92,8 @@ var AutoBuildTemplate = {
 
 			// All followers
 			Scripts.Follower        = true;
-			Config.Leader           = "Bindle-sorc";
-			Config.QuitList         = ["Bindle-sorc"];
+			Config.Leader           = FollowerHelper.getLeader();
+			Config.QuitList         = [FollowerHelper.getLeader()];
 			Config.AutoEquip        = true;
 			Config.TownCheck		= false;						// Don't go to town for more potions
 			Config.UseMerc 			= true;
@@ -116,8 +116,8 @@ var AutoBuildTemplate = {
 
 			Config.Inventory[0] = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
 			Config.Inventory[1] = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
-			Config.Inventory[2] = [1, 0, 1, 1, 1, 1, 1, 1, 1, 1];
-			Config.Inventory[3] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+			Config.Inventory[2] = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
+			Config.Inventory[3] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
 			//--------------------- Pickit ----------------------
 

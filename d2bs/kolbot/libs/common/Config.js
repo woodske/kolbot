@@ -260,6 +260,7 @@ var Config = {
 	// Experimental
 	FastParty: false,
 	AutoEquip: false,
+	Dualwield: false,
 
 	// GameData
 	ChampionBias: 60,

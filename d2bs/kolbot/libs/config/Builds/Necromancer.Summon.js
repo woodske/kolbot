@@ -30,6 +30,7 @@ if (!isIncluded("common/Cubing.js")) { include("common/Cubing.js"); };
 if (!isIncluded("common/Prototypes.js")) { include("common/Prototypes.js"); };
 if (!isIncluded("common/Runewords.js")) { include("common/Runewords.js"); };
 if (!isIncluded("common/RunewordManager.js")) { include("common/RunewordManager.js"); };
+if (!isIncluded("common/FollowerHelper.js")) { include("common/FollowerHelper.js"); };
 
 var AutoBuildTemplate = {
 
@@ -54,7 +55,7 @@ var AutoBuildTemplate = {
 			Config.ReviveUnstackable = true; // Revive monsters that can move freely after you teleport.
 			Config.IronGolemChicken = 30; // Exit game if Iron Golem's life is less or equal to designated percent.
 
-			//---------------------- Attacks ------------------
+			//---------------------- Skills ------------------
 			Config.AutoSkill.Enabled	= true; // Enable or disable AutoSkill system
 			Config.AutoSkill.Build 	= [
 				[69, 1, false], // Skeleton Mastery
@@ -69,25 +70,6 @@ var AutoBuildTemplate = {
 				[87, 20, false], // Max Decrepify
 			];
 
-			if (RunewordManager.hasSkill(87)) { // Decrepify
-				Config.Curse[0] = 87;
-				Config.Curse[1] = 87;
-			} else if (RunewordManager.hasSkill(66)) { // Amplify Damage
-				Config.Curse[0] = 66;
-				Config.Curse[1] = 0;
-			}
-
-			if (RunewordManager.hasSkill(74)) { // Corpse Explosion
-				Config.ExplodeCorpses = 74;
-			}
-
-			if (RunewordManager.hasSkill(75)) { // Clay Golem
-				Config.Golem = "Clay";
-			}
-
-			Config.AttackSkill 	= [-1, 500, -1, 500, -1, -1, -1];
-			Config.LowManaSkill = [-1, -1];
-
 			//---------------------- Stats ------------------
 			Config.AutoStat.Enabled = true; // Enable or disable AutoStat system
 			Config.AutoStat.Build 	= [
@@ -100,55 +82,13 @@ var AutoBuildTemplate = {
 				["v", "all"], // put rest of the points in vitality
 			];
 
-			// All followers
-			Scripts.Follower        = true;
-			Config.Leader           = "Bindle-sorc";
-			Config.QuitList         = ["Bindle-sorc"];
-			Config.AutoEquip        = true;
-			Config.TownCheck		= false;						// Don't go to town for more potions
-			Config.UseMerc 			= true;
-			Config.PacketShopping 	= true;
-			Config.PacketCasting    = 2;
-			Config.ClearType        = 0;                            // Monster spectype to kill in level clear scripts (0 = all)
-			Config.LowGold			= 1000;
-			Config.StashGold 		= 500;
-			Config.OpenChests		= true; 						// Open chests. Controls key buying.
-			Config.ScanShrines		= [15, 13, 12, 14, 7, 6, 2, 1];
-			Config.BeltColumn		= ["hp", "hp", "hp", "mp"];		// Keep tons of health potions!
-			Config.Cubing           = false;                        // Don't cube yet!
-			Config.MakeRunewords    = true;
-			Config.PublicMode       = 2;                            // Accept invites
-			Config.LifeChicken      = 0;                            // Don't exit games when close to death
-			Config.LogLowRunes      = true;
-			Config.LogMiddleRunes   = true;
-			Config.LocalChat.Enabled = true;                        // enable the LocalChat system
-			Config.LocalChat.Mode   = 2;                            // 0 = disabled, 1 = chat from 'say' (recommended), 2 = all chat (for manual play)
+			//---------------------- Config ------------------
+			FollowerHelper.commonConfig();
 
 			Config.Inventory[0] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 			Config.Inventory[1] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 			Config.Inventory[2] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 			Config.Inventory[3] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-
-			//--------------------- Pickit ----------------------
-
-			Config.PickitFiles.push("Follower/misc.nip");
-			Config.PickitFiles.push("earlyLadder.nip");
-
-			//-------------- Recipes & Gambling -----------------
-
-			// Gambling config
-			Config.Gamble = true;
-			Config.GambleGoldStart = 1000000;
-			Config.GambleGoldStop = 500000;
-
-			// List of item names or classids for gambling. Check libs/NTItemAlias.dbl file for other item classids.
-			Config.GambleItems.push("Amulet");
-			Config.GambleItems.push("Ring");
-			Config.GambleItems.push("Circlet");
-			Config.GambleItems.push("Coronet");
-
-			Config.Recipes.push([Recipe.Reroll.Magic, "Grand Charm"]);
-			Config.Recipes.push([Recipe.Reroll.Rare, "Diadem"]);
 
 			//-------------------- Runewords --------------------
 			// Get corpse and merc to compare items
@@ -167,7 +107,25 @@ var AutoBuildTemplate = {
 		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
+			FollowerHelper.mfHelper();
 
+			if (RunewordManager.hasSkill(87)) { // Decrepify
+				Config.Curse[0] = 87;
+				Config.Curse[1] = 87;
+			} else if (RunewordManager.hasSkill(66)) { // Amplify Damage
+				Config.Curse[0] = 66;
+				Config.Curse[1] = 0;
+			}
+
+			if (RunewordManager.hasSkill(74)) { // Corpse Explosion
+				Config.ExplodeCorpses = 74;
+			}
+
+			if (RunewordManager.hasSkill(75)) { // Clay Golem
+				Config.Golem = "Clay";
+			}
+
+			Config.AttackSkill 	= [-1, 500, -1, 500, -1, -1, -1];
 		}
 	},
 
@@ -281,7 +239,7 @@ var AutoBuildTemplate = {
 		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
-			Config.TownCheck = true; // Go to town if out of potions
+			
 		}
 	},
 

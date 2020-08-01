@@ -37,7 +37,6 @@ var AutoBuild = new function AutoBuild () {
 			configUpdateLevel += 1;
 			AutoBuildTemplate[configUpdateLevel].Update.apply(Config); // TODO: Make sure this works
 		}
-		configUpdateLevel = 0;
 	};
 
 

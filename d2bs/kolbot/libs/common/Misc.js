@@ -709,7 +709,7 @@ var Item = {
 		case 42: // Throwing Knife
 		case 43: // Throwing Axe
 		case 44: // Javelin
-			if (Config.AutoEquip.Dualwield && me.classid === 4) {
+			if (Config.Dualwield && me.classid === 4) {
 				bodyLoc = [4, 5];
 			} else {
 				bodyLoc = 4;
@@ -718,7 +718,7 @@ var Item = {
 			break;
 		case 67: // Handtohand (Assasin Claw)
 		case 88: // Assassin Claw
-			if (Config.AutoEquip.Dualwield && me.classid === 6) {
+			if (Config.Dualwield && me.classid === 6) {
 				bodyLoc = [4, 5];
 			} else {
 				bodyLoc = 4;

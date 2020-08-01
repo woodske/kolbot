@@ -49,7 +49,7 @@ var AutoBuildTemplate = {
 
 			Config.Charge 			= false;
 
-			//---------------------- Attacks ------------------
+			//---------------------- Skills ------------------
 			Config.AutoSkill.Enabled	= true; // Enable or disable AutoSkill system
 			Config.AutoSkill.Build 	= [
 				[117, 1, false], // Holy Shield
@@ -120,10 +120,10 @@ var AutoBuildTemplate = {
 			Config.LocalChat.Enabled = true;
 			Config.LocalChat.Mode 	= 2;
 
-			Config.Inventory[0] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-			Config.Inventory[1] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-			Config.Inventory[2] = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-			Config.Inventory[3] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+			Config.Inventory[0] = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
+			Config.Inventory[1] = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
+			Config.Inventory[2] = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
+			Config.Inventory[3] = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
 
 			//--------------------- Pickit ----------------------
 

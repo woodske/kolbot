@@ -49,7 +49,7 @@ var AutoBuildTemplate = {
 			Config.Dodge 			= false;
 			Config.UseCloakofShadows = false;
 
-			//---------------------- Attacks ------------------
+			//---------------------- Skills ------------------
 			Config.AutoSkill.Enabled	= true; // Enable or disable AutoSkill system
 			Config.AutoSkill.Build 	= [
 				[261, 1, false], // Charged Bolt Sentry
@@ -117,8 +117,8 @@ var AutoBuildTemplate = {
 
 			// All followers
 			Scripts.Follower        = true;
-			Config.Leader           = "Bindle-sorc";
-			Config.QuitList         = ["Bindle-sorc"];
+			Config.Leader           = FollowerHelper.getLeader();
+			Config.QuitList         = [FollowerHelper.getLeader()];
 			Config.AutoEquip        = true;
 			Config.TownCheck		= false;						// Don't go to town for more potions
 			Config.UseMerc 			= true;
@@ -287,6 +287,7 @@ var AutoBuildTemplate = {
 		Update: function () {
 			Config.HPBuffer = 8; // Number of healing potions to keep in inventory.
 			Config.BeltColumn = ["hp", "hp", "mp", "mp"];		// Keep tons of health potions!
+			Config.MinColumn = [2, 2, 2, 2];
 		}
 	},
 

@@ -165,6 +165,10 @@ function Follower() {
 			return false;
 		}
 
+		if (name === NPC.Alkor) {
+			delay(rand(2000, 30000));
+		}
+
 		if (!Town.move(name === NPC.Jerhyn ? "palace" : name)) {
 			Town.move("portalspot");
 			say("Failed to move to town spot.");
@@ -627,7 +631,7 @@ function Follower() {
 			if (attack) {
 				Attack.clear(20, false, false, false, false);
 
-				if (me.classid === 4 && rand(1, 100) < 5) {
+				if (me.classid === 4 && rand(1, 100) < 2) {
 					Precast.doPrecast(true);
 				}
 

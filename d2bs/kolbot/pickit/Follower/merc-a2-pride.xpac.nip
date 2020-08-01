@@ -19,7 +19,9 @@
 [type] == armor && [flag] == ethereal && [flag] == runeword && [class] == elite # [assassinskills] == 2 # [MercTier] == 100 // Treachery
 
 // weapon (Act 2 merc)
-([type] == spear || [type] == polearm || [type] == javelin) # [lifeleech] >= 1 # [MercTier] == 1
+([type] == spear || [type] == polearm || [type] == javelin) && [quality] == magic # # [MercTier] == 1
+([type] == spear || [type] == polearm || [type] == javelin) && [quality] == rare # # [MercTier] == 2
+([type] == spear || [type] == polearm || [type] == javelin) && [quality] >= magic # [lifeleech] >= 1 # [MercTier] == 3
 
 [name] == poleaxe && [quality] == unique # # [MercTier] == 20 // The Battlebranch
 [name] == brandistock && [quality] == unique # # [MercTier] == 21 // Bloodthief
