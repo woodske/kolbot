@@ -38,9 +38,9 @@
 // boots
 [type] == boots # [maxhp] > 0 || [maxmana] > 0 # [tier] == 1
 [type] == boots && [quality] == set # # [tier] == 2
-[type] == boots # [fireresist]+[lightresist]+[coldresist] >= 10 # [tier] == 3
-[type] == boots # [fireresist]+[lightresist]+[coldresist] >= 20 # [tier] == 4
-[type] == boots && [quality] == unique # # [tier] == 5
+[type] == boots && [quality] == unique # # [tier] == 3
+[type] == boots # [fireresist]+[lightresist]+[coldresist] >= 10 # [tier] == 4
+[type] == boots # [fireresist]+[lightresist]+[coldresist] >= 20 # [tier] == 5
 [type] == boots # [fireresist]+[lightresist]+[coldresist] >= 40 && ([maxmana] > 10 || [fhr] > 0) # [tier] == 6
 [type] == boots # [fireresist]+[lightresist]+[coldresist] >= 40 && ([maxmana] > 20 || [fhr] > 0) # [tier] == 7
 
@@ -69,7 +69,7 @@
 
 [type] == helm && [flag] == runeword # [lightresist] >= 30 # [tier] == 50 // Lore
 
-[name] == deathmask && [quality] == set && [flag] != ethereal # [defense] >= 99 # [maxquantity] == 1 && [tier] == 99
+[name] == deathmask && [quality] == set && [flag] != ethereal # # [tier] == 99
 
 // amulet
 [type] == amulet && ([quality] == rare || [quality] == magic) # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
@@ -137,8 +137,9 @@
 [type] == armor && [flag] == runeword # [fcr] == 25 && [frw] == 25 # [tier] == 50 // Stealth
 [type] == armor && [flag] == runeword # [fireresist] == 50 && [lightresist] == 50 # [tier] == 51 // Smoke
 
-[name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [itemallskills] == 1 && [fireresist] >=20 && [lightresist] >= 20 # [maxquantity] == 1 && [tier] == 98
-[name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [itemallskills] == 1 && [fireresist] >=30 && [lightresist] >= 20 # [maxquantity] == 1 && [tier] == 99
+[name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [fireresist] >= 20 # [tier] == 97
+[name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [fireresist] >= 30 # [tier] == 98
+[name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [fireresist] == 35 # [tier] == 99
 
 [name] == lacqueredplate && [quality] == set && [flag] != ethereal # # [tier] == 100
 

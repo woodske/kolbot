@@ -41,6 +41,7 @@ function Tristram() {
 	Pather._teleport = Pather.teleport;
 
 	Town.doChores();
+	delay(5000);
 	Pather.useWaypoint(4);
 	Precast.doPrecast(true);
 

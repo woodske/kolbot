@@ -184,3 +184,8 @@
 
 [name] == quarterstaff && [quality] == unique # # [tier] == 98 // Ribcracker
 [name] == stalagmite && [quality] == unique # # [tier] == 99 // Up'd Ribcracker
+
+// Up Ribcracker recipe
+[name] == lumrune # # [MaxQuantity] == 1
+[name] == pulrune # # [MaxQuantity] == 1
+[name] == perfectemerald # # [MaxQuantity] == 1

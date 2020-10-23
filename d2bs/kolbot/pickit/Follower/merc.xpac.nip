@@ -1,6 +1,6 @@
 // helm
-[type] == helm # [fireresist]+[lightresist]+[coldresist] >= 10 # [MercTier] == 1
-[type] == helm # [fireresist]+[lightresist]+[coldresist] >= 30 # [MercTier] == 2
+[type] == helm && [quality] <= rare # [fireresist]+[lightresist]+[coldresist] >= 10 # [MercTier] == 1
+[type] == helm && [quality] <= rare # [fireresist]+[lightresist]+[coldresist] >= 30 # [MercTier] == 2
 
 [name] == grandcrown && [quality] == unique # # [MercTier] == 20 // Crown of Thiefs
 [name] == grimhelm && [quality] == unique # # [MercTier] == 21 // Vampire Gaze
@@ -9,8 +9,8 @@
 [name] == demonhead && [flag] == ethereal && [quality] == unique # # [MercTier] == 100 // Andariel's Visage
 
 // armor
-[type] == armor # [fireresist]+[lightresist]+[coldresist] >= 10 # [MercTier] == 1
-[type] == armor # [fireresist]+[lightresist]+[coldresist] >= 30 # [MercTier] == 2
+[type] == armor && [quality] <= rare # [fireresist]+[lightresist]+[coldresist] >= 10 # [MercTier] == 1
+[type] == armor && [quality] <= rare # [fireresist]+[lightresist]+[coldresist] >= 30 # [MercTier] == 2
 
 [name] == cuirass && [quality] == unique # # [mercTier] == 20 // Duriel's shell
 

@@ -11,7 +11,8 @@ function Tombs() {
 	Pather.useWaypoint(46);
 	Precast.doPrecast(true);
 
-	for (i = 66; i <= 72; i += 1) {
+	// for (i = 66; i <= 72; i += 1) {
+	for (i = 66; i <= 67; i += 1) {
 		if (!Pather.moveToExit(i, true)) {
 			throw new Error("Failed to move to tomb");
 		}

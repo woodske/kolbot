@@ -1,0 +1,56 @@
+// helm
+[type] == helm # [fireresist]+[lightresist]+[coldresist] >= 10 # [MercTier] == 1
+[type] == helm # [fireresist]+[lightresist]+[coldresist] >= 30 # [MercTier] == 2
+
+[name] == grandcrown && [quality] == unique # # [MercTier] == 20 // Crown of Thiefs
+[name] == grimhelm && [quality] == unique # # [MercTier] == 21 // Vampire Gaze
+[name] == demonhead && [quality] == unique # # [MercTier] == 22 // Andariel's Visage
+
+[name] == bonevisage && [quality] == unique # # [MercTier] == 23 // Giant Skull
+
+// armor
+[type] == armor # [fireresist]+[lightresist]+[coldresist] >= 10 # [MercTier] == 1
+[type] == armor # [fireresist]+[lightresist]+[coldresist] >= 30 # [MercTier] == 2
+
+[name] == cuirass && [quality] == unique # # [mercTier] == 20 // Duriel's shell
+
+[type] == armor && [flag] == runeword # [assassinskills] == 2 # [MercTier] == 50 // Treachery
+
+[type] == armor && [flag] == ethereal && [flag] == runeword && [class] == elite # [assassinskills] == 2 # [MercTier] == 100 // Treachery
+
+// weapon (Act 2 merc)
+[type] == bow && [quality] == magic # # [MercTier] == 2
+[type] == bow && [quality] == rare # # [MercTier] == 3
+
+[name] >= longbattlebow && [name] <= longwarbow && [quality] == rare # # [MercTier] == 4
+[name] >= stagbow && [name] <= reflexbow && [quality] == rare # # [MercTier] == 5
+
+[name] == shortbow && [quality] == unique # # [MercTier] == 10 // Pluckeye
+[name] == hunter'sbow && [quality] == unique # # [MercTier] == 11 // Witherstring
+[name] == longbow && [quality] == unique # # [MercTier] == 12 // Raven Claw
+[name] == compositebow && [quality] == unique # # [MercTier] == 13 // Rogue's Bow
+[name] == shortbattlebow && [quality] == unique # # [MercTier] == 14 // Stormstride
+[name] == longbattlebow && [quality] == unique # # [MercTier] == 15 // Wizendraw
+[name] == shortwarbow && [quality] == unique # # [MercTier] == 16 // Hellclap
+[name] == longwarbow && [quality] == unique # # [MercTier] == 17 // Blastbark
+
+[name] >= edgebow && [name] <= doublebow && [quality] == rare # # [MercTier] == 20
+[name] >= shortsiegebow && [name] <= gothicbow && [quality] == rare # # [MercTier] == 21
+
+[name] >= spiderbow && [name] <= greatbow && [quality] == rare # # [MercTier] == 22
+[name] >= diamondbow && [name] <= hydrabow && [quality] == rare # # [MercTier] == 23
+
+[name] == edgebow && [quality] == unique # # [MercTier] == 30 // Skystrike
+[name] == razorbow && [quality] == unique # # [MercTier] == 31 // Riphook
+[name] == cedarbow && [quality] == unique # # [MercTier] == 33 // Kuko Shakaku
+[name] == doublebow && [quality] == unique # # [MercTier] == 33 // Endlesshail
+[name] == shortsiegebow && [quality] == unique # # [MercTier] == 34 // Witchwild String
+[name] == largesiegebow && [quality] == unique # # [MercTier] == 35 // Cliffkiller
+[name] == runebow && [quality] == unique # # [MercTier] == 36 // Magewrath
+[name] == gothicbow && [quality] == unique # # [MercTier] == 37 // Goldstrike Arch
+
+[type] == bow && [flag] == runeword && [class] == normal # [enhanceddamage] >= 200 && [dexterity] == 10 # [MercTier] == 50 // Harmony
+[type] == bow && [flag] == runeword && [class] == exceptional # [enhanceddamage] >= 200 && [dexterity] == 10 # [MercTier] == 51 // Harmony
+[type] == bow && [flag] == runeword && [class] == elite # [enhanceddamage] >= 200 && [dexterity] == 10 # [MercTier] == 52 // Harmony
+
+[name] == greatbow && [flag] == runeword # [enhanceddamage] >= 330 # [mercTier] == 101 // Faith

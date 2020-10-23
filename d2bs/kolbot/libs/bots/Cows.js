@@ -225,6 +225,8 @@ function Cows() {
 	leg = this.getLeg();
 	tome = this.getTome();
 
+	Config.NoTele = false;
+
 	this.openPortal(leg, tome);
 	Pather.usePortal(39);
 	Precast.doPrecast(false);

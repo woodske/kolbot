@@ -3,7 +3,6 @@
 [type] == gloves && [flag] != ethereal # [dexterity] > 0 && [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 2
 
 [name] == leathergloves && [quality] == unique && [flag] != ethereal # # [tier] == 10 // The Hand of Broc
-[name] == heavygloves && [quality] == unique && [flag] != ethereal # # [tier] == 11 // Bloodfist
 
 [name] == demonhidegloves && [quality] == unique && [flag] != ethereal # # [tier] == 20 // Venomgrip
 [name] == sharkskingloves && [quality] == unique && [flag] != ethereal # # [tier] == 21 // Gravepalm
@@ -11,10 +10,11 @@
 [name] == battlegauntlets && [quality] == unique && [flag] != ethereal # # [tier] == 23 // Lava Gout
 [name] == wargauntlets && [quality] == unique && [flag] != ethereal # # [tier] == 24 // Hellmouth
 
-[name] == vampirebonegloves && [quality] == unique && [flag] != ethereal # # [tier] == 60 // Dracul's Grasp
-[name] == vambraces && [quality] == unique && [flag] != ethereal # # [tier] == 61 // Soul Drainer
+[name] == heavygloves && [quality] == unique && [flag] != ethereal # # [tier] == 60 // Bloodfist
+[name] == bramblemitts && [quality] == set && [flag] != ethereal # # [tier] == 61 // Laying of Hands
+[name] == vambraces && [quality] == unique && [flag] != ethereal # # [tier] == 62 // Soul Drainer
 
-[name] == bramblemitts && [quality] == set && [flag] != ethereal # # [tier] == 99 // Laying of Hands
+[name] == vampirebonegloves && [quality] == unique && [flag] != ethereal # # [tier] == 99 // Dracul's Grasp
 
 // --- belt ---
 [name] == sash && [flag] != ethereal # # [tier] == 1
@@ -78,7 +78,7 @@
 [name] == grimhelm && [quality] == unique && [flag] != ethereal # # [tier] == 61 // Vampire Gaze
 
 [name] == demonhead && [quality] == unique && [flag] != ethereal # # [tier] == 98 // Andariel's Visage
-[name] == slayerguard && [quality] == unique  # # [tier] == 99 // Arreat's Face
+[name] == slayerguard && [quality] == unique # # [tier] == 99 // Arreat's Face
 
 // amulet
 [type] == amulet && ([quality] == rare || [quality] == magic) # [fireresist]+[lightresist]+[coldresist]+[poisonresist] >= 5 # [tier] == 1
@@ -217,9 +217,5 @@
 [name] == elegantblade && [quality] == unique && [flag] != ethereal # # [tier] == 61 // Bloodmoon
 [name] == phaseblade && [quality] == unique && [flag] != ethereal # [itemlightradius] == 7 # [tier] == 62 // Lightsabre
 [name] == phaseblade && [quality] == unique && [flag] != ethereal # [itemlightradius] == 3 # [tier] == 63// Azurewrath
-[name] == crypticsword && [quality] == unique && [flag] != ethereal # # [tier] == 64 // Frostwind
-[name] == balrogblade && [quality] == unique && [flag] != ethereal # # [tier] == 65 // Flamebellow
-[name] == championsword && [quality] == unique && [flag] != ethereal # # [tier] == 66 // Doombringer
-[name] == colossusblade && [quality] == unique && [flag] != ethereal # # [tier] == 67 // The Grandfather
 
 [type] == sword && [flag] == runeword # [ias] >= 30 # [tier] == 101 // Grief

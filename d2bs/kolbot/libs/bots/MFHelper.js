@@ -119,7 +119,7 @@ function MFHelper() {
 	}
 
 	// START
-MainLoop:
+	MainLoop:
 	while (true) {
 		if (me.playertype != 1 && me.mode === 17) {
 			while (!me.inTown) {
@@ -153,13 +153,16 @@ MainLoop:
 			}
 
 			// if (command !== oldCommand) {
-				oldCommand = command;
+			oldCommand = command;
 
-				if (command.indexOf("quit") > -1) {
-					break MainLoop;
-				} else if (command.indexOf("cows") > -1) {
-					print("ÿc4MFHelperÿc0: Clear Cows");
+			if (command.indexOf("quit") > -1) {
+				break MainLoop;
+			} else if (command.indexOf("cows") > -1) {
+				print("ÿc4MFHelperÿc0: Clear Cows");
 
+				if (!me.getSkill(54, 1) && me.diff === 2) { // In hell without teleport, don't do cows
+					print('skipping cows');
+				} else {
 					for (i = 0; i < 5; i += 1) {
 						if (Town.goToTown(1) && Pather.usePortal(39)) {
 							break;
@@ -167,73 +170,74 @@ MainLoop:
 
 						delay(1000);
 					}
+				}
 
-					if (me.area === 39) {
-						Precast.doPrecast(false);
-						this.clearCowLevel();
-						delay(1000);
+				if (me.area === 39) {
+					Precast.doPrecast(false);
+					this.clearCowLevel();
+					delay(1000);
 
-						if (!Pather.usePortal(null, player.name)) {
-							Town.goToTown();
-						}
-					} else {
-						print("Failed to use portal.");
+					if (!Pather.usePortal(null, player.name)) {
+						Town.goToTown();
 					}
 				} else {
-					for (i = 0; i < 5; i += 1) {
-						if (Pather.usePortal(player.area, player.name)) {
-							break;
-						}
-
-						delay(500 + me.ping);
+					print("Failed to use portal.");
+				}
+			} else {
+				for (i = 0; i < 5; i += 1) {
+					if (Pather.usePortal(player.area, player.name)) {
+						break;
 					}
 
-					if (!me.inTown && me.area === player.area) {
+					delay(500 + me.ping);
+				}
+
+				if (!me.inTown && me.area === player.area) {
+					Precast.doPrecast(true);
+
+					if (command.indexOf("kill") > -1) {
+						print("ÿc4MFHelperÿc0: Kill");
+						split = command.split("kill ")[1];
+
+						try {
+							if (!!parseInt(split, 10)) {
+								split = parseInt(split, 10);
+							}
+
+							Attack.kill(split);
+							Pickit.pickItems();
+						} catch (killerror) {
+							print(killerror);
+						}
+					} else if (command.indexOf("clearlevel") > -1) {
+						print("ÿc4MFHelperÿc0: Clear Level " + getArea().name);
 						Precast.doPrecast(true);
+						Attack.clearLevel(Config.ClearType);
+					} else if (command.indexOf("clear") > -1) {
+						print("ÿc4MFHelperÿc0: Clear");
+						split = command.split("clear ")[1];
 
-						if (command.indexOf("kill") > -1) {
-							print("ÿc4MFHelperÿc0: Kill");
-							split = command.split("kill ")[1];
-
-							try {
-								if (!!parseInt(split, 10)) {
-									split = parseInt(split, 10);
-								}
-
-								Attack.kill(split);
-								Pickit.pickItems();
-							} catch (killerror) {
-								print(killerror);
+						try {
+							if (!!parseInt(split, 10)) {
+								split = parseInt(split, 10);
 							}
-						} else if (command.indexOf("clearlevel") > -1) {
-							print("ÿc4MFHelperÿc0: Clear Level " + getArea().name);
-							Precast.doPrecast(true);
-							Attack.clearLevel(Config.ClearType);
-						} else if (command.indexOf("clear") > -1) {
-							print("ÿc4MFHelperÿc0: Clear");
-							split = command.split("clear ")[1];
 
-							try {
-								if (!!parseInt(split, 10)) {
-									split = parseInt(split, 10);
-								}
-
-								Attack.clear(15, 0, split);
-							} catch (killerror2) {
-								print(killerror2);
-							}
-						} else if (command.indexOf("council") > -1) {
-							print("ÿc4MFHelperÿc0: Kill Council");
-							Attack.clearList(Attack.getMob([345, 346, 347], 0, 40));
+							Attack.clear(15, 0, split);
+						} catch (killerror2) {
+							print(killerror2);
 						}
+					} else if (command.indexOf("council") > -1) {
+						print("ÿc4MFHelperÿc0: Kill Council");
+						Attack.clearList(Attack.getMob([345, 346, 347], 0, 40));
+					}
 
-						delay(100);
+					delay(100);
 
-						if (!Pather.usePortal(null, player.name)) {
-							Town.goToTown();
-						}
+					if (!Pather.usePortal(null, player.name)) {
+						Town.goToTown();
 					}
 				}
+			}
 			// }
 		}
 

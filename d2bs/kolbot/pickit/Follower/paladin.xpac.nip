@@ -158,8 +158,9 @@
 [type] == armor && [flag] == runeword # [fcr] == 25 && [frw] == 25 # [tier] == 50 // Stealth
 [type] == armor && [flag] == runeword # [fireresist] == 50 && [lightresist] == 50 # [tier] == 51 // Smoke
 
-[name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [itemallskills] == 1 && [fireresist] >=20 && [lightresist] >= 20 # [maxquantity] == 1 && [tier] == 99
-[name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [itemallskills] == 1 && [fireresist] == 35 # [maxquantity] == 1 && [tier] == 100
+[name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [fireresist] >= 20 # [tier] == 97
+[name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [fireresist] >= 30 # [tier] == 98
+[name] == serpentskinarmor && [quality] == unique && [flag] != ethereal # [fireresist] == 35 # [tier] == 99
 
 [type] == armor && [flag] == runeword # [frw] == 45 # [tier] == 101 // Enigma
 
@@ -178,7 +179,7 @@
 [type] == sword && [flag] == runeword # [itemallskills] == 2 && [fcr] == 35 && [fhr] >= 55 # [tier] == 51 //spirit
 
 [name] == flail && [flag] == runeword # [itemallskills] == 3 && [fireresist] >= 30 # [tier] == 100 //hoto
-[name] == flail && [flag] == runeword # [itemallskills] == 3 && [fireresist] == 40 # [tier] == 101 //hoto
+[name] == flail && [flag] == runeword # [itemallskills] == 3 && [fireresist] >= 38 # [tier] == 101 //hoto
 
 // shield
 [type] == shield # [sockets] <= 2 && ([fireresist]+[lightresist]+[coldresist] >= 10 || [maxhp] > 9) # [tier] == 1

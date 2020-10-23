@@ -185,7 +185,7 @@
 [name] == longwarbow && [quality] == unique # # [tier] == 17 // Blastbark
 
 [name] >= edgebow && [name] <= doublebow && [quality] == rare # # [tier] == 20
-[name] >= shortsiegebow && [name] <= reflexbow && [quality] == rare # # [tier] == 21
+[name] >= shortsiegebow && [name] <= gothicbow && [quality] == rare # # [tier] == 21
 [name] >= ashwoodbow && [name] <= ceremonialbow && [quality] == rare # # [tier] == 22
 
 [name] == edgebow && [quality] == unique # # [tier] == 30 // Skystrike

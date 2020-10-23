@@ -32,6 +32,8 @@ if (!isIncluded("common/Prototypes.js")) { include("common/Prototypes.js"); };
 if (!isIncluded("common/Runewords.js")) { include("common/Runewords.js"); };
 if (!isIncluded("common/Town.js")) { include("common/Town.js"); };
 if (!isIncluded("common/RunewordManager.js")) { include("common/RunewordManager.js"); };
+if (!isIncluded("common/FollowerHelper.js")) { include("common/FollowerHelper.js"); };
+
 
 var AutoBuildTemplate = {
 
@@ -65,13 +67,13 @@ var AutoBuildTemplate = {
 				[48, 20, false] // Max Nova
 			];
 
-			if (RunewordManager.hasSkill(53)) {
+			if (RunewordManager.hasSkill(53)) { // Chain Lightning
 				Config.AttackSkill = [-1, 49, -1, 53, -1, -1, -1];
 				Config.LowManaSkill	= [-1, -1];
-			} else if (RunewordManager.hasSkill(49)) {
+			} else if (RunewordManager.hasSkill(49)) { // Lightning
 				Config.AttackSkill = [-1, 49, -1, 49, -1, -1, -1];
 				Config.LowManaSkill = [0, 0];
-			} else if (RunewordManager.hasSkill(38)) {
+			} else if (RunewordManager.hasSkill(38)) { // Charged Bolt
 				Config.AttackSkill = [0, 38, -1, 38, -1, 0, 0];
 				Config.LowManaSkill = [0, 0];
 			} else {
@@ -91,56 +93,13 @@ var AutoBuildTemplate = {
 				["v", "all"], // put rest of the points in vitality
 			];
 
-			// All followers
-			Scripts.Follower        = true;
-			Config.Leader           = FollowerHelper.getLeader();
-			Config.QuitList         = [FollowerHelper.getLeader()];
-			Config.AutoEquip        = true;
-			Config.TownCheck		= false;						// Don't go to town for more potions
-			Config.UseMerc 			= true;
-			Config.PacketShopping 	= true;
-			Config.PacketCasting    = 2;
-			Config.ClearType        = 0;                            // Monster spectype to kill in level clear scripts (0 = all)
-			Config.LowGold			= 1000;
-			Config.StashGold 		= 500;
-			Config.OpenChests		= true; 						// Open chests. Controls key buying.
-			Config.ScanShrines		= [15, 13, 12, 14, 7, 6, 2, 1];
-			Config.BeltColumn		= ["hp", "hp", "hp", "mp"];		// Keep tons of health potions!
-			Config.MinColumn 		= [1, 1, 1, 1];
-			Config.Cubing           = false;                        // Don't cube yet!
-			Config.MakeRunewords    = true;
-			Config.PublicMode       = 2;                            // Accept invites
-			Config.LifeChicken      = 0;                            // Don't exit games when close to death
-			Config.LogLowRunes      = true;
-			Config.LogMiddleRunes   = true;
-			Config.LocalChat.Enabled = true;                        // enable the LocalChat system
-			Config.LocalChat.Mode   = 2;                              // 0 = disabled, 1 = chat from 'say' (recommended), 2 = all chat (for manual play)
+			//---------------------- Config ------------------
+			FollowerHelper.commonConfig();
 
 			Config.Inventory[0] = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
 			Config.Inventory[1] = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
 			Config.Inventory[2] = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
 			Config.Inventory[3] = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-
-			//--------------------- Pickit ----------------------
-
-			Config.PickitFiles.push("Follower/misc.nip");
-			Config.PickitFiles.push("earlyLadder.nip");
-
-			//-------------- Recipes & Gambling -----------------
-
-			// Gambling config
-			Config.Gamble = true;
-			Config.GambleGoldStart = 1000000;
-			Config.GambleGoldStop = 500000;
-
-			// List of item names or classids for gambling. Check libs/NTItemAlias.dbl file for other item classids.
-			Config.GambleItems.push("Amulet");
-			Config.GambleItems.push("Ring");
-			Config.GambleItems.push("Circlet");
-			Config.GambleItems.push("Coronet");
-
-			Config.Recipes.push([Recipe.Reroll.Magic, "Grand Charm"]);
-			Config.Recipes.push([Recipe.Reroll.Rare, "Diadem"]);
 
 			//-------------------- Runewords --------------------
 			// Get corpse and merc to compare items
@@ -159,37 +118,12 @@ var AutoBuildTemplate = {
 		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
-			Config.NoTele			= false;
-			Config.Dodge			= true;
-
-			Scripts.Follower = false;     
-			Scripts.DiabloHelper = true; // Chaos helper, kills monsters and doesn't open seals on its own.
-				Config.DiabloHelper.Wait = 120; // Seconds to wait for a runner to be in Chaos. If Config.Leader is set, it will wait only for the leader.
-				Config.DiabloHelper.Entrance = true; // Start from entrance. Set to false to start from star.
-				Config.DiabloHelper.SkipTP = false; // Don't wait for town portal and directly head to chaos. It will clear monsters around chaos entrance and wait for the runner.
-				Config.DiabloHelper.SkipIfBaal = false; // End script if there are party members in a Baal run.
-				Config.DiabloHelper.OpenSeals = false; // Open seals as the helper
-				Config.DiabloHelper.SafePrecast = true; // take random WP to safely precast
-				Config.DiabloHelper.SealOrder = ["vizier", "seis", "infector"]; // the order in which to clear the seals. If seals are excluded, they won't be checked unless diablo fails to appear
-				Config.DiabloHelper.RecheckSeals = false; // Teleport to each seal and double-check that it was opened and boss was killed if Diablo doesn't appear
-			Scripts.BaalHelper = true;
-				Config.BaalHelper.Wait = 120; // Seconds to wait for a runner to be in Throne
-				Config.BaalHelper.KillNihlathak = false; // Kill Nihlathak before going to Throne
-				Config.BaalHelper.FastChaos = false; // Kill Diablo before going to Throne
-				Config.BaalHelper.DollQuit = false; // End script if Dolls (Undead Soul Killers) are found.
-				Config.BaalHelper.KillBaal = true; // Kill Baal. If set to false, you must configure Config.QuitList or the bot will wait indefinitely.
-				Config.BaalHelper.SkipTP = false; // Don't wait for a TP, go to WSK3 and wait for someone to go to throne. Anti PK measure.
-
-			Scripts.MFHelper = true;
-				Config.MFHelper.BreakClearLevel = true;
-
-			Config.LocalChat.Mode = 1;
-			Config.LifeChicken = 5;
-			Config.OpenChests = false;
+			FollowerHelper.auto();
 		}
 	},
 
-	3:	{	SkillPoints: [-1],
+	3:	{
+		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
 
@@ -216,9 +150,7 @@ var AutoBuildTemplate = {
 		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
-			Config.MPBuffer = 8;
-			Config.BeltColumn		= ["hp", "mp", "mp", "mp"];
-			Config.MinColumn 		= [2, 2, 2, 2];
+
 		}
 	},
 
@@ -250,7 +182,7 @@ var AutoBuildTemplate = {
 		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
-			Config.LowGold = 5000;
+
 		}
 	},
 
@@ -330,7 +262,7 @@ var AutoBuildTemplate = {
 		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
-			Config.LowGold = 10000;
+
 		}
 	},
 
@@ -362,9 +294,7 @@ var AutoBuildTemplate = {
 		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
-			Config.BeltColumn		= ["hp", "mp", "mp", "mp"];
-			Config.MinColumn 		= [3, 3, 3, 3];
-			Config.Cubing = true;
+
 		}
 	},
 
@@ -372,7 +302,7 @@ var AutoBuildTemplate = {
 		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
-			Config.LowGold = 15000;
+
 		}
 	},
 
@@ -412,7 +342,7 @@ var AutoBuildTemplate = {
 		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
-			Config.LowGold = 50000;
+
 		}
 	},
 
@@ -652,10 +582,7 @@ var AutoBuildTemplate = {
 		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
-			Config.BeltColumn = ["hp", "mp", "rv", "rv"];
-			Config.MinColumn = [3, 3, 0, 0];
-			Config.HPBuffer = 0;
-			Config.MPBuffer = 0;
+
 		}
 	},
 

@@ -107,7 +107,7 @@ var AutoBuildTemplate = {
 		SkillPoints: [-1],
 		StatPoints: [-1, -1, -1, -1, -1],
 		Update: function () {
-			FollowerHelper.mfHelper();
+			FollowerHelper.auto();
 
 			if (RunewordManager.hasSkill(87)) { // Decrepify
 				Config.Curse[0] = 87;

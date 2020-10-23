@@ -15,15 +15,21 @@
 
 // --grand--
 [name] == grandcharm && [quality] == magic # ([coldresist] == 15 && [lightresist] == 15 || [maxdamage] >= 10) && ([maxhp] >= 30 || [strength] >= 6 || [dexterity] >= 6 || [fhr] >= 12 || [frw] == 7)
-[name] == grandcharm && [quality] == magic # ([warcriesskilltab]+[palicombatskilltab]+[fireskilltab]+[coldskilltab]+[lightningskilltab]+[trapsskilltab]+[shadowdisciplinesskilltab]+[javelinandspearskilltab]+[poisonandboneskilltab]+[elementalskilltab] == 1) && ([maxhp] >= 20 || [strength] >= 6 || [dexterity] >= 6 || [fhr] >= 12 || [frw] == 7)
+[name] == grandcharm && [quality] == magic # ([warcriesskilltab]+[palicombatskilltab]+[fireskilltab]+[coldskilltab]+[lightningskilltab]) && ([maxhp] >= 20 || [strength] >= 6 || [dexterity] >= 6 || [fhr] >= 12 || [frw] == 7)
+[name] == grandcharm && [quality] == magic # ([shadowdisciplinesskilltab]+[javelinandspearskilltab]+[poisonandboneskilltab]+[elementalskilltab]+[trapsskilltab] == 1) && [maxhp] >= 40
 [name] == grandcharm && [quality] == magic # [shapeshiftingskilltab] == 1 && [maxhp] >= 35
 
-[name] == grandcharm && [quality] == unique # [itemmagicbonus] >= 30 // || [itemgoldbonus] >= 150
+[name] == grandcharm && [quality] == unique # [itemmagicbonus] >= 35 // || [itemgoldbonus] >= 150
 
 // --------toons------------
-[Name] == LacqueredPlate && [Quality] == Set // Tal Rasha's Guardianship
-[Type] == Amulet && [Quality] == Set # [SorceressSkills] == 2 // Tal Rasha's Adjucation
-//[name] == shako && [quality] == unique && [flag] != ethereal
+// --tal rasha's--
+//[name] == swirlingcrystal && [quality] == set
+//[name] == deathmask && [quality] == set
+[name] == lacqueredplate && [quality] == set
+[name] == amulet && [quality] == set # [lightresist] == 33
+//[name] == meshbelt && [quality] == set
+
+//[name] == shako && [quality] == unique
 
 // --------uniques------------
 [name] == corona && [quality] == unique // crown of ages

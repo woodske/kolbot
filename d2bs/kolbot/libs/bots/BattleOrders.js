@@ -42,8 +42,8 @@ function BattleOrders () {
 
 		if (party) {
 			do {
-				if (party.area === 131 || party.area === 132 || party.area === 108 || party.area === 39) {
-					// Player is in Throne of Destruction, Worldstone Chamber, Chaos Sanctuary, or Cows
+				if (party.area === 131 || party.area === 132 || party.area === 108 || party.area === 39 || party.area === 65) {
+					// Player is in Throne of Destruction, Worldstone Chamber, Chaos Sanctuary, Cows, or Ancient Tunnels
 					print("ÿc1I'm late to BOs. Moving on...");
 
 					return true;

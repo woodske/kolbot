@@ -121,7 +121,7 @@
 
 // -- bows ---
 [name] == shortbow && [quality] == unique # # [tier] == 10 // Pluckeye
-[name] == huntersbow && [quality] == unique # # [tier] == 11 // Witherstring
+[name] == hunter'sbow && [quality] == unique # # [tier] == 11 // Witherstring
 [name] == longbow && [quality] == unique # # [tier] == 12 // Raven Claw
 [name] == compositebow && [quality] == unique # # [tier] == 13 // Rogue's Bow
 [name] == shortbattlebow && [quality] == unique # # [tier] == 14 // Stormstride
